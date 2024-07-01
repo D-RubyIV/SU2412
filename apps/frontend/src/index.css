@@ -1,11 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* color-scheme: light dark; */
+  /* color: rgba(255, 255, 255, 0.87);
+  background-color: #242424; */
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,7 +21,7 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #4e4f60;
   text-decoration: inherit;
 }
 a:hover {
@@ -24,10 +30,7 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  padding: 0;
 }
 
 h1 {
@@ -35,34 +38,51 @@ h1 {
   line-height: 1.1;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+td, th{
+  padding: 5px 2px 5px 2px;
+  text-align: center;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.underline-transition {
+  position: relative;
+}
+
+.underline-transition::after {
+  content: '';
+  position: absolute;
+  min-width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: currentColor;
+  transition: transform 0.3s ease-in-out;
+  transform: scaleX(0);
+  transform-origin: right;
+}
+
+.underline-transition-active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Thanh cuộn chung */
+::-webkit-scrollbar {
+  width: 2px; /* Chiều rộng của thanh cuộn */
+  height: 0px; /* Chiều cao của thanh cuộn ngang */
+}
+
+/* Track của thanh cuộn */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Màu nền của track */
+}
+
+/* Thumb của thanh cuộn */
+::-webkit-scrollbar-thumb {
+  background: #888; /* Màu của thumb */
+  border-radius: 10px; /* Bo tròn các góc của thumb */
+}
+
+/* Thumb khi hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Màu của thumb khi hover */
 }
