@@ -6,7 +6,6 @@ import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } 
 import RootComponent from './components/RootComponent.tsx'
 import BaseAdminComponent from './views/admin/BaseAdminComponent.tsx'
 import ManageProductComponent from './views/admin/ManageProductComponent.tsx'
-import ManageVoucherComponent from './views/admin/ManageVoucherComponent.tsx'
 import ManageComponentDemo from './views/admin/ManageCommentDemo.tsx'
 import ReportComponent from './views/admin/ReportComponent.tsx'
 import SellInShopComponent from './views/admin/SellInShopComponent.tsx'
@@ -15,6 +14,9 @@ import ManageProductDetailComponent from './views/admin/ManageProductDetailCompo
 import ManageCustomerComponent from './views/admin/ManageCustomerComponent.tsx'
 import ManageStaffComponent from './views/admin/ManageStaffComponent.tsx'
 import { ThemeProvider } from "@material-tailwind/react"
+import ListVoucher from './views/admin/discount/ListVoucher.tsx'
+import NotFound from './pages/NotFound/NotFound.tsx'
+import ManageVoucherComponent from './views/admin/discount/ManageVoucherComponent.tsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -39,13 +41,10 @@ const router = createBrowserRouter(
         <Route path='nhan-vien' element={<ManageStaffComponent />}></Route>
         <Route path='demo' element={<ManageComponentDemo />}></Route>
       </Route>
-
-
         <Route path="nhan-vien" element={<ManageStaffComponent />}></Route>
         <Route path="demo" element={<ManageComponentDemo />}></Route>
         <Route path="*" element={<NotFound />} />
       </Route>
-    </Route>
   )
 );
 
