@@ -51,7 +51,7 @@ const ManageComponentDemo = () => {
                                 <td className="px-4 py-2">{item.completed.toString()}</td>
                                 <td className="px-4 py-2">
                                     <div className="flex gap-2">
-                                        <Button variant="outlined" onClick={() => {}}>Update</Button>
+                                        <Button variant="outlined" className="!bg-green-400" onClick={() => {}}>Update</Button>
                                         <Button variant="outlined" onClick={() => {}}>Delete</Button>
                                     </div>
                                 </td>
