@@ -1,13 +1,4 @@
-<<<<<<< Updated upstream
-
-function App() {
-
-  return (
-    <>
-    <h1 className='text-2xl'>Aaa</h1>
-=======
 import { useState } from "react";
-
 import "./App.css";
 
 function App() {
@@ -27,7 +18,6 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
->>>>>>> Stashed changes
     </>
   );
 }
