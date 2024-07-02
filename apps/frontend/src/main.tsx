@@ -1,3 +1,4 @@
+
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
@@ -31,17 +32,26 @@ const router = createBrowserRouter(
         <Route path='khuyen-mai' element={<ManageVoucherComponent />}></Route>
         <Route path='hoa-don' element={<ManageBillComponent />}></Route>
         <Route path='khach-hang' element={<ManageCustomerComponent />}></Route>
-        <Route path='khuyen-mai' element={<ManageVoucherComponent />}></Route>
+             <Route>
+          <Route path="khuyen-mai" element={<ManageVoucherComponent />} />
+          <Route path="khuyen-mai/list" element={<ListVoucher />} />
+        </Route>
         <Route path='nhan-vien' element={<ManageStaffComponent />}></Route>
         <Route path='demo' element={<ManageComponentDemo />}></Route>
       </Route>
+
+
+        <Route path="nhan-vien" element={<ManageStaffComponent />}></Route>
+        <Route path="demo" element={<ManageComponentDemo />}></Route>
+        <Route path="*" element={<NotFound />} />
+      </Route>
     </Route>
-
   )
-)
+);
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
+
     <ThemeProvider>
       <RouterProvider router={router} />
     </ThemeProvider>
