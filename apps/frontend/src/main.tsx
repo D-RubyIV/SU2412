@@ -13,6 +13,7 @@ import ManageBillComponent from './views/admin/ManageBillComponent.tsx'
 import ManageProductDetailComponent from './views/admin/ManageProductDetailComponent.tsx'
 import ManageCustomerComponent from './views/admin/ManageCustomerComponent.tsx'
 import ManageStaffComponent from './views/admin/ManageStaffComponent.tsx'
+import NotFound from './pages/NotFound/NotFound.tsx'
 
 
 const router = createBrowserRouter(
@@ -30,6 +31,7 @@ const router = createBrowserRouter(
           <Route  path='khuyen-mai' element={<ManageVoucherComponent/>}></Route>
           <Route  path='nhan-vien' element={<ManageStaffComponent/>}></Route>
           <Route  path='demo' element={<ManageComponentDemo/>}></Route>
+          <Route path='*' element={<NotFound />} />
         </Route>
       </Route>
 
