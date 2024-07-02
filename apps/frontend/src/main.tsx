@@ -13,31 +13,37 @@ import ManageBillComponent from './views/admin/ManageBillComponent.tsx'
 import ManageProductDetailComponent from './views/admin/ManageProductDetailComponent.tsx'
 import ManageCustomerComponent from './views/admin/ManageCustomerComponent.tsx'
 import ManageStaffComponent from './views/admin/ManageStaffComponent.tsx'
-
+import { ThemeProvider } from "@material-tailwind/react"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-      <Route path='' element={<RootComponent />}>
-        <Route path='manage' element={<BaseAdminComponent/>}>
-          <Route  path='' element={<ReportComponent/>}></Route>
-          <Route  path='ban-hang' element={<SellInShopComponent/>}></Route>
-          <Route  path='thong-ke' element={<ReportComponent/>}></Route>
-          <Route  path='san-pham' element={<ManageProductComponent/>}></Route>
-          <Route  path='san-pham-chi-tiet' element={<ManageProductDetailComponent/>}></Route>
-          <Route  path='khuyen-mai' element={<ManageVoucherComponent/>}></Route>
-          <Route  path='hoa-don' element={<ManageBillComponent/>}></Route>
-          <Route  path='khach-hang' element={<ManageCustomerComponent/>}></Route>
-          <Route  path='khuyen-mai' element={<ManageVoucherComponent/>}></Route>
-          <Route  path='nhan-vien' element={<ManageStaffComponent/>}></Route>
-          <Route  path='demo' element={<ManageComponentDemo/>}></Route>
+    <Route path='' element={<RootComponent />}>
+      <Route path='manage' element={<BaseAdminComponent />}>
+        <Route path='' element={<ReportComponent />}></Route>
+        <Route path='ban-hang' element={<SellInShopComponent />}></Route>
+        <Route path='thong-ke' element={<ReportComponent />}></Route>
+
+        <Route path='san-pham' element={<ManageProductComponent />}>
         </Route>
+        
+        
+        <Route path='san-pham-chi-tiet' element={<ManageProductDetailComponent />}></Route>
+        <Route path='khuyen-mai' element={<ManageVoucherComponent />}></Route>
+        <Route path='hoa-don' element={<ManageBillComponent />}></Route>
+        <Route path='khach-hang' element={<ManageCustomerComponent />}></Route>
+        <Route path='khuyen-mai' element={<ManageVoucherComponent />}></Route>
+        <Route path='nhan-vien' element={<ManageStaffComponent />}></Route>
+        <Route path='demo' element={<ManageComponentDemo />}></Route>
       </Route>
+    </Route>
 
   )
 )
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
+    <ThemeProvider>
       <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>,
 )
