@@ -8,6 +8,11 @@ import ManageProductComponent from './views/admin/ManageProductComponent.tsx'
 import ManageVoucherComponent from './views/admin/ManageVoucherComponent.tsx'
 import ManageComponentDemo from './views/admin/ManageCommentDemo.tsx'
 import ReportComponent from './views/admin/ReportComponent.tsx'
+import SellInShopComponent from './views/admin/SellInShopComponent.tsx'
+import ManageBillComponent from './views/admin/ManageBillComponent.tsx'
+import ManageProductDetailComponent from './views/admin/ManageProductDetailComponent.tsx'
+import ManageCustomerComponent from './views/admin/ManageCustomerComponent.tsx'
+import ManageStaffComponent from './views/admin/ManageStaffComponent.tsx'
 
 
 const router = createBrowserRouter(
@@ -15,8 +20,15 @@ const router = createBrowserRouter(
       <Route path='' element={<RootComponent />}>
         <Route path='manage' element={<BaseAdminComponent/>}>
           <Route  path='' element={<ReportComponent/>}></Route>
+          <Route  path='ban-hang' element={<SellInShopComponent/>}></Route>
+          <Route  path='thong-ke' element={<ReportComponent/>}></Route>
           <Route  path='san-pham' element={<ManageProductComponent/>}></Route>
+          <Route  path='san-pham-chi-tiet' element={<ManageProductDetailComponent/>}></Route>
           <Route  path='khuyen-mai' element={<ManageVoucherComponent/>}></Route>
+          <Route  path='hoa-don' element={<ManageBillComponent/>}></Route>
+          <Route  path='khach-hang' element={<ManageCustomerComponent/>}></Route>
+          <Route  path='khuyen-mai' element={<ManageVoucherComponent/>}></Route>
+          <Route  path='nhan-vien' element={<ManageStaffComponent/>}></Route>
           <Route  path='demo' element={<ManageComponentDemo/>}></Route>
         </Route>
       </Route>

@@ -1,11 +1,11 @@
 import { Fragment } from "react/jsx-runtime";
 
 const ManageVoucherComponent = () => {
-    return ( 
+    return (
         <Fragment>
-            Quan lys voucher
+            <h1>Màn quản lý khuyến mãi</h1>
         </Fragment>
-     );
+    );
 }
- 
+
 export default ManageVoucherComponent;

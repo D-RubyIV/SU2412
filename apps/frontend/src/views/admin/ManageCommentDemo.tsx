@@ -27,21 +27,6 @@ const ManageComponentDemo = () => {
         }
     };
 
-    const handleAddTodo = () => {
-        const newTodo: Todo = {
-            id: todos.length + 1,
-            userId: 1,
-            title: "New Todo",
-            completed: false,
-        };
-        setTodos([...todos, newTodo]);
-    };
-
-    const handleDeleteTodo = (id: number) => {
-        const updatedTodos = todos.filter((todo) => todo.id !== id);
-        setTodos(updatedTodos);
-    };
-
     return (
         <Fragment>
             <div className="overflow-auto max-h-[500px] border border-gray-300 rounded-md shadow-md">
@@ -66,8 +51,8 @@ const ManageComponentDemo = () => {
                                 <td className="px-4 py-2">{item.completed.toString()}</td>
                                 <td className="px-4 py-2">
                                     <div className="flex gap-2">
-                                        <Button variant="outlined" onClick={() => handleAddTodo()}>Add</Button>
-                                        <Button variant="outlined" onClick={() => handleDeleteTodo(item.id)}>Delete</Button>
+                                        <Button variant="outlined" onClick={() => {}}>Update</Button>
+                                        <Button variant="outlined" onClick={() => {}}>Delete</Button>
                                     </div>
                                 </td>
                             </tr>
