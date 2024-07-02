@@ -11,14 +11,13 @@ import {
   ExpandMoreOutlined,
   ManageHistory,
   MenuOutlined,
-  ReportRounded,
   ReportOutlined,
 } from "@mui/icons-material"; // Import necessary icons
 
 type LinkEntity = {
   name: string;
   url: string;
-  icon: any;
+  icon: object;
 };
 
 const BaseAdminComponent = () => {
@@ -73,7 +72,7 @@ const BaseAdminComponent = () => {
           <div
             className={`${
               isOpen ? "" : "hidden"
-            } h-20 flex justify-center items-center`}
+            } h-20 flex justify-center items-center border-b border-green-500`} //chỉnh màu ở đây 
           >
             <img
               className="object-cover h-10"
@@ -158,8 +157,10 @@ const Dropdown = ({
 }: {
   links: LinkEntity[];
   label: string;
-  icon: any;
+  icon: object;
 }) => {
+  console.log(links, "Links");
+
   const [isOpen, setIsOpen] = useState(false);
   return (
     <Fragment>
@@ -187,6 +188,7 @@ const Dropdown = ({
               to={item.url}
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             >
+              {item.icon}
               {item.name}
             </Link>
           ))}
