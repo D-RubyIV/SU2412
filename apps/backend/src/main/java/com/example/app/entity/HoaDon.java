@@ -1,10 +1,6 @@
 package com.example.app.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,11 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Builder
-public class HoaDon {
-    @jakarta.persistence.Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-
+public class HoaDon extends BaseEntity{
     private String diaChiNhan;
     private String soDienThoaiNhan;
     private String ma;
@@ -38,9 +30,23 @@ public class HoaDon {
     private String trangThaiVanChuyen;
     private Double phiVanChuyen;
 
-    private String createdBy;
-    private String updatedBy;
-    private Date createdAt;
-    private Date updatedAt;
+
+    @ManyToOne
+    @JoinColumn
+    private LichSuDatHang lichSuDatHang;
+
+    @ManyToOne
+    @JoinColumn
+    private PhieuGiamGia phieuGiamGia;
+
+    @ManyToOne
+    @JoinColumn
+    private NhanVien nhanVien;
+
+    @ManyToOne
+    @JoinColumn
+    private HinhThucThanhToan hinhThucThanhToan;
+
+
     private Boolean deleted = false;
 }

@@ -1,10 +1,6 @@
 package com.example.app.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,15 +14,16 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Builder
-public class GioHangChiTiet {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    private String createdBy;
-    private String updatedBy;
-    private Date createdAt;
-    private Date updatedAt;
+public class GioHangChiTiet extends BaseEntity{
+    private Integer soLuong;
     private Boolean deleted = false;
+
+    @ManyToOne
+    @JoinColumn
+    private SanPhamChiTiet sanPhamChiTiet;
+
+    @ManyToOne
+    @JoinColumn
+    private GioHang gioHang;
+
 }

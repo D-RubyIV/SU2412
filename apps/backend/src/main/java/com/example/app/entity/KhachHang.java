@@ -18,11 +18,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Builder
-public class KhachHang {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-
+public class KhachHang extends BaseEntity{
     private String ma;
     private String email;
     private String password;
@@ -31,11 +27,6 @@ public class KhachHang {
     private String hoTen;
     private Date ngaySinh;
     private String trangThai;
-
-    private String createdBy;
-    private String updatedBy;
-    private Date createdAt;
-    private Date updatedAt;
     private Boolean deleted = false;
 
 }

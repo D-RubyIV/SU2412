@@ -16,14 +16,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class HinhAnh {
-// xem con thieu thuoc tinh gi khong toi (khong thi thoi =)))
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-
+public class HinhAnh extends BaseEntity{
     private String ten;
-
-    private String createdBy;
-    private String updatedBy;
 }

@@ -1,16 +1,13 @@
 package com.example.app.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.Set;
 
 
 @Entity
@@ -19,11 +16,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Builder
-public class PhieuGiamGia {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-
+public class PhieuGiamGia extends BaseEntity{
+    @Column(unique = true)
     private String ma;
     private String ten;
     private Date thoiGianBatDau;
@@ -33,10 +27,13 @@ public class PhieuGiamGia {
     private Integer phanTramToiDa;
     private Double tongTienToiThieu;
     private String loaiPhieu;
-
-    private String createdBy;
-    private String updatedBy;
-    private Date createdAt;
-    private Date updatedAt;
     private Boolean deleted = false;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "phieu_giam_gia_khach_hang",
+            joinColumns = @JoinColumn(name = "khach_hang_id"),
+            inverseJoinColumns = @JoinColumn(name = "phieu_giam_gia_id")
+    )
+    private Set<KhachHang> khachHangs;
 }

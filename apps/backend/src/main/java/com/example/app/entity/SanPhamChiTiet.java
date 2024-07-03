@@ -1,10 +1,6 @@
 package com.example.app.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,23 +14,55 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Builder
-public class SanPhamChiTiet {
+public class SanPhamChiTiet extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-
+    @Column(unique = true)
     private String ma;
+
     private Long soLuong;
+
     private Double gia;
+
     private String moTaNgan;
+
     private String moTaChiTiet;
 
+    @ManyToOne
+    @JoinColumn
+    private SanPham sanPham;
 
-    private String createdBy;
-    private String updatedBy;
-    private Date createdAt;
-    private Date updatedAt;
+    @ManyToOne
+    @JoinColumn
+    private MauSac mauSac;
+
+    @ManyToOne
+    @JoinColumn
+    private KichThuoc kichThuoc;
+
+    @ManyToOne
+    @JoinColumn
+    private Loai loai;
+
+    @ManyToOne
+    @JoinColumn
+    private ChiTietHoaTiet chiTietHoaTiet;
+
+    @ManyToOne
+    @JoinColumn
+    private ChiTietXuatXu chiTietXuatXu;
+
+    @ManyToOne
+    @JoinColumn
+    private ChiTietChatLieu chiTietChatLieu;
+
+    @ManyToOne
+    @JoinColumn
+    private ChiTietKieuDang chiTietKieuDang;
+
+    @ManyToOne
+    @JoinColumn
+    private HinhAnh hinhAnh;
+
     private Boolean deleted = false;
 }
 

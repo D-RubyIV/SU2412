@@ -18,14 +18,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Builder
-public class ChucVu {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-
-    private String tenChucVu;
-
-    private Date createdAt;
-    private Date updatedAt;
+public class ChucVu extends BaseEntity{
+    private String ma;
+    private String ten;
 }

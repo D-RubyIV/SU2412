@@ -18,18 +18,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Builder
-public class HinhThucThanhToan {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-
+public class HinhThucThanhToan extends BaseEntity{
     private String ten;
-
-    private String createdBy;
-    private String updatedBy;
-    private Date createdAt;
-    private Date updatedAt;
     private Boolean deleted = false;
 
 }
