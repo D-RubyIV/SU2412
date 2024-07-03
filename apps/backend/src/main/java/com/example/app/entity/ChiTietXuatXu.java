@@ -18,19 +18,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Builder
-public class ChiTietXuatXu {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-
+public class ChiTietXuatXu extends BaseEntity{
     private String ma;
     private String ten;
-
-    private String createdBy;
-    private String updatedBy;
-    private Date createdAt;
-    private Date updatedAt;
     private Boolean deleted = false;
-
 }

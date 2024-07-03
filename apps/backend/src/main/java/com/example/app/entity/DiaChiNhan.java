@@ -18,18 +18,9 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Builder
-public class DiaChiNhan {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
+public class DiaChiNhan extends BaseEntity{
     private String diaChi;
     private String soDienThoaiNhan;
-    private String createdBy;
-    private String updatedBy;
-    private Date createdAt;
-    private Date updatedAt;
     private Boolean deleted = false;
 
 }

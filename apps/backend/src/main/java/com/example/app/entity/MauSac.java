@@ -17,18 +17,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Builder
-public class MauSac {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-
+public class MauSac extends BaseEntity {
     private String ma;
     private String ten;
-
-    private String createdBy;
-    private String updatedBy;
-    private Date createdAt;
-    private Date updatedAt;
     private Boolean deleted = false;
 }

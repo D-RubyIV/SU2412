@@ -18,23 +18,12 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Builder
-public class SanPhamChiTiet {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-
+public class SanPhamChiTiet extends BaseEntity{
     private String ma;
     private Long soLuong;
     private Double gia;
     private String moTaNgan;
     private String moTaChiTiet;
-
-
-    private String createdBy;
-    private String updatedBy;
-    private Date createdAt;
-    private Date updatedAt;
     private Boolean deleted = false;
 }
 

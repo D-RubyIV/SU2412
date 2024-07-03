@@ -18,16 +18,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Builder
-public class LichSuDatHang {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-
+public class LichSuDatHang extends BaseEntity{
     private String trangThaiDonHang;
-
-    private String createdBy;
-    private String updatedBy;
-    private Date createdAt;
-    private Date updatedAt;
     private Boolean deleted = false;
 }

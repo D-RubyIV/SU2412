@@ -18,11 +18,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Builder
-public class HoaDon {
-    @jakarta.persistence.Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-
+public class HoaDon extends BaseEntity{
     private String diaChiNhan;
     private String soDienThoaiNhan;
     private String ma;
@@ -37,10 +33,5 @@ public class HoaDon {
     private Date ngayNhanHang;
     private String trangThaiVanChuyen;
     private Double phiVanChuyen;
-
-    private String createdBy;
-    private String updatedBy;
-    private Date createdAt;
-    private Date updatedAt;
     private Boolean deleted = false;
 }

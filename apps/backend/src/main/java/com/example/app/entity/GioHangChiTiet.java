@@ -18,15 +18,6 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Builder
-public class GioHangChiTiet {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    private String createdBy;
-    private String updatedBy;
-    private Date createdAt;
-    private Date updatedAt;
+public class GioHangChiTiet extends BaseEntity{
     private Boolean deleted = false;
 }

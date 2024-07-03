@@ -19,11 +19,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Builder
-public class PhieuGiamGia {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-
+public class PhieuGiamGia extends BaseEntity{
     private String ma;
     private String ten;
     private Date thoiGianBatDau;
@@ -33,10 +29,5 @@ public class PhieuGiamGia {
     private Integer phanTramToiDa;
     private Double tongTienToiThieu;
     private String loaiPhieu;
-
-    private String createdBy;
-    private String updatedBy;
-    private Date createdAt;
-    private Date updatedAt;
     private Boolean deleted = false;
 }

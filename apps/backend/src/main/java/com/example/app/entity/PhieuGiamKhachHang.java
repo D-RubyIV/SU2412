@@ -1,5 +1,6 @@
 package com.example.app.entity;
 
+import com.example.app.enums.TypePhieuGiamGia;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,19 +11,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "phieu_giam_khach_hang")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class PhieuGiamKhachHang {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-
-
-    private String createdBy;
-    private String updatedBy;
+public class PhieuGiamKhachHang extends BaseEntity{
+    private String ma;
+    private String ten;
+    private LocalDateTime startAt;
+    private LocalDateTime endAt;
+    private Integer quantity;
+    private TypePhieuGiamGia type;
+    private double minCheckout;
+    private double maxPercent;
+    private Boolean deleted = false;
 }

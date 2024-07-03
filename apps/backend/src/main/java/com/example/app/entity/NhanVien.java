@@ -18,26 +18,16 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Builder
-public class NhanVien {
-    @jakarta.persistence.Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-
+public class NhanVien extends BaseEntity{
     private String ma;
     private String email;
     private String password;
     private boolean gioiTinh;
     private String soDienThoai;
     private String CCCD;
-
     private Date ngaySinh;
     private String trangThai;
     private String ghiChu;
-
-    private String createdBy;
-    private String updatedBy;
-    private Date createdAt;
-    private Date updatedAt;
     private Boolean deleted = false;
 
 }
