@@ -1,10 +1,6 @@
 package com.example.app.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,11 +15,54 @@ import java.util.Date;
 @Data
 @Builder
 public class SanPhamChiTiet extends BaseEntity{
+
+    @Column(unique = true)
     private String ma;
+
     private Long soLuong;
+
     private Double gia;
+
     private String moTaNgan;
+
     private String moTaChiTiet;
+
+    @ManyToOne
+    @JoinColumn
+    private SanPham sanPham;
+
+    @ManyToOne
+    @JoinColumn
+    private MauSac mauSac;
+
+    @ManyToOne
+    @JoinColumn
+    private KichThuoc kichThuoc;
+
+    @ManyToOne
+    @JoinColumn
+    private Loai loai;
+
+    @ManyToOne
+    @JoinColumn
+    private ChiTietHoaTiet chiTietHoaTiet;
+
+    @ManyToOne
+    @JoinColumn
+    private ChiTietXuatXu chiTietXuatXu;
+
+    @ManyToOne
+    @JoinColumn
+    private ChiTietChatLieu chiTietChatLieu;
+
+    @ManyToOne
+    @JoinColumn
+    private ChiTietKieuDang chiTietKieuDang;
+
+    @ManyToOne
+    @JoinColumn
+    private HinhAnh hinhAnh;
+
     private Boolean deleted = false;
 }
 

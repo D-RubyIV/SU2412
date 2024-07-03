@@ -6,24 +6,26 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Entity
-@Table(name = "gio_hang_chi_tiet")
+@Table(name = "chi_tiet_hoa_tiet")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class GioHangChiTiet extends BaseEntity{
-    private Integer soLuong;
+public class ChiTietHoaTiet extends BaseEntity{
+
+    @Column(unique = true)
+    private String ma;
+
+    private String ten;
+
+    @ManyToOne
+    @JoinColumn
+    private LoaiHoaTIet loaiHoaTIet;
+
+    @ManyToOne
+    @JoinColumn
+    private MoTaHoaTiet moTaHoaTiet;
+
     private Boolean deleted = false;
-
-    @ManyToOne
-    @JoinColumn
-    private SanPhamChiTiet sanPhamChiTiet;
-
-    @ManyToOne
-    @JoinColumn
-    private GioHang gioHang;
-
 }

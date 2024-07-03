@@ -1,10 +1,6 @@
 package com.example.app.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,5 +18,9 @@ public class DiaChiNhan extends BaseEntity{
     private String diaChi;
     private String soDienThoaiNhan;
     private Boolean deleted = false;
+
+    @ManyToOne
+    @JoinColumn
+    private KhachHang khachHang;
 
 }
