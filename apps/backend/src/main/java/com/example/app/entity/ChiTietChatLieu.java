@@ -16,6 +16,7 @@ import java.util.Date;
 @Data
 @Builder
 public class ChiTietChatLieu  extends BaseEntity {
+    @Column(unique = true)
     private String ma;
     private String ten;
     private Boolean deleted = false;

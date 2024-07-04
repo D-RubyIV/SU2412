@@ -15,6 +15,7 @@ import java.util.Date;
 @Data
 @Builder
 public class NhanVien extends BaseEntity{
+    @Column(unique = true)
     private String ma;
     private String email;
     private String password;
