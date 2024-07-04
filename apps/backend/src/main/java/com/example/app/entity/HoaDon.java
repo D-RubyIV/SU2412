@@ -17,6 +17,7 @@ import java.util.Date;
 public class HoaDon extends BaseEntity{
     private String diaChiNhan;
     private String soDienThoaiNhan;
+    @Column(unique = true)
     private String ma;
     private String trangThai;
     private Double tongTien;
