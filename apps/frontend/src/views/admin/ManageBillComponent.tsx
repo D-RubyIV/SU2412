@@ -1,19 +1,13 @@
 import { Breadcrumbs, Button, Input, InputAdornment, InputLabel, Link } from "@mui/material";
 import { Fragment } from "react/jsx-runtime";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
+
 import { Typography } from "antd";
 import { AccountCircle, PlusOneOutlined, SearchOutlined } from "@mui/icons-material";
+import { instance } from "../../axios/instance";
+import { useEffect, useState } from "react";
+import HoaDonEntity from "../../entity/HoaDonEntity";
+import { EyeDropperIcon, EyeIcon } from "@heroicons/react/24/solid";
+import PagenateComponent from "./pagination/PagenateComponent";
 
 function createData(
     name: string,
@@ -25,14 +19,32 @@ function createData(
     return { name, calories, fat, carbs, protein };
 }
 
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+
+
+
 const ManageBillComponent = () => {
+    const [bills, setBills] = useState<HoaDonEntity[]>([])
+    const [limit, setLimit] = useState<number>(10)
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+
+    const fetchData = async () => {
+        await instance.get(`api/bills?limit=${limit}&offset=${currentPage}`).then(function (reponse) {
+            if (reponse.status === 200) {
+                setBills(reponse.data.content)
+                setTotalPages(reponse.data.totalPages)
+            }
+        })
+    }
+    useEffect(() => {
+        console.log(currentPage)
+    }, [currentPage])
+
+
+    useEffect(() => {
+        fetchData()
+    }, [currentPage])
+
     return (
         <Fragment>
             <div>
@@ -55,93 +67,51 @@ const ManageBillComponent = () => {
                 <div>
                     {/* Menu */}
                     <div className="flex gap-5 py-2">
-                        {/* Tìm kiếm */}
-                        <Input className="w-full" placeholder="Tìm kiếm hóa đơn"></Input>
-                        <Button variant="outlined">
-                            <SearchOutlined ></SearchOutlined>
-                        </Button>
-                    </div>
-                    <div className="flex gap-5 py-2">
-                        <FormControl variant="standard">
-                            <InputLabel htmlFor="input-start-date">
-                                Từ ngày
-                            </InputLabel>
-                            <Input
-                                id="input-start-date"
-                                type="date"
-                                startAdornment={
-                                    <InputAdornment position="start">
-                                        <AccountCircle />
-                                    </InputAdornment>
-                                }
-                            />
-                        </FormControl>
-                        <FormControl variant="standard">
-                            <InputLabel htmlFor="input-end-date">
-                                Đến ngày
-                            </InputLabel>
-                            <Input
-                                id="input-end-date"
-                                type="date"
-                                startAdornment={
-                                    <InputAdornment position="start">
-                                        <AccountCircle />
-                                    </InputAdornment>
-                                }
-                            />
-                        </FormControl>
-                        <FormControl>
-                            <FormLabel id="demo-row-radio-buttons-group-label" className="text-sm">Loại</FormLabel>
-                            <RadioGroup
-                                row
-                                aria-labelledby="demo-row-radio-buttons-group-label"
-                                name="row-radio-buttons-group"
-                            >
-                                <FormControlLabel value="female" control={<Radio size="small" />} label="Trực tuyến" />
-                                <FormControlLabel value="male" control={<Radio size="small" />} label="Tại quầy" />
-                            </RadioGroup>
-                        </FormControl>
-                        <div className="flex gap-5">
-                            <Button variant="outlined" size="small">Thêm hóa đơn</Button>
-                            <Button variant="outlined" size="small">Quét mã</Button>
-                            <Button variant="outlined" size="small">Xuất excel</Button>
+                        <div>
+                            <input className="p-2 focus:border-none" placeholder="Nhập từ khóa tại đầy"></input>
+                        </div>
+                        <div>
+                            <SearchOutlined></SearchOutlined>
                         </div>
                     </div>
-                    <div>
-                        
-                    </div>
-                     
                     {/* Bảng */}
-                    <div>
-                        <TableContainer component={Paper}>
-                            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Dessert (100g serving)</TableCell>
-                                        <TableCell align="right">Calories</TableCell>
-                                        <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                                        <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                                        <TableCell align="right">Protein&nbsp;(g)</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {rows.map((row) => (
-                                        <TableRow
-                                            key={row.name}
-                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                        >
-                                            <TableCell component="th" scope="row">
-                                                {row.name}
-                                            </TableCell>
-                                            <TableCell align="right">{row.calories}</TableCell>
-                                            <TableCell align="right">{row.fat}</TableCell>
-                                            <TableCell align="right">{row.carbs}</TableCell>
-                                            <TableCell align="right">{row.protein}</TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
+                    <div className="overflow-auto">
+                        <table className="table-auto w-full text-[12px] text-left rounded-md text-nowrap">
+                            <thead className="text-[13.5px]">
+                                <tr className="">
+                                    <th>#</th>
+                                    <th>Mã</th>
+                                    <th>Tên nhân viên</th>
+                                    <th>Số diện thoại</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Trạng thái</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    Array.isArray(bills) && bills.map((item, index) => (
+                                        <tr key={index} className={`${index % 2 === 0 ? "bg-gray-200" : ""} `}>
+                                            <td className="py-2">{index + 1}</td>
+                                            <td className="py-2">{item.ma}</td>
+                                            <td className="py-2">{item.nhanVien?.soDienThoai || "null"}</td>
+                                            <td className="py-2">{item.soDienThoaiNhan}</td>
+                                            <td className="py-2">{item.tongTien}</td>
+                                            <td className="py-2">{item.ngayDatHang}</td>
+                                            <td className="py-2">{item.trangThai}</td>
+                                            <td>
+                                                <button>Xem</button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                        <div className="py-3 flex justify-between">
+                            <div>Limit<input type="number" className="w-10 border"></input></div>
+                            <PagenateComponent currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage}></PagenateComponent>
+                        </div>
                     </div>
                 </div>
             </div>

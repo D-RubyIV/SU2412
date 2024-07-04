@@ -68,7 +68,7 @@ td, th{
 /* Thanh cuộn chung */
 ::-webkit-scrollbar {
   width: 2px; /* Chiều rộng của thanh cuộn */
-  height: 0px; /* Chiều cao của thanh cuộn ngang */
+  height: 1px; /* Chiều cao của thanh cuộn ngang */
 }
 
 /* Track của thanh cuộn */

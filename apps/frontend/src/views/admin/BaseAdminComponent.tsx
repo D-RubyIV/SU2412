@@ -118,7 +118,7 @@ const BaseAdminComponent = () => {
           {/* RIGHT MENU */}
           <div
             className={`${isOpen ? "w-[85%]" : "w-[95%]"
-              } transition-all duration-500 shadow-2xl px-14 rounded-md`}
+              } transition-all duration-500 shadow-2xl px-14 rounded-md relative`}
           >
             <div className="bg-white flex items-center">
               <div className="flex items-center gap-10 h-20 justify-between w-full">
