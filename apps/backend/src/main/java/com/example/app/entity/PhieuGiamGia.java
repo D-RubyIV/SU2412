@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -20,8 +21,8 @@ public class PhieuGiamGia extends BaseEntity{
     @Column(unique = true)
     private String ma;
     private String ten;
-    private Date thoiGianBatDau;
-    private Date thoiGianKetThuc;
+    private LocalDateTime thoiGianBatDau;
+    private LocalDateTime thoiGianKetThuc;
     private String trangThai;
     private Long soLuong;
     private Integer phanTramToiDa;
