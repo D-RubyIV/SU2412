@@ -1,6 +1,6 @@
 package com.example.app.enums;
 
-public enum EHoaDon {
+public enum ETrangThaiHoaDon {
     CHO_XAC_NHAN,
     CHO_GIAO_HANG,
     DANG_GIAO,
