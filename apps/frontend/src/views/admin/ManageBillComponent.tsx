@@ -102,8 +102,8 @@ const ManageBillComponent = () => {
                             </InputAdornment>
                         }
                     />
-                    <div className="flex flex-col gap-1">
-                        <div className="flex gap-2">
+                    <div className="flex flex-col gap-1 ">
+                        <div className="flex gap-2 justify-between">
                             <label className="text-sm">Start Date:</label>
                             <input
                                 type="datetime-local"
@@ -112,7 +112,7 @@ const ManageBillComponent = () => {
                                 onChange={handleStartDateChange}
                             />
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 justify-between">
                             <label className="text-sm">End Date:</label>
                             <input
                                 type="datetime-local"
