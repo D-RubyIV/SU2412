@@ -1,5 +1,6 @@
 package com.example.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,6 +31,7 @@ public class PhieuGiamGia extends BaseEntity{
     private String loaiPhieu;
     private Boolean deleted = false;
 
+    @JsonManagedReference
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "phieu_giam_gia_khach_hang",

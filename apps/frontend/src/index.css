@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -68,7 +70,7 @@ td, th{
 /* Thanh cuộn chung */
 ::-webkit-scrollbar {
   width: 2px; /* Chiều rộng của thanh cuộn */
-  height: 0px; /* Chiều cao của thanh cuộn ngang */
+  height: 1px; /* Chiều cao của thanh cuộn ngang */
 }
 
 /* Track của thanh cuộn */
@@ -85,4 +87,27 @@ td, th{
 /* Thumb khi hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555; /* Màu của thumb khi hover */
+}
+
+
+.underline-transition {
+  position: relative;
+}
+
+.underline-transition::after {
+  content: '';
+  position: absolute;
+  min-width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: currentColor;
+  transition: transform 0.3s ease-in-out;
+  transform: scaleX(0);
+  transform-origin: right;
+}
+
+.underline-transition-active::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }

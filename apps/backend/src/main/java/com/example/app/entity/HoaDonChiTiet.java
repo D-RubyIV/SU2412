@@ -15,6 +15,7 @@ import java.util.Date;
 @Data
 @Builder
 public class HoaDonChiTiet extends BaseEntity{
+    @Column(unique = true)
     private String ma;
     private Double gia;
     private Integer soLuong;
