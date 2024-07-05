@@ -9,7 +9,7 @@ import ManageProductComponent from './views/admin/ManageProductComponent.tsx'
 import ManageComponentDemo from './views/admin/ManageCommentDemo.tsx'
 import ReportComponent from './views/admin/ReportComponent.tsx'
 import SellInShopComponent from './views/admin/SellInShopComponent.tsx'
-import ManageBillComponent from './views/admin/ManageBillComponent.tsx'
+import ManageBillComponent from './views/admin/bill/ManageBillComponent.tsx'
 import ManageProductDetailComponent from './views/admin/ManageProductDetailComponent.tsx'
 import ManageCustomerComponent from './views/admin/ManageCustomerComponent.tsx'
 import ManageStaffComponent from './views/admin/ManageStaffComponent.tsx'
@@ -17,6 +17,7 @@ import { ThemeProvider } from "@material-tailwind/react"
 import ListVoucher from './views/admin/discount/ListVoucher.tsx'
 import NotFound from './pages/NotFound/NotFound.tsx'
 import ManageVoucherComponent from './views/admin/discount/ManageVoucherComponent.tsx'
+import ConfirmBillComponent from './views/admin/bill/ConfirmBillComponent.tsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,23 +29,26 @@ const router = createBrowserRouter(
 
         <Route path='san-pham' element={<ManageProductComponent />}>
         </Route>
-        
-        
+
+
         <Route path='san-pham-chi-tiet' element={<ManageProductDetailComponent />}></Route>
         <Route path='khuyen-mai' element={<ManageVoucherComponent />}></Route>
-        <Route path='hoa-don' element={<ManageBillComponent />}></Route>
+        <Route path='hoa-don'>
+          <Route path='' element={<ManageBillComponent/>}/>
+          <Route path=':id' element={<ConfirmBillComponent/>}/>
+        </Route>
         <Route path='khach-hang' element={<ManageCustomerComponent />}></Route>
-             <Route>
+        <Route>
           <Route path="khuyen-mai" element={<ManageVoucherComponent />} />
           <Route path="khuyen-mai/list" element={<ListVoucher />} />
         </Route>
         <Route path='nhan-vien' element={<ManageStaffComponent />}></Route>
         <Route path='demo' element={<ManageComponentDemo />}></Route>
       </Route>
-        <Route path="nhan-vien" element={<ManageStaffComponent />}></Route>
-        <Route path="demo" element={<ManageComponentDemo />}></Route>
-        <Route path="*" element={<NotFound />} />
-      </Route>
+      <Route path="nhan-vien" element={<ManageStaffComponent />}></Route>
+      <Route path="demo" element={<ManageComponentDemo />}></Route>
+      <Route path="*" element={<NotFound />} />
+    </Route>
   )
 );
 

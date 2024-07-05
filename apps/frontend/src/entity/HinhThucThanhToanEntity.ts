@@ -1,4 +1,4 @@
-type HinhThucThanhToanEntity = {
+export type HinhThucThanhToanEntity = {
     id: number,
     createBy: string,
     updateBy: string,
@@ -6,4 +6,3 @@ type HinhThucThanhToanEntity = {
     updateAt: Date,
     ten: string
 }
-export default HinhThucThanhToanEntity;

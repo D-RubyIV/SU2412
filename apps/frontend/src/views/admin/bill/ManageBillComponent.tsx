@@ -1,12 +1,13 @@
-import { Breadcrumbs, Button, Input, InputAdornment, InputLabel, Link } from "@mui/material";
+import { Input, InputAdornment } from "@mui/material";
 import { Fragment } from "react/jsx-runtime";
-import { Typography } from "antd";
 import { SearchOutlined } from "@mui/icons-material";
-import { instance } from "../../axios/instance";
+import { instance } from "../../../axios/instance";
 import { ChangeEvent, useEffect, useState } from "react";
-import HoaDonEntity from "../../entity/HoaDonEntity";
-import PagenateComponent from "./pagination/PagenateComponent";
+import PagenateComponent from "../pagination/PagenateComponent";
 import { format } from "date-fns";
+import { Link } from "react-router-dom";
+import { HoaDonChiTietEntity } from "../../../entity/HoaDonChiTietEntity";
+import { HoaDonEntity } from "../../../entity/HoaDonEntity";
 
 interface TypeBill {
     name: string,
@@ -53,7 +54,6 @@ const typeBills: TypeBill[] = [
 ];
 
 
-
 const ManageBillComponent = () => {
     const [bills, setBills] = useState<HoaDonEntity[]>([])
     const [limit, setLimit] = useState<number>(10)
@@ -61,6 +61,7 @@ const ManageBillComponent = () => {
     const [totalPages, setTotalPages] = useState(1);
     const [startDate, setStartDate] = useState<string>('');
     const [endDate, setEndDate] = useState<string>('');
+    const [hoaDonChiTiets, setHoaDonChiTiets] = useState<HoaDonChiTietEntity[]>([])
 
     const [selectedStatus, setSelectedStatus] = useState<TypeBill>(typeBills[0]);
 
@@ -82,6 +83,8 @@ const ManageBillComponent = () => {
                 }
             }
         })
+
+       
     }
 
     useEffect(() => {
@@ -167,7 +170,7 @@ const ManageBillComponent = () => {
                                         </span>
                                     </td>
                                     <td>
-                                        <button>Xem</button>
+                                        <Link to={`${item.id}`}>Chi tiết</Link>
                                     </td>
                                 </tr>
                             ))}

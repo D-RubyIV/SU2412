@@ -5,6 +5,7 @@ import com.example.app.enums.ELoaiHoaDon;
 import com.example.app.enums.ETrangThaiHoaDon;
 import com.example.app.repository.HoaDonRepository;
 import com.example.app.service.HoaDonService;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @CrossOrigin("*")
-@RequestMapping("/api/bills/")
+@RequestMapping("/api/bills")
 @RestController
 public class HoaDonController {
 
@@ -28,7 +29,7 @@ public class HoaDonController {
     @Autowired
     private HoaDonRepository hoaDonRepository;
 
-    @GetMapping("filter")
+    @GetMapping("/filter")
     public ResponseEntity<Page<HoaDon>> findAllByPage(
             @RequestParam(name = "limit", defaultValue = "5") int limit,
             @RequestParam(name = "offset", defaultValue = "0") int offset,
@@ -42,4 +43,10 @@ public class HoaDonController {
         Page<HoaDon> result = hoaDonService.findAllWithProps(pageable, loaiHoaDon, trangThaiHoaDons, startDate, endDate);
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<HoaDon> detail(@PathVariable("id") int id) throws BadRequestException {
+        return ResponseEntity.ok(hoaDonRepository.findById(id).orElseThrow(()->new BadRequestException("Không tìm thấy hóa đơn")));
+    }
+
 }
