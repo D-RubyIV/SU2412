@@ -1,11 +1,15 @@
 package com.example.app.entity;
 
+import com.example.app.enums.ELoaiHoaDon;
+import com.example.app.enums.ETrangThaiHoaDon;
+import com.example.app.enums.ETrangThaiVanChuyen;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -15,20 +19,31 @@ import java.util.Date;
 @Data
 @Builder
 public class HoaDon extends BaseEntity{
-    private String diaChiNhan;
-    private String soDienThoaiNhan;
     @Column(unique = true)
     private String ma;
-    private String trangThai;
+
     private Double tongTien;
     private Double tongTienSauGiam;
+
     private String soDienThoaiNguoiShip;
     private String tenNguoiShip;
-    private Date ngayDatHang;
-    private Date ngayGiaoHang;
-    private Date ngayNhanHangDuKien;
-    private Date ngayNhanHang;
-    private String trangThaiVanChuyen;
+    private String diaChiNhan;
+    private String soDienThoaiNhan;
+
+    private LocalDateTime ngayDatHang;
+    private LocalDateTime ngayGiaoHang;
+    private LocalDateTime ngayNhanHangDuKien;
+    private LocalDateTime ngayNhanHang;
+
+    @Enumerated(EnumType.STRING)
+    private ETrangThaiHoaDon trangThai;
+
+    @Enumerated(EnumType.STRING)
+    private ETrangThaiVanChuyen trangThaiVanChuyen;
+
+    @Enumerated(EnumType.STRING)
+    private ELoaiHoaDon loaiHoaDon;
+
     private Double phiVanChuyen;
 
 
