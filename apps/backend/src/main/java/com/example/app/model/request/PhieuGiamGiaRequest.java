@@ -1,5 +1,4 @@
 package com.example.app.model.request;
-
 import com.example.app.entity.KhachHang;
 import com.example.app.enums.TypePhieuGiamGia;
 import jakarta.validation.constraints.NotNull;
@@ -53,4 +52,5 @@ public class PhieuGiamGiaRequest {
 
     @NotNull(message = "Vui lòng chọn ít nhất một khách hàng")
     private List<String> khachHangs;
+
 }

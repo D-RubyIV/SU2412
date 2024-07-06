@@ -1,15 +1,13 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { Fragment, useState } from "react";
 import {
   NotificationsOutlined,
-  ShoppingCartOutlined,
   InventoryOutlined,
   PeopleOutline,
   LocalOfferOutlined,
   ReceiptOutlined,
   ExpandLessOutlined,
   ExpandMoreOutlined,
-  ManageHistory,
   MenuOutlined,
   ReportOutlined,
 } from "@mui/icons-material"; // Import necessary icons
@@ -21,6 +19,7 @@ type LinkEntity = {
 };
 
 const BaseAdminComponent = () => {
+  const location = useLocation();
   const links: LinkEntity[] = [
     {
       name: "Quản lý demo",
@@ -28,32 +27,32 @@ const BaseAdminComponent = () => {
       icon: <InventoryOutlined />,
     },
     {
-      name: "Quản lý sản phẩm",
+      name: "Sản phẩm",
       url: "san-pham",
       icon: <InventoryOutlined />,
     },
     {
-      name: "Quản lý sản phẩm chi tiết",
+      name: "Sản phẩm chi tiết",
       url: "san-pham-chi-tiet",
       icon: <InventoryOutlined />,
     },
     {
-      name: "Quản lý hóa đơn",
+      name: "Hóa đơn",
       url: "hoa-don",
       icon: <ReceiptOutlined />,
     },
     {
-      name: "Quản lý khách hàng",
+      name: "Khách hàng",
       url: "khach-hang",
       icon: <PeopleOutline />,
     },
     {
-      name: "Quản lý khuyen mai",
+      name: "Khuyến mãi",
       url: "khuyen-mai",
       icon: <LocalOfferOutlined />,
     },
     {
-      name: "Quản lý nhân viên",
+      name: "Nhân viên",
       url: "nhan-vien",
       icon: <PeopleOutline />,
     },
@@ -62,19 +61,19 @@ const BaseAdminComponent = () => {
 
   return (
     <Fragment>
-      <div className="p-4 h-full ">
-        <div className="flex h-[97vh] gap-5 shadow-xl rounded-md">
+      <div className="h-screen">
+        <div className="flex h-full shadow-xl rounded-md">
           {/* LEFT MENU */}
           <div
             className={`${isOpen ? "w-[15%]" : "w-[5%] items-center"
-              } shadow-2xl transition-all rounded-md duration-500 flex flex-col`}
+              } shadow-2xl transition-all duration-500 flex flex-col bg-gradient-to-tr from-indigo-600 to-indigo-200 px-2 py-1`}
           >
             <div
               className={`${isOpen ? "" : "hidden"
-                } h-20 flex justify-center items-center border-b border-green-500`} //chỉnh màu ở đây 
+                } h-10 flex justify-center items-center border-b `} //chỉnh màu ở đây 
             >
               <img
-                className="object-cover h-10"
+                className="object-cover py-2 px-1"
                 src="https://theme.hstatic.net/200000690725/1001078549/14/logo.png?v=418"
                 alt="Logo"
               ></img>
@@ -89,58 +88,57 @@ const BaseAdminComponent = () => {
                 alt="Logo"
               ></img>
             </div>
-            {/* MENU */}
-            <Link
-              to={"thong-ke"}
-              className={`${isOpen ? "" : "shadow-xl rounded-md"} p-4 `}
-            >
-              <ReportOutlined />
-              <span className={`${isOpen ? "text-center" : "hidden"}`}>
-                Thống kê
-              </span>
-            </Link>
-            <Link
-              to={"ban-hang"}
-              className={`${isOpen ? "" : "shadow-xl rounded-md"} p-4 `}
-            >
-              <ShoppingCartOutlined />
-              <span className={`${isOpen ? "text-center" : "hidden"}`}>
-                Bán hàng
-              </span>
-            </Link>
-            <Dropdown
-              className={`${isOpen ? "" : "shadow-xl rounded-md"} p-2 `}
-              label="Quản lý"
-              links={links}
-              icon={<ManageHistory></ManageHistory>}
-            ></Dropdown>
+            {
+              links.map((item, index) => (
+                <Link
+                  key={index}
+                  to={item.url}
+                  className={`${location.pathname.endsWith(item.url) ? "bg-gray-100 opacity-70 rounded-s-md" : ""} my-2 py-1 px-1  border-b-gray-200 text-sm text-gray-900`}
+                >
+                  <div className="gap-2 flex">
+                    <span>{item.icon}</span>
+                    <span className={`${isOpen ? "text-left" : "hidden"} text-[12px] transition-all ease-in-out`}>
+                      {item.name}
+                    </span>
+                  </div>
+                </Link>
+              ))
+
+            }
+
           </div>
           {/* RIGHT MENU */}
           <div
             className={`${isOpen ? "w-[85%]" : "w-[95%]"
-              } transition-all duration-500 shadow-2xl px-14 rounded-md`}
+              } transition-all duration-500 shadow-2xl rounded-md relative px-3`}
           >
-            <div className="bg-white flex items-center">
-              <div className="flex items-center gap-10 h-20 justify-between w-full">
-                <div className="flex gap-4">
+            <div className="h-full flex flex-col">
+              <div className="bg-white flex items-center">
+                <div className="flex items-center gap-10 h-10 justify-between w-full">
+                  <div className="flex gap-4">
+                    <div>
+                      <button onClick={() => setIsOpen(!isOpen)}>
+                        <MenuOutlined />
+                      </button>
+                    </div>
+                    <div>
+                      <p className="text-[20px] font-semibold">Dashboard</p>
+                    </div>
+                    <div>
+                    </div>
+                  </div>
                   <div>
-                    <button onClick={() => setIsOpen(!isOpen)}>
-                      <MenuOutlined />
+                    <button className="text-black">
+                      <NotificationsOutlined className="text-2xl" />
                     </button>
                   </div>
-                  <div>
-                    <p className="text-[20px] font-semibold">Dashboard</p>
-                  </div>
-                </div>
-                <div>
-                  <button className="text-black">
-                    <NotificationsOutlined className="text-2xl" />
-                  </button>
                 </div>
               </div>
-            </div>
-            <div className="">
-              <Outlet />
+              <div className="p-2 bg-gray-200 rounded-md h-full">
+                <div>
+                  <Outlet />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -184,7 +182,7 @@ const Dropdown = ({
             <Link
               key={index}
               to={item.url}
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
             >
               {item.icon && <span className="mr-2">{item.icon}</span>}
               {item.name}

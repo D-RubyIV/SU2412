@@ -8,6 +8,7 @@ import com.example.app.repository.KhachHangRepository;
 import com.example.app.repository.PhieuGiamGiaRepository;
 import com.example.app.service.PhieuGiamGiaService;
 import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 
 @Service
 public class PhieuGiamGiaServiceImpl implements PhieuGiamGiaService {
@@ -137,6 +139,7 @@ public class PhieuGiamGiaServiceImpl implements PhieuGiamGiaService {
 
         return phieuGiamGia;
     }
+
 
 
 
