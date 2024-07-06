@@ -1,5 +1,6 @@
 package com.example.app.entity;
 
+import com.example.app.enums.TypePhieuGiamGia;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,15 +29,21 @@ public class PhieuGiamGia extends BaseEntity{
     private Long soLuong;
     private Integer phanTramToiDa;
     private Double tongTienToiThieu;
-    private String loaiPhieu;
+
+    @Enumerated(EnumType.STRING)
+    private TypePhieuGiamGia loaiPhieu;
+
     private Boolean deleted = false;
 
     @JsonManagedReference
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "phieu_giam_gia_khach_hang",
-            joinColumns = @JoinColumn(name = "khach_hang_id"),
-            inverseJoinColumns = @JoinColumn(name = "phieu_giam_gia_id")
+            joinColumns = @JoinColumn(name = "phieu_giam_gia_id"),
+            inverseJoinColumns = @JoinColumn(name = "khach_hang_id")
     )
     private Set<KhachHang> khachHangs;
+
+
+
 }

@@ -14,11 +14,14 @@ public interface PhieuGiamGiaService {
     List<PhieuGiamGiaResponse> getAll();
 
 //    Page<PhieuGiamGiaResponse> getPagePhieuGiamGia(Pageable pageable);
-//
-//    PhieuGiamGiaResponse findPhieuGiamGiaById(Long id);
-//
-//    PhieuGiamGia addPhieuGiamGia(PhieuGiamGiaRequest request);
-//
-//    PhieuGiamGia updatePhieuGiamGia(Long id,PhieuGiamGiaRequest request);
+
+
+    PhieuGiamGia findPhieuGiamGiaById(Integer id);
+
+    PhieuGiamGia addPhieuGiamGia(PhieuGiamGiaRequest request);
+
+    PhieuGiamGia updatePhieuGiamGia(Integer id,PhieuGiamGiaRequest request);
+
+
 
 }
