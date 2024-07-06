@@ -111,6 +111,8 @@ public class PhieuGiamGiaServiceImpl implements PhieuGiamGiaService {
                 .khachHangs(new HashSet<>(khachHangs))
                 .build();
 
+        // to do: add phieu giam gia vao bang khach hang
+
         phieuGiamGiaRepository.save(phieuGiamGia);
         return phieuGiamGia; // Return the saved entity if needed
     }

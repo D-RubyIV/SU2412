@@ -43,6 +43,9 @@ public interface PhieuGiamGiaResponse {
     @Value("#{target.LoaiPhieu}")
     String getLoaiPhieu();
 
+    @Value("#{target.ma}")
+    String getMa();
+
     @Value("#{target.hoTen}")
     String getHoTen();
 
