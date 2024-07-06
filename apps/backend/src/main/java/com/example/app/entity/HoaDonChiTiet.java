@@ -1,5 +1,6 @@
 package com.example.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,13 +23,12 @@ public class HoaDonChiTiet extends BaseEntity{
 
     @ManyToOne
     @JoinColumn
-    private SanPhamChiTiet sanPhamChiTiet;
+    @JsonIgnore
+    private HoaDon hoaDon;
 
     @ManyToOne
     @JoinColumn
-    private HoaDon hoaDon;
-
-
+    private SanPhamChiTiet sanPhamChiTiet;
 
     private Boolean deleted = false;
 

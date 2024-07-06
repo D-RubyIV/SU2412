@@ -7,6 +7,7 @@ type NhanVienEntity = {
     createAt: string;
     updateAt: string;
     ma: string;
+    hoTen: string;
     email: string;
     password: string;
     gioiTinh: boolean;

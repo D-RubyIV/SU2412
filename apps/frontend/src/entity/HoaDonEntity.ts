@@ -1,9 +1,9 @@
-import HinhThucThanhToanEntity from "./HinhThucThanhToanEntity";
+import { HinhThucThanhToanEntity } from "./HinhThucThanhToanEntity";
 import LichSuDatHang from "./LichSuDatHangEntity";
 import NhanVienEntity from "./NhanVienEntity";
 import PhieuGiamGiaEntity from "./PhieuGiamGiaEntity";
 
-type HoaDonEntity = {
+export type HoaDonEntity = {
     id: number;
     createBy: string;
     updateBy: string;
@@ -23,10 +23,10 @@ type HoaDonEntity = {
     ngayNhanHang: string;
     trangThaiVanChuyen: string;
     phiVanChuyen: number;
+    loaiHoaDon: string;
     lichSuDatHang: LichSuDatHang;
     phieuGiamGia: PhieuGiamGiaEntity;
     nhanVien: NhanVienEntity;
     hinhThucThanhToan: HinhThucThanhToanEntity;
     deleted: boolean;
 }
-export default HoaDonEntity;

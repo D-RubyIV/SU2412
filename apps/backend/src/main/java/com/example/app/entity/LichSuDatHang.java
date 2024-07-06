@@ -1,10 +1,7 @@
 package com.example.app.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.example.app.enums.ETrangThaiHoaDon;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +16,9 @@ import java.util.Date;
 @Data
 @Builder
 public class LichSuDatHang extends BaseEntity{
-    private String trangThaiDonHang;
+    @ManyToOne
+    @JoinColumn
+    private HoaDon hoaDon;
+    private ETrangThaiHoaDon trangThaiDonHang;
     private Boolean deleted = false;
 }

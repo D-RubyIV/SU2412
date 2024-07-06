@@ -46,11 +46,6 @@ public class HoaDon extends BaseEntity{
 
     private Double phiVanChuyen;
 
-
-    @ManyToOne
-    @JoinColumn
-    private LichSuDatHang lichSuDatHang;
-
     @ManyToOne
     @JoinColumn
     private PhieuGiamGia phieuGiamGia;

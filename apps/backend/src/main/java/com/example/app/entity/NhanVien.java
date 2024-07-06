@@ -28,7 +28,6 @@ public class NhanVien extends BaseEntity{
     private String trangThai;
     private String ghiChu;
     private Boolean deleted = false;
-
     @OneToOne
     private ChucVu chucVu;
 
