@@ -19,6 +19,8 @@ public class NhanVien extends BaseEntity{
     private String ma;
     private String email;
     private String password;
+    private String hoTen;
+    private String diaChi;
     private boolean gioiTinh;
     private String soDienThoai;
     private String CCCD;
