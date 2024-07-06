@@ -25,12 +25,12 @@ const ProductInBillComponent: FC<Props> = ({ billDetails }) => {
                     </thead>
                     <tbody>
                         {
-                            billDetails.map((item, index) => (
-                                <tr>
+                            billDetails.length > 0 && billDetails.map((item, index) => (
+                                <tr key={index}>
                                     <td>{index + 1}</td>
                                     <td>
                                         <div className="flex justify-center">
-                                        <img className="w-20 object-cover" src="https://product.hstatic.net/200000690725/product/fstp003-wh-7_53580331133_o_208c454df2584470a1aaf98c7e718c6d_master.jpg"></img>
+                                            <img className="w-16 object-cover" src="https://product.hstatic.net/200000690725/product/fstp003-wh-7_53580331133_o_208c454df2584470a1aaf98c7e718c6d_master.jpg"></img>
                                         </div>
                                     </td>
                                     <td>{item.sanPhamChiTiet.ma}</td>
@@ -40,6 +40,14 @@ const ProductInBillComponent: FC<Props> = ({ billDetails }) => {
                                     <td>{item.sanPhamChiTiet.chiTietChatLieu.doDayCuaVai.ten}</td>
                                 </tr>
                             ))
+                            ||
+                            (
+                                <tr>
+                                    <td colSpan={100}>
+                                        <span className="text-xl font-thin">Không có bất kì sản phẩm nào</span>
+                                    </td>
+                                </tr>
+                            )
 
                         }
                     </tbody>

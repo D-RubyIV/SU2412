@@ -27,6 +27,11 @@ const typeBills: TypeBill[] = [
         color: "#ffcc00"  // Màu vàng
     },
     {
+        name: "Đã xác nhận",
+        code: "DA_XAC_NHAN",
+        color: "#ffcc00"  // Màu vàng
+    },
+    {
         name: "Chờ giao hàng",
         code: "CHO_GIAO_HANG",
         color: "#3399ff"  // Màu xanh dương
@@ -36,15 +41,16 @@ const typeBills: TypeBill[] = [
         code: "DANG_GIAO",
         color: "#33cc33"  // Màu xanh lá cây
     },
+  
     {
-        name: "Tất hoàn thành",
-        code: "DA_HOAN_THANH",
-        color: "#66ff99"  // Màu xanh nhạt
-    },
-    {
-        name: "Tất thanh toán",
+        name: "Đã thanh toán",
         code: "DA_THANH_TOAN",
         color: "#339933"  // Màu xanh lá cây đậm
+    },
+    {
+        name: "Đã hoàn thành",
+        code: "DA_HOAN_THANH",
+        color: "#66ff99"  // Màu xanh nhạt
     },
     {
         name: "Đã hủy",
@@ -162,7 +168,7 @@ const ManageBillComponent = () => {
                                     <td className="py-2">{item.soDienThoaiNhan}</td>
                                     <td className="py-2">{item.tongTien}</td>
                                     <td className="py-2">{format(item.createAt.toString(), 'HH:mm dd/MM/yyyy')}</td>
-                                    <td className="py-2">{format(item.ngayDatHang.toString(), 'HH:m dd/MM/yyyym')}</td>
+                                    <td className="py-2">{format(item.ngayDatHang.toString(), 'HH:m dd/MM/yyyy')}</td>
 
                                     <td className={`py-2`}>
                                         <span className={`w-full`}>

@@ -134,10 +134,8 @@ const BaseAdminComponent = () => {
                   </div>
                 </div>
               </div>
-              <div className="p-2 bg-gray-200 rounded-md h-full">
-                <div>
+              <div className="p-2 bg-gray-200 rounded-md h-full overflow-y-auto">
                   <Outlet />
-                </div>
               </div>
             </div>
           </div>

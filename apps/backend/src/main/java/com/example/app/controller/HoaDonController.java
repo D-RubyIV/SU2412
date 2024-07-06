@@ -38,7 +38,6 @@ public class HoaDonController {
             @RequestParam(name = "startDate", defaultValue = "") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam(name = "endDate", defaultValue = "") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate
     ) {
-        System.out.println(trangThaiHoaDons);
         Pageable pageable = PageRequest.of(offset, limit);
         Page<HoaDon> result = hoaDonService.findAllWithProps(pageable, loaiHoaDon, trangThaiHoaDons, startDate, endDate);
         return ResponseEntity.ok(result);
@@ -49,4 +48,11 @@ public class HoaDonController {
         return ResponseEntity.ok(hoaDonRepository.findById(id).orElseThrow(()->new BadRequestException("Không tìm thấy hóa đơn")));
     }
 
+    @PostMapping("/update-status/{id}")
+    public ResponseEntity<HoaDon> updateStatus(
+            @PathVariable("id") int id,
+            @RequestParam(value = "status", defaultValue = "") ETrangThaiHoaDon trangThaiHoaDons
+    ) throws BadRequestException {
+        return ResponseEntity.ok(hoaDonService.updateTranThaiHoaDon(id, trangThaiHoaDons));
+    }
 }

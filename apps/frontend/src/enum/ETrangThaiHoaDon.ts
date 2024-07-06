@@ -1,0 +1,9 @@
+export enum ETrangThaiHoaDon {
+    CHO_XAC_NHAN = "CHO_XAC_NHAN",
+    CHO_GIAO_HANG = "CHO_GIAO_HANG",
+    DANG_GIAO = "DANG_GIAO",
+    DA_HOAN_THANH = "DA_HOAN_THANH",
+    DA_HUY = "DA_HUY",
+    DA_THANH_TOAN = "DA_THANH_TOAN",
+    DA_XAC_NHAN = "DA_XAC_NHAN"
+}

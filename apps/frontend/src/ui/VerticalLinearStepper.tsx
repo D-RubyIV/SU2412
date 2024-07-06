@@ -24,6 +24,16 @@ const steps = [
     description: `Try out different ad text to see what brings in the most customers,
              .`,
   },
+  {
+    label: 'Create an ad',
+    description: `Try out different ad text to see what brings in the most customers,
+             .`,
+  },
+  {
+    label: 'Create an ad',
+    description: `Try out different ad text to see what brings in the most customers,
+             .`,
+  },
 ];
 
 export default function VerticalLinearStepper() {
