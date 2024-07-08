@@ -18,9 +18,4 @@ public class DiaChiNhan extends BaseEntity{
     private String diaChi;
     private String soDienThoaiNhan;
     private Boolean deleted = false;
-
-    @ManyToOne
-    @JoinColumn
-    private KhachHang khachHang;
-
 }

@@ -33,6 +33,7 @@ public class HoaDonService {
             Pageable pageable,
             List<ELoaiHoaDon> eLoaiHoaDons,
             List<ETrangThaiHoaDon> trangThaiHoaDons,
+            List<Boolean> giaoHang,
             LocalDateTime startDate,
             LocalDateTime endDate
     ) {
@@ -48,7 +49,12 @@ public class HoaDonService {
         if (eLoaiHoaDons.isEmpty()) {
             eLoaiHoaDons = Arrays.asList(ELoaiHoaDon.values());
         }
-        return hoaDonRepository.findAllByTrangThaiInAndLoaiHoaDonInAndCreateAtBetweenOrderByCreateAtDesc(trangThaiHoaDons, eLoaiHoaDons, startDate, endDate, pageable);
+        if (giaoHang.isEmpty()){
+            giaoHang = List.of(true, false);
+        }
+
+        System.out.println(giaoHang);
+        return hoaDonRepository.findAllByTrangThaiInAndLoaiHoaDonInAndGiaoHangInAndCreateAtBetweenOrderByCreateAtDesc(trangThaiHoaDons, eLoaiHoaDons, giaoHang, startDate, endDate, pageable);
     }
 
 
