@@ -35,11 +35,12 @@ public class HoaDonController {
             @RequestParam(name = "offset", defaultValue = "0") int offset,
             @RequestParam(value = "status", defaultValue = "") List<ETrangThaiHoaDon> trangThaiHoaDons,
             @RequestParam(name = "type", defaultValue = "") List<ELoaiHoaDon> loaiHoaDon,
+            @RequestParam(name = "giaoHang", defaultValue = "") List<Boolean> isGiaoHang,
             @RequestParam(name = "startDate", defaultValue = "") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam(name = "endDate", defaultValue = "") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate
     ) {
         Pageable pageable = PageRequest.of(offset, limit);
-        Page<HoaDon> result = hoaDonService.findAllWithProps(pageable, loaiHoaDon, trangThaiHoaDons, startDate, endDate);
+        Page<HoaDon> result = hoaDonService.findAllWithProps(pageable, loaiHoaDon, trangThaiHoaDons, isGiaoHang, startDate, endDate);
         return ResponseEntity.ok(result);
     }
 

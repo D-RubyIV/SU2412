@@ -14,11 +14,5 @@ import java.util.List;
 
 @Repository
 public interface HoaDonRepository extends JpaRepository<HoaDon, Integer> {
-    Page<HoaDon> findAllByTrangThaiInAndLoaiHoaDonInAndCreateAtBetweenOrderByCreateAtDesc(List<ETrangThaiHoaDon> statuses, List<ELoaiHoaDon> s2, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
-    Page<HoaDon> findAllByTrangThaiLike(ETrangThaiHoaDon status, Pageable pageable);
-    Page<HoaDon> findAllByLoaiHoaDonLike(ELoaiHoaDon loaiHoaDon, Pageable pageable);
-    Page<HoaDon> findAllByTrangThaiLikeAndLoaiHoaDonLike(ETrangThaiHoaDon trangThaiHoaDon, ELoaiHoaDon loaiHoaDon, Pageable pageable);
-    Page<HoaDon> findAllByTrangThaiLikeAndLoaiHoaDonLikeAndCreateAtBetween(ETrangThaiHoaDon trangThaiHoaDon, ELoaiHoaDon loaiHoaDon, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
-    Page<HoaDon> findAllByCreateAtBetween(LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
-    Page<HoaDon> findAllByTrangThaiEqualsAndLoaiHoaDonEqualsAndCreateAtBetween(ETrangThaiHoaDon s1, ELoaiHoaDon s2, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
+    Page<HoaDon> findAllByTrangThaiInAndLoaiHoaDonInAndGiaoHangInAndCreateAtBetweenOrderByCreateAtDesc(List<ETrangThaiHoaDon> statuses, List<ELoaiHoaDon> s2, List<Boolean> s3, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
 }

@@ -35,5 +35,7 @@ public class KhachHang extends BaseEntity{
     @ManyToMany(mappedBy = "khachHangs")
     private Set<PhieuGiamGia> phieuGiamGias;
 
-
+    @ManyToOne
+    @JoinColumn
+    private DiaChiNhan diaChiNhan;
 }

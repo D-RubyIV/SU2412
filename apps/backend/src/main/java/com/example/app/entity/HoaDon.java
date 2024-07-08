@@ -58,6 +58,6 @@ public class HoaDon extends BaseEntity{
     @JoinColumn
     private HinhThucThanhToan hinhThucThanhToan;
 
-
+    private boolean giaoHang = false;
     private Boolean deleted = false;
 }
