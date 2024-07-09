@@ -1,24 +1,24 @@
-package com.example.app.service;
-
-import com.example.app.entity.PhieuGiamGia;
-import com.example.app.model.request.PhieuGiamGiaRequest;
-import com.example.app.model.response.PhieuGiamGiaResponse;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-
-public interface PhieuGiamGiaService {
-
-    List<PhieuGiamGiaResponse> getAll();
-
-//    Page<PhieuGiamGiaResponse> getPagePhieuGiamGia(Pageable pageable);
+//package com.example.app.service;
 //
-//    PhieuGiamGiaResponse findPhieuGiamGiaById(Long id);
+//import com.example.app.entity.PhieuGiamGia;
+//import com.example.app.model.request.PhieuGiamGiaRequest;
+//import com.example.app.model.response.PhieuGiamGiaResponse;
+//import org.springframework.data.domain.Page;
+//import org.springframework.data.domain.Pageable;
+//import org.springframework.stereotype.Service;
 //
-//    PhieuGiamGia addPhieuGiamGia(PhieuGiamGiaRequest request);
+//import java.util.List;
+//import java.util.Optional;
 //
-//    PhieuGiamGia updatePhieuGiamGia(Long id,PhieuGiamGiaRequest request);
-
-}
+//public interface PhieuGiamGiaService {
+//
+//    PhieuGiamGia savePhieuGiamGia(PhieuGiamGia phieuGiamGia);
+//
+//    Optional<PhieuGiamGia> getPhieuGiamGiaById(Integer id);
+//
+//    List<PhieuGiamGia> getAllPhieuGiamGia();
+//
+//    PhieuGiamGia updatePhieuGiamGia(Integer id, PhieuGiamGia phieuGiamGia);
+//
+//    void deletePhieuGiamGia(Integer id);
+//}
