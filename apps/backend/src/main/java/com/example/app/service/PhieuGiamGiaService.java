@@ -22,6 +22,7 @@ public interface PhieuGiamGiaService {
 
     PhieuGiamGia updatePhieuGiamGia(Integer id,PhieuGiamGiaRequest request);
 
+    List<PhieuGiamGia> getAllVer2();
 
-
+    void updateTrangThaiPhieuGiamGia();
 }

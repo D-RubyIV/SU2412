@@ -59,7 +59,7 @@ public interface PhieuGiamGiaRepository extends JpaRepository<PhieuGiamGia,Integ
 //    """, nativeQuery = true)
 //    Optional<PhieuGiamGiaResponse> findPhieuGiamGiaById(@Param("id") Integer id);
 
-        Optional<PhieuGiamGia> findPhieuGiamGiaById(Integer id);
+    Optional<PhieuGiamGia> findPhieuGiamGiaById(Integer id);
 
 
     @Query(value = "DELETE FROM phieu_giam_gia WHERE id = :id", nativeQuery = true)

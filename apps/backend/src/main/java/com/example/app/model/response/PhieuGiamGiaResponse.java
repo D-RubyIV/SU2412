@@ -22,6 +22,9 @@ public interface PhieuGiamGiaResponse {
     @Value("#{target.ten}")
     String getTen();
 
+    @Value("#{target.ma}")
+    String getMa();
+
     @Value("#{target.thoiGianBatDau}")
     LocalDateTime getThoiGianBatDau();
 
