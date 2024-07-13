@@ -1,23 +1,24 @@
 package com.example.app.service;
 
 import com.example.app.entity.HoaDon;
-import com.example.app.entity.LichSuDatHang;
+import com.example.app.entity.LichSuHoaDon;
 import com.example.app.enums.ETrangThaiHoaDon;
-import com.example.app.repository.LichSuDatHangRepository;
+import com.example.app.repository.LichSuHoaDonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class LichSuDatHangService {
     @Autowired
-    private LichSuDatHangRepository lichSuDatHangRepository;
+    private LichSuHoaDonRepository lichSuHoaDonRepository;
 
-    public LichSuDatHang create(ETrangThaiHoaDon eTrangThaiHoaDon, HoaDon hoaDon) {
-        LichSuDatHang lichSuDatHang = LichSuDatHang.builder()
+    public LichSuHoaDon create(ETrangThaiHoaDon eTrangThaiHoaDon, HoaDon hoaDon, String note) {
+        LichSuHoaDon lichSuHoaDon = LichSuHoaDon.builder()
                 .hoaDon(hoaDon)
                 .trangThaiDonHang(eTrangThaiHoaDon)
+                .note(note)
                 .build();
-        lichSuDatHangRepository.save(lichSuDatHang);
-        return lichSuDatHang;
+        lichSuHoaDonRepository.save(lichSuHoaDon);
+        return lichSuHoaDon;
     }
 }

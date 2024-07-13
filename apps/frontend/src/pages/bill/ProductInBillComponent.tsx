@@ -9,9 +9,9 @@ interface Props {
 const ProductInBillComponent: FC<Props> = ({ billDetails }) => {
     return (
         <Fragment>
-            <div className="overflow-auto">
+            <div className="overflow-auto py-4">
                 <table className="table-auto w-full text-[14px]">
-                    <thead>
+                    <thead className="bg-indigo-300">
                         <tr>
                             <th>No</th>
                             <th>Hình ảnh</th>
@@ -19,14 +19,17 @@ const ProductInBillComponent: FC<Props> = ({ billDetails }) => {
                             <th>Sản phẩm</th>
                             <th>Màu</th>
                             <th>Kích thước</th>
-                            <th>Màu sắc</th>
+                            <th>Xuất xứ</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Tổng tiền</th>
 
                         </tr>
                     </thead>
                     <tbody>
                         {
                             billDetails.length > 0 && billDetails.map((item, index) => (
-                                <tr key={index}>
+                                <tr key={index} className="bg-indigo-200">
                                     <td>{index + 1}</td>
                                     <td>
                                         <div className="flex justify-center">
@@ -35,9 +38,12 @@ const ProductInBillComponent: FC<Props> = ({ billDetails }) => {
                                     </td>
                                     <td>{item.sanPhamChiTiet.ma}</td>
                                     <td>{item.sanPhamChiTiet.sanPham.ten}</td>
-                                    <td>{item.soLuong}</td>
+                                    <td>{item.sanPhamChiTiet.mauSac.ten}</td>
                                     <td>{item.sanPhamChiTiet.chiTietChatLieu.chatLieu.ten}</td>
-                                    <td>{item.sanPhamChiTiet.chiTietChatLieu.doDayCuaVai.ten}</td>
+                                    <td>{item.sanPhamChiTiet.chiTietXuatXu.ten}</td>
+                                    <td>{item.soLuong}</td>
+                                    <td>{item.sanPhamChiTiet.gia.toLocaleString("vi-VN")} vnd</td>
+                                    <td>{(item.soLuong * item.sanPhamChiTiet.gia).toLocaleString("vi-VN")} vnd</td>
                                 </tr>
                             ))
                             ||

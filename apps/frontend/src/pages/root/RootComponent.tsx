@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import { Fragment } from "react/jsx-runtime";
-import { Layout } from "../../components/layout";
-
+import 'react-toastify/dist/ReactToastify.css';
 const RootComponent = () => {
     return (
         <Fragment>
-                <Outlet></Outlet>
-         
+            <Outlet></Outlet>
+            <ToastContainer />
         </Fragment>
     );
 }

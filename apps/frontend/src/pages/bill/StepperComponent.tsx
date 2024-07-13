@@ -1,10 +1,11 @@
 import { useEffect, useState, Fragment } from "react";
 import { format } from "date-fns";
-import { Cancel, CarCrash, CheckCircle, ConfirmationNumberOutlined, Payment, Sync, SyncAltOutlined } from "@mui/icons-material";
+import { Cancel, CarCrash, CheckCircle, CloseOutlined, ConfirmationNumberOutlined, Payment, Sync, SyncAltOutlined } from "@mui/icons-material";
 import LichSuDatHang from "../../types/LichSuDatHangEntity";
 import { ETrangThaiHoaDon } from "../../enum/ETrangThaiHoaDon";
 import { HoaDonEntity } from "../../types/HoaDonEntity";
 import { instance } from "../../axios/instance";
+import { toast } from "react-toastify";
 
 
 const maskTrangThaiHoaDon = [
@@ -20,6 +21,9 @@ const maskTrangThaiHoaDon = [
 const StepperComponent = ({ hoaDon, refreshBill }: { hoaDon: HoaDonEntity, refreshBill: () => Promise<void> }) => {
     const [lichSuDonHangs, setLichSuDonHangs] = useState<LichSuDatHang[]>([]);
     const [trangThai, setTrangThai] = useState<string>(hoaDon.trangThai);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [currentStatusForUpdate, setCurrentStatusForUpdate] = useState<ETrangThaiHoaDon>()
+    const [note, setNote] = useState<string>("")
 
     useEffect(() => {
         setTrangThai(hoaDon.trangThai);
@@ -38,16 +42,26 @@ const StepperComponent = ({ hoaDon, refreshBill }: { hoaDon: HoaDonEntity, refre
         }
     };
 
-    const updateStatus = async (status: string) => {
+
+    const handleUpdateStepBill = (status: ETrangThaiHoaDon) => {
+        setIsOpen(true);
+        setCurrentStatusForUpdate(status);
+        setNote("")
+    }
+
+    const onSubmitStatus = async (status: string) => {
         try {
-            const response = await instance.post(`/api/bills/update-status/${hoaDon.id}?status=${status}`);
+            const response = await instance.post(`/api/bills/update-status/${hoaDon.id}?status=${status}&note=${note}`);
             if (response.status === 200) {
                 fetchData();
                 refreshBill();
+                toast.success("Thay đổi trạng thái thành công")
             }
         } catch (error) {
-            console.error("Failed to update status", error);
+            console.log("Failed to update status", error);
         }
+        
+        setIsOpen(false)
     };
 
     return (
@@ -74,65 +88,82 @@ const StepperComponent = ({ hoaDon, refreshBill }: { hoaDon: HoaDonEntity, refre
                             </div>
                         </Fragment>
                     ))
-                    ||
-                    (<div className="px-4 py-4 flex gap-16 justify-center">
-                       <span className="text-xl font-thin">Hiện không có lịch sử</span>   
-                    </div>)
+                        ||
+                        (<div className="px-4 py-4 flex gap-16 justify-center">
+                            <span className="text-xl font-thin">Hiện không có lịch sử</span>
+                        </div>)
                     }
                 </div>
             </div>
             <div>
-                {renderContentButton(trangThai, updateStatus)}
+                {
+                    hoaDon.trangThai === ETrangThaiHoaDon.CHO_XAC_NHAN
+                    && (
+                        <div>
+                            <button className="bg-indigo-200 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.DA_HUY) }}>Hủy</button>
+                            <button className="bg-indigo-200 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.DA_XAC_NHAN) }}>Xác nhận</button>
+                        </div>
+                    ) ||
+                    hoaDon.trangThai === ETrangThaiHoaDon.DA_XAC_NHAN
+                    && (
+                        <div>
+                            <button className="bg-indigo-200 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.CHO_XAC_NHAN) }}>Quay lại</button>
+                            <button className="bg-indigo-200 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.DANG_GIAO) }}>Xác nhận giao hàng</button>
+                        </div>
+                    ) ||
+                    hoaDon.trangThai === ETrangThaiHoaDon.DANG_GIAO
+                    && (
+                        <div>
+                            <button className="bg-indigo-200 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.DA_XAC_NHAN) }}>Quay lại</button>
+                            <button className="bg-indigo-200 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.DA_THANH_TOAN) }}>Xác nhận thanh toán</button>
+                        </div>
+                    ) ||
+                    hoaDon.trangThai === ETrangThaiHoaDon.DA_THANH_TOAN
+                    && (
+                        <div>
+                            <button className="bg-indigo-200 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.DANG_GIAO) }}>Quay lại</button>
+                            <button className="bg-indigo-200 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.DA_HOAN_THANH) }}>Xác nhận hoàn thành</button>
+                        </div>
+                    ) ||
+                    hoaDon.trangThai === ETrangThaiHoaDon.DA_HOAN_THANH
+                    && (
+                        <div>
+                            <span className="bg-indigo-200 p-1 px-2 text-sm rounded-md me-4" >Hoàn Thành</span>
+                        </div>
+                    ) ||
+                    hoaDon.trangThai === ETrangThaiHoaDon.DA_HUY
+                    && (
+                        <div>
+                            <span className="bg-indigo-200 p-1 px-2 text-sm rounded-md me-4" >Đã hủy</span>
+                        </div>
+                    )
+                }
+                {/* {renderContentButton(trangThai, updateStatus)} */}
+            </div>
+            <div>
+                <Fragment>
+                    {isOpen && (
+                        <div className="fixed inset-0 flex items-center justify-center z-40 bg-black bg-opacity-50">
+                            <div className="bg-white border-2 shadow-md w-5/12 p-2 rounded-md text-black">
+                                <div className="flex justify-between items-center py-2 border-b-4">
+                                    <span className="text-sm font-semibold">Biểu mẫu xác nhận</span>
+                                    <button onClick={() => setIsOpen(false)}><CloseOutlined /></button>
+                                </div>
+                                <div>
+                                    <textarea value={note} rows={5} className="w-full text-sm  rounded-md focus:outline-0 p-2" onChange={(el) => setNote(el.target.value)}>
+                                    </textarea>
+                                </div>
+                                <div className="flex justify-center">
+                                    {currentStatusForUpdate && <button onClick={() => onSubmitStatus(currentStatusForUpdate?.toString())} className="w-full bg-indigo-300 hover:bg-indigo-400 rounded-md p-1 text-white">Xác nhận</button>}
+                                </div>
+                                {/* Add any additional content here */}
+                            </div>
+                        </div>
+                    )}
+                </Fragment>
             </div>
         </Fragment>
     );
 };
 
 export default StepperComponent;
-
-const renderContentButton = (status: string, updateStatus: (status: string) => void) => {
-    switch (status) {
-        case ETrangThaiHoaDon.CHO_XAC_NHAN:
-            return (
-                <div>
-                    {renderButton(ETrangThaiHoaDon.DA_HUY, updateStatus, "Hủy đơn hàng")}
-                    {renderButton(ETrangThaiHoaDon.DA_XAC_NHAN, updateStatus, "Xác nhận đơn hàng")}
-                </div>
-            );
-        case ETrangThaiHoaDon.DA_XAC_NHAN:
-            return (
-                <div>
-                    {renderButton(ETrangThaiHoaDon.CHO_XAC_NHAN, updateStatus, "Chuyển về chờ xác nhận")}
-                    {renderButton(ETrangThaiHoaDon.CHO_GIAO_HANG, updateStatus, "Chuyển bên giao hàng")}
-                </div>
-            );
-        case ETrangThaiHoaDon.CHO_GIAO_HANG:
-            return (
-                <div>
-                    {renderButton(ETrangThaiHoaDon.DA_XAC_NHAN, updateStatus, "Quay về xác nhận đơn hàng")}
-                    {renderButton(ETrangThaiHoaDon.DANG_GIAO, updateStatus, "Xác nhận đang giao đơn hàng")}
-                </div>
-            );
-        case ETrangThaiHoaDon.DANG_GIAO:
-            return (
-                <div>
-                    {renderButton(ETrangThaiHoaDon.CHO_GIAO_HANG, updateStatus, "Quay về đang giao đơn hàng")}
-                    {renderButton(ETrangThaiHoaDon.DA_THANH_TOAN, updateStatus, "Xác nhận đã thanh toán")}
-                </div>
-            );
-        case ETrangThaiHoaDon.DA_THANH_TOAN:
-            return renderButton(ETrangThaiHoaDon.DA_HOAN_THANH, updateStatus, "Chuyển đã hoàn thành");
-        case ETrangThaiHoaDon.DA_HOAN_THANH:
-            return <button>Hoàn thành</button>;
-        case ETrangThaiHoaDon.DA_HUY:
-            return <div>Đã hủy</div>;
-        default:
-            return <div>Unknown Status</div>;
-    }
-};
-
-const renderButton = (status: string, updateStatus: (status: string) => void, label: string) => (
-    <button className="bg-indigo-200 p-1 px-2 text-sm rounded-md me-4" onClick={() => updateStatus(status)}>
-        {label}
-    </button>
-);

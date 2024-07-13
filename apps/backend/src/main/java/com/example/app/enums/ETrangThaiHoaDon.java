@@ -5,8 +5,7 @@ public enum ETrangThaiHoaDon {
     DA_XAC_NHAN,
     CHO_GIAO_HANG,
     DANG_GIAO,
-    DA_HUY,
     DA_THANH_TOAN,
-    DA_HOAN_THANH
-
+    DA_HOAN_THANH,
+    DA_HUY,
 }

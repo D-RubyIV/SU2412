@@ -22,16 +22,6 @@ const ThongTinDonHangComponent = ({ hoaDon }: { hoaDon: HoaDonEntity }) => {
                         {" "}
                         <span>{hoaDon?.loaiHoaDon}</span>
                     </div>
-                    <div>
-                        <span>Giao hàng:</span>
-                        {" "}
-                        <span>{hoaDon?.giaoHang ? "Có" : "Không"}</span>
-                    </div>
-                    <div>
-                        <span>Trạng thái:</span>
-                        {" "}
-                        <span>{hoaDon?.trangThai}</span>
-                    </div>
                 </div>
             </div>
         </Fragment>

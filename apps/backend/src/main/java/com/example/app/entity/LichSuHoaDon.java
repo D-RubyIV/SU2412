@@ -1,33 +1,23 @@
 package com.example.app.entity;
 
+import com.example.app.enums.ETrangThaiHoaDon;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Entity
-@Table(name = "chi_tiet_xuat_xu")
+@Table(name = "lich_su_hoa_don")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class ChiTietXuatXu extends BaseEntity{
-
-    @Column(unique = true)
-    private String ma;
-
-    private String ten;
-
+public class LichSuHoaDon extends BaseEntity{
     @ManyToOne
     @JoinColumn
-    private NuocSanXuat nuocSanXuat;
-
-    @ManyToOne
-    @JoinColumn
-    private ThuongHieu thuongHieu;
-
+    private HoaDon hoaDon;
+    private ETrangThaiHoaDon trangThaiDonHang;
+    private String note;
     private Boolean deleted = false;
 }

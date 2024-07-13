@@ -1,6 +1,7 @@
 package com.example.app.controller;
 
 import com.example.app.entity.HoaDon;
+import com.example.app.entity.LichSuHoaDon;
 import com.example.app.enums.ELoaiHoaDon;
 import com.example.app.enums.ETrangThaiHoaDon;
 import com.example.app.repository.HoaDonRepository;
@@ -35,25 +36,28 @@ public class HoaDonController {
             @RequestParam(name = "offset", defaultValue = "0") int offset,
             @RequestParam(value = "status", defaultValue = "") List<ETrangThaiHoaDon> trangThaiHoaDons,
             @RequestParam(name = "type", defaultValue = "") List<ELoaiHoaDon> loaiHoaDon,
-            @RequestParam(name = "giaoHang", defaultValue = "") List<Boolean> isGiaoHang,
             @RequestParam(name = "startDate", defaultValue = "") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
-            @RequestParam(name = "endDate", defaultValue = "") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate
+            @RequestParam(name = "endDate", defaultValue = "") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
+            @RequestParam(name = "sMoney", defaultValue = "0") Double sMoney,
+            @RequestParam(name = "eMoney", defaultValue = "10000000000") Double eMoney,
+            @RequestParam(name = "key", defaultValue = "") String key
     ) {
         Pageable pageable = PageRequest.of(offset, limit);
-        Page<HoaDon> result = hoaDonService.findAllWithProps(pageable, loaiHoaDon, trangThaiHoaDons, isGiaoHang, startDate, endDate);
+        Page<HoaDon> result = hoaDonService.findAllWithProps(pageable, loaiHoaDon, trangThaiHoaDons, startDate, endDate, sMoney, eMoney, key);
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<HoaDon> detail(@PathVariable("id") int id) throws BadRequestException {
-        return ResponseEntity.ok(hoaDonRepository.findById(id).orElseThrow(()->new BadRequestException("Không tìm thấy hóa đơn")));
+        return ResponseEntity.ok(hoaDonRepository.findById(id).orElseThrow(() -> new BadRequestException("Không tìm thấy hóa đơn")));
     }
 
     @PostMapping("/update-status/{id}")
     public ResponseEntity<HoaDon> updateStatus(
             @PathVariable("id") int id,
-            @RequestParam(value = "status", defaultValue = "") ETrangThaiHoaDon trangThaiHoaDons
+            @RequestParam(value = "status", defaultValue = "") ETrangThaiHoaDon trangThaiHoaDons,
+            @RequestParam(value = "note", defaultValue = "") String note
     ) throws BadRequestException {
-        return ResponseEntity.ok(hoaDonService.updateTranThaiHoaDon(id, trangThaiHoaDons));
+        return ResponseEntity.ok(hoaDonService.updateTranThaiHoaDon(id, trangThaiHoaDons, note));
     }
 }
