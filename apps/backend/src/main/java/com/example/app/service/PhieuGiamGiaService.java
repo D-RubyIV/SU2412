@@ -16,7 +16,7 @@ public interface PhieuGiamGiaService {
 //    Page<PhieuGiamGiaResponse> getPagePhieuGiamGia(Pageable pageable);
 
 
-    PhieuGiamGia findPhieuGiamGiaById(Integer id);
+    PhieuGiamGiaResponse findPhieuGiamGiaById(Integer id);
 
     PhieuGiamGia addPhieuGiamGia(PhieuGiamGiaRequest request);
 
@@ -25,4 +25,6 @@ public interface PhieuGiamGiaService {
     List<PhieuGiamGia> getAllVer2();
 
     void updateTrangThaiPhieuGiamGia();
+
+    void deletePhieuGiamGia(Integer id);
 }

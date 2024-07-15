@@ -7,11 +7,32 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface PhieuGiamGiaRepository extends JpaRepository<PhieuGiamGia,Integer> {
+public interface PhieuGiamGiaRepository extends JpaRepository<PhieuGiamGia, Integer> {
+
+//    @Query(value = """
+//                SELECT
+//                    pgg.id as 'id',
+//                    pgg.ma as 'ma',
+//                    pgg.ten as 'ten',
+//                    pgg.loaiPhieu as 'loaiPhieu' ,
+//                    pgg.soLuong as 'soLuong' ,
+//                      pgg.trangThai ,
+//                    pgg.thoiGianBatDau ,pgg.thoiGianKetThuc ,pgg.tongTienToiThieu,
+//                    pgg.phanTramToiDa  ,
+//                     kh.hoTen as 'hoTen',kh.email as 'email' , kh.soDienThoai as 'soDienThoai'
+//                FROM
+//                    phieu_giam_gia AS pgg
+//                LEFT JOIN
+//                    phieu_giam_gia_khach_hang AS pgh ON pgg.id = pgh.phieu_giam_gia_id
+//                LEFT JOIN
+//                    khach_hang AS kh ON pgh.khach_hang_id = kh.id;
+//            """,nativeQuery = true)
+//    List<PhieuGiamGiaResponse> getAll();
 
     @Query(value = """
                 SELECT 
@@ -22,15 +43,10 @@ public interface PhieuGiamGiaRepository extends JpaRepository<PhieuGiamGia,Integ
                     pgg.soLuong as 'soLuong' , 
                       pgg.trangThai ,
                     pgg.thoiGianBatDau ,pgg.thoiGianKetThuc ,pgg.tongTienToiThieu,
-                    pgg.phanTramToiDa  ,
-                     kh.hoTen as 'hoTen',kh.email as 'email' , kh.soDienThoai as 'soDienThoai' 
+                    pgg.phanTramToiDa  
                 FROM
-                    phieu_giam_gia AS pgg
-                LEFT JOIN
-                    phieu_giam_gia_khach_hang AS pgh ON pgg.id = pgh.phieu_giam_gia_id
-                LEFT JOIN
-                    khach_hang AS kh ON pgh.khach_hang_id = kh.id;
-            """,nativeQuery = true)
+                    phieu_giam_gia AS pgg WHERE pgg.deleted = 0
+            """, nativeQuery = true)
     List<PhieuGiamGiaResponse> getAll();
 
 //    @Query(value = """
@@ -59,7 +75,26 @@ public interface PhieuGiamGiaRepository extends JpaRepository<PhieuGiamGia,Integ
 //    """, nativeQuery = true)
 //    Optional<PhieuGiamGiaResponse> findPhieuGiamGiaById(@Param("id") Integer id);
 
-    Optional<PhieuGiamGia> findPhieuGiamGiaById(Integer id);
+    @Query(value = """
+            SELECT DISTINCT
+                pgg.id as id,
+                pgg.ma as ma,
+                pgg.ten as ten,
+                pgg.loaiPhieu as loaiPhieu,
+                pgg.soLuong as soLuong,
+                pgg.trangThai,
+                pgg.thoiGianBatDau,
+                pgg.thoiGianKetThuc,
+                pgg.tongTienToiThieu,
+                pgg.phanTramToiDa              
+            FROM
+                phieu_giam_gia AS pgg
+            LEFT JOIN
+                phieu_giam_gia_khach_hang AS pgh ON pgg.id = pgh.phieu_giam_gia_id
+            WHERE
+                pgg.id = :id
+            """, nativeQuery = true)
+    Optional<PhieuGiamGiaResponse> findPhieuGiamGiaById(Integer id);
 
 
     @Query(value = "DELETE FROM phieu_giam_gia WHERE id = :id", nativeQuery = true)

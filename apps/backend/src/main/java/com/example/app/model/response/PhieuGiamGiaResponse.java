@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.config.Projection;
 
 import java.time.LocalDateTime;
+import java.util.List;
 //
 //Các biểu thức SpEL phổ biến:
 //
@@ -46,13 +47,16 @@ public interface PhieuGiamGiaResponse {
     @Value("#{target.LoaiPhieu}")
     String getLoaiPhieu();
 
-    @Value("#{target.hoTen}")
-    String getHoTen();
+//    @Value("#{target.hoTen}")
+//    String getHoTen();
 
-    @Value("#{target.email}")
+//    @Value("#{target.email}")
     String getEmail();
 
-    @Value("#{target.soDienThoai}")
+//    @Value("#{target.soDienThoai}")
     String getSoDienThoai();
+
+//    @Value("#{target.hoTen}")
+    List<String> getKhachHangs();
 
 }

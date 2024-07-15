@@ -254,25 +254,17 @@ export default function ListVoucher() {
                 <td className="px-4 py-2">{item.thoiGianBatDau}</td>
                 <td className="px-4 py-2">{item.thoiGianKetThuc}</td>
                 <td className="px-4 py-2">
-                  {/* <span
-                    className={`inline-block whitespace-nowrap rounded-full bg-danger-100 px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-danger-700 dark:bg-[#2c0f14] dark:text-danger-500 ${
-                      item.trangThai === "Hoạt Động"
-                        ? "bg-red-100 text-red-700"
-                        : "bg-green-100 text-green-700"
-                    }`}
-                  >
-                    {item.trangThai}
-                  </span> */}
                   <span
-                    className={`inline-block whitespace-nowrap rounded-full ${
-                      item.trangThai === "Đã kết thúc"
-                        ? "bg-gray-300 text-gray-700"
-                        : item.trangThai === "Đang diễn ra"
-                        ? "bg-green-300 text-green-700"
-                        : item.trangThai === "Chưa bắt đầu"
-                        ? "bg-yellow-300 text-yellow-700"
-                        : "bg-red-300 text-red-700"
-                    } px-2 py-1 text-sm font-semibold`}
+                    className={`inline-block whitespace-nowrap rounded-full px-2 py-1 text-sm font-semibold
+  ${
+    item.trangThai === "Đã kết thúc"
+      ? "bg-gray-200 text-gray-700"
+      : item.trangThai === "Ðang di?n ra"
+      ? "bg-green-200 text-green-700"
+      : item.trangThai === "Chưa bắt đầu"
+      ? "bg-yellow-200 text-yellow-700"
+      : "bg-red-200 text-red-700"
+  }`}
                   >
                     {item.trangThai}
                   </span>

@@ -40,10 +40,10 @@ public class PhieuGiamGiaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PhieuGiamGia> getPhieuGiamGiaById(@PathVariable Integer id) {
-        PhieuGiamGia phieuGiamGia =  phieuGiamGiaService.findPhieuGiamGiaById(id);
-        if (phieuGiamGia != null) {
-            return ResponseEntity.ok(phieuGiamGia);
+    public ResponseEntity<PhieuGiamGiaResponse> getPhieuGiamGiaById(@PathVariable Integer id) {
+        PhieuGiamGiaResponse phieuGiamGiaResponse =  phieuGiamGiaService.findPhieuGiamGiaById(id);
+        if (phieuGiamGiaResponse != null) {
+            return ResponseEntity.ok(phieuGiamGiaResponse);
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -55,7 +55,7 @@ public class PhieuGiamGiaController {
         return ResponseEntity.status(HttpStatus.CREATED).body("success");
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<PhieuGiamGia> updatePhieuGiamGia(
             @PathVariable Integer id,
             @RequestBody PhieuGiamGiaRequest request) {
@@ -65,5 +65,17 @@ public class PhieuGiamGiaController {
         }
         return ResponseEntity.ok(updatedPhieuGiamGia);
     }
+
+
+    @PutMapping("/delete/{id}")
+    public ResponseEntity<?> deletePhieuGiamGia(@PathVariable Integer id) {
+        try {
+            phieuGiamGiaService.deletePhieuGiamGia(id);
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 }

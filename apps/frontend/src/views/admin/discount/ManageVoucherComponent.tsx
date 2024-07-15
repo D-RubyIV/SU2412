@@ -383,7 +383,7 @@ const ManageVoucherComponent = () => {
         </div>
       </Fragment>
       <Fragment>
-        <div className="w-[100%] h-[85vh]  p-6 bg-white rounded-lg shadow-xl overflow-y-auto">
+        <div className="w-[100%] h-[85vh]  p-4 bg-white rounded-lg shadow-xl overflow-y-auto">
           <h2 className="text-2xl font-bold text-center mb-4 text-indigo-700">
             Danh sách
           </h2>

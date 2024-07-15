@@ -3,6 +3,8 @@ package com.example.app.service.impl;
 import com.example.app.entity.KhachHang;
 import com.example.app.entity.PhieuGiamGia;
 import com.example.app.enums.TypePhieuGiamGia;
+import com.example.app.exception.ApiException;
+import com.example.app.exception.ErrorDetail;
 import com.example.app.infrastructure.common.AutoGenCode;
 import com.example.app.infrastructure.converted.PhieuGiamGiaConvert;
 import com.example.app.model.request.PhieuGiamGiaRequest;
@@ -15,9 +17,14 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.method.annotation.HandlerMethodValidationException;
+import org.springframework.web.servlet.View;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -39,6 +46,8 @@ public class PhieuGiamGiaServiceImpl implements PhieuGiamGiaService {
 
     @Autowired
     private AutoGenCode autoGenCode;
+    @Autowired
+    private View error;
 
     @Override
     public List<PhieuGiamGiaResponse> getAll() {
@@ -46,15 +55,13 @@ public class PhieuGiamGiaServiceImpl implements PhieuGiamGiaService {
     }
 
     @Override
-    public PhieuGiamGia findPhieuGiamGiaById(Integer id) {
-        Optional<PhieuGiamGia> phieuGiamGiaOptional = phieuGiamGiaRepository.findPhieuGiamGiaById(id);
+    public PhieuGiamGiaResponse findPhieuGiamGiaById(Integer id) {
+        Optional<PhieuGiamGiaResponse> phieuGiamGiaOptional = phieuGiamGiaRepository.findPhieuGiamGiaById(id);
         return phieuGiamGiaOptional.orElse(null);
     }
 
 
-    @Override
-    public PhieuGiamGia addPhieuGiamGia(PhieuGiamGiaRequest request) {
-//        List<String> tenKhachHangs = request.getKhachHangs();
+    //        List<String> tenKhachHangs = request.getKhachHangs();
 //        List<KhachHang> khachHangs = tenKhachHangs.stream()
 //                .map(tenKhachHang -> {
 //                    Optional<KhachHang> khachHangOptional = khachHangRepository.findFirstByHoTen(tenKhachHang);
@@ -77,12 +84,21 @@ public class PhieuGiamGiaServiceImpl implements PhieuGiamGiaService {
 //
 //        phieuGiamGiaRepository.save(phieuGiamGia);
 //        return phieuGiamGia; // Return the saved entity if needed
-        request.setMa(autoGenCode.generateUniqueCode());
+    @Override
+    public PhieuGiamGia addPhieuGiamGia(PhieuGiamGiaRequest request) {
+
+        if (request.getMa() == null || request.getMa().isEmpty()) {
+            request.setMa(autoGenCode.generateUniqueCode());
+        }
+
         PhieuGiamGia phieuGiamGia = phieuGiamGiaConvert.convertRequestToEntity(request);
+
         PhieuGiamGia phieuGiamGiaSave = phieuGiamGiaRepository.save(phieuGiamGia);
+
         updateTrangThai(phieuGiamGiaSave);
+
         if (phieuGiamGiaSave.getLoaiPhieu() == TypePhieuGiamGia.KhachHang) {
-            if (!request.getKhachHangs().isEmpty()) {
+            if (request.getKhachHangs() != null && !request.getKhachHangs().isEmpty()) {
                 List<String> tenKhachHangs = request.getKhachHangs();
                 List<KhachHang> khachHangs = tenKhachHangs.stream()
                         .map(tenKhachHang -> {
@@ -93,32 +109,62 @@ public class PhieuGiamGiaServiceImpl implements PhieuGiamGiaService {
                         .collect(Collectors.toList());
 
                 phieuGiamGiaSave.setKhachHangs(new HashSet<>(khachHangs));
+                // Save the updated PhieuGiamGia entity with KhachHangs
+                phieuGiamGiaSave = phieuGiamGiaRepository.save(phieuGiamGiaSave);
             }
         }
-        return phieuGiamGia;
+
+        return phieuGiamGiaSave;
     }
 
     @Override
     public PhieuGiamGia updatePhieuGiamGia(Integer id, PhieuGiamGiaRequest request) {
-        Optional<PhieuGiamGia> phieuGiamGiaOptional = phieuGiamGiaRepository.findPhieuGiamGiaById(id);
+        // viet lai api update
+        List<ErrorDetail> errorDetails = new ArrayList<>();
+
+        // Validation checks
+        if (request.getTen().length() > 50) {
+            errorDetails.add(new ErrorDetail("ten", "Tên Phiếu Giảm giá không được vượt quá 50 kí tự!"));
+        }
+
+        Optional<PhieuGiamGia> phieuGiamGiaOptional = phieuGiamGiaRepository.findById(id);
         if (phieuGiamGiaOptional.isEmpty()) {
             throw new RuntimeException("Không tìm thấy PhieuGiamGia với ID: " + id);
         }
 
-        PhieuGiamGia phieuGiamGia = phieuGiamGiaOptional.get();
+        PhieuGiamGia phieuGiamGiaToUpdate = phieuGiamGiaOptional.get();
 
-        phieuGiamGia.setTen(request.getTen());
-        phieuGiamGia.setMa(request.getMa());
-        phieuGiamGia.setSoLuong(request.getSoLuong());
-        phieuGiamGia.setTrangThai(request.getTrangThai());
-        phieuGiamGia.setPhanTramToiDa(request.getPhanTramToiDa());
-        phieuGiamGia.setThoiGianKetThuc(request.getThoiGianKetThuc());
-        phieuGiamGia.setThoiGianBatDau(request.getThoiGianBatDau());
-        phieuGiamGia.setLoaiPhieu(request.getLoaiPhieu());
+        if (!errorDetails.isEmpty()) {
+            throw new ApiException("Validation failed", HttpStatus.BAD_REQUEST, errorDetails);
+        }
 
-        phieuGiamGiaRepository.save(phieuGiamGia);
+        PhieuGiamGia phieuGiamGiaSave = phieuGiamGiaRepository.save(phieuGiamGiaConvert.convertRequestToEntity(id,request));
+        if (phieuGiamGiaSave != null) {
+            updateTrangThai(phieuGiamGiaToUpdate);
+        }
 
-        return phieuGiamGia;
+        if (phieuGiamGiaSave.getLoaiPhieu() == TypePhieuGiamGia.KhachHang) {
+            if (request.getKhachHangs() != null && !request.getKhachHangs().isEmpty()) {
+                List<String> tenKhachHangs = request.getKhachHangs();
+                List<KhachHang> khachHangs = tenKhachHangs.stream()
+                        .map(tenKhachHang -> {
+                            Optional<KhachHang> khachHangOptional = khachHangRepository.findFirstByHoTen(tenKhachHang);
+                            return khachHangOptional.orElseThrow(() ->
+                                    new RuntimeException("KhachHang không tồn tại với tên: " + tenKhachHang));
+                        })
+                        .collect(Collectors.toList());
+
+                phieuGiamGiaSave.setKhachHangs(new HashSet<>(khachHangs));
+                // Save the updated PhieuGiamGia entity with KhachHangs
+                phieuGiamGiaSave = phieuGiamGiaRepository.save(phieuGiamGiaSave);
+            }
+        } else {
+            // If the voucher is not for specific customers, clear any existing customers
+            phieuGiamGiaSave.setKhachHangs(Collections.emptySet());
+            phieuGiamGiaRepository.save(phieuGiamGiaSave);
+        }
+
+        return phieuGiamGiaSave;
     }
 
     @Override
@@ -154,6 +200,20 @@ public class PhieuGiamGiaServiceImpl implements PhieuGiamGiaService {
             }
             phieuGiamGiaRepository.save(phieuGiamGia);
         }
+    }
+
+    @Override
+    public void deletePhieuGiamGia(Integer id) {
+        Optional<PhieuGiamGia> phieuGiamGiaOptional = phieuGiamGiaRepository.findById(id);
+        if (phieuGiamGiaOptional.isEmpty()) {
+            throw new RuntimeException("Không tìm thấy PhieuGiamGia với ID: " + id);
+        }
+
+        PhieuGiamGia phieuGiamGiaToUpdate = phieuGiamGiaOptional.get();
+
+        phieuGiamGiaToUpdate.setDeleted(true);
+
+        phieuGiamGiaRepository.save(phieuGiamGiaToUpdate);
     }
 
     public void updateTrangThai(PhieuGiamGia phieuGiamGia) {

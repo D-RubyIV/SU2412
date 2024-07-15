@@ -25,11 +25,12 @@ public class PhieuGiamGiaConvert {
                 .thoiGianKetThuc(request.getThoiGianKetThuc())
                 .thoiGianBatDau(request.getThoiGianBatDau())
                 .loaiPhieu(request.getLoaiPhieu())
+                .deleted(false)
                 .build();
     }
 
 
-    public PhieuGiamGia convertRequestToEntity(Integer id,PhieuGiamGiaRequest request) {
+    public PhieuGiamGia convertRequestToEntity(Integer id, PhieuGiamGiaRequest request) {
         Optional<PhieuGiamGia> optionalPhieuGiamGia = phieuGiamGiaRepository.findById(id);
 
         if (optionalPhieuGiamGia.isEmpty()) {
@@ -46,7 +47,7 @@ public class PhieuGiamGiaConvert {
         phieuGiamGia.setThoiGianKetThuc(request.getThoiGianKetThuc());
         phieuGiamGia.setThoiGianBatDau(request.getThoiGianBatDau());
         phieuGiamGia.setLoaiPhieu(request.getLoaiPhieu());
-
+        phieuGiamGia.setDeleted(request.getDeleted());
         return phieuGiamGia;
 
     }
