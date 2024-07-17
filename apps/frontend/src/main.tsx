@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import {
   Route,
-  Router,
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
@@ -17,6 +16,7 @@ import ManageProductDetailComponent from "./views/admin/ManageProductDetailCompo
 import ManageCustomerComponent from "./views/admin/ManageCustomerComponent.tsx";
 import ManageStaffComponent from "./views/admin/ManageStaffComponent.tsx";
 import { ThemeProvider } from "@material-tailwind/react";
+// import ListVoucher from "./views/admin/discount/ListVoucher.tsx";
 import NotFound from "./pages/NotFound/NotFound.tsx";
 import ManageVoucherComponent from "./views/admin/discount/ManageVoucherComponent.tsx";
 import { store } from "./redux/store.tsx";
@@ -47,7 +47,9 @@ const router = createBrowserRouter(
           path="san-pham-chi-tiet"
           element={<ManageProductDetailComponent />}
         ></Route>
-        <Route path="khuyen-mai" element={<AddVoucher />}></Route>
+        {/* <Route path="khuyen-mai" element={<AddVoucher />}></Route> */}
+        <Route path="khuyen-mai" element={<ManageVoucherComponent />}></Route>
+        <Route path="khuyen-mai/listVoucher" element={<ListVoucher />}></Route>
         <Route path="hoa-don">
           <Route path="" element={<ManageBillComponent />} />
           <Route path=":id" element={<ConfirmBillComponent />} />
@@ -58,9 +60,6 @@ const router = createBrowserRouter(
           <Route path="khuyen-mai/:id" element={<AddVoucher />} />
 
           <Route path="khuyen-mai/list" element={<TestComponent />} />
-        </Route>
-        <Route>
-          <Route path="khuyen-mai/listVoucher" element={<ListVoucher />} />
         </Route>
         <Route path="nhan-vien" element={<ManageStaffComponent />}></Route>
         <Route path="demo" element={<ManageComponentDemo />}></Route>

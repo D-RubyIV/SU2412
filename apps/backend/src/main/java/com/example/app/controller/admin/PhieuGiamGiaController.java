@@ -5,6 +5,7 @@ import com.example.app.model.request.PhieuGiamGiaRequest;
 import com.example.app.model.response.PhieuGiamGiaResponse;
 import com.example.app.service.PhieuGiamGiaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -29,6 +31,13 @@ public class PhieuGiamGiaController {
         // Trả về response với STATUS CODE = 200 (OK)
         // Body sẽ chứa thông tin về đối tượng fetchPhiouGiamGia vừa được tạo.
         return ResponseEntity.ok().body(fetchPhieuGiamGia);
+    }
+
+    @GetMapping("/get-page")
+    public ResponseEntity getPage(
+            @RequestParam(value = "_page", defaultValue = "1") int page,
+            @RequestParam(value = "_limit", defaultValue = "5") int limit) {
+        return new ResponseEntity<>(phieuGiamGiaService.getPagePhieuGiamGia(page, limit), HttpStatus.OK);
     }
 
     @GetMapping("/test/get-all")

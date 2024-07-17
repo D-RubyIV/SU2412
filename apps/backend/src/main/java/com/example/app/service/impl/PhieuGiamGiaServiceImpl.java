@@ -6,6 +6,7 @@ import com.example.app.enums.TypePhieuGiamGia;
 import com.example.app.exception.ApiException;
 import com.example.app.exception.ErrorDetail;
 import com.example.app.infrastructure.common.AutoGenCode;
+import com.example.app.infrastructure.constant.PaginationConstant;
 import com.example.app.infrastructure.converted.PhieuGiamGiaConvert;
 import com.example.app.model.request.PhieuGiamGiaRequest;
 import com.example.app.model.response.PhieuGiamGiaResponse;
@@ -16,6 +17,7 @@ import jakarta.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -52,6 +54,13 @@ public class PhieuGiamGiaServiceImpl implements PhieuGiamGiaService {
     @Override
     public List<PhieuGiamGiaResponse> getAll() {
         return phieuGiamGiaRepository.getAll();
+    }
+
+    @Override
+    public Page<PhieuGiamGiaResponse> getPagePhieuGiamGia(int page, int limit) {
+        Pageable pageable = PageRequest.of(page -1, PaginationConstant.DEFAULT_SIZE);
+        Page<PhieuGiamGiaResponse> res = phieuGiamGiaRepository.getPagePhieuGiamGia(pageable);
+        return res;
     }
 
     @Override
