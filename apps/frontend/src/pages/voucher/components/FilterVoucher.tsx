@@ -3,6 +3,7 @@ import { IconPlus, IconSearch } from "../../../components/icons";
 import { optionStatus } from "../../../constants/options";
 import Select from "react-select";
 import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 type TFilterCustomer = {
   handleSearch: (e: any) => void;
   handleStatusChange: (status: any) => void;
@@ -12,6 +13,7 @@ const FilterVoucher = ({
   handleSearch,
   handleStatusChange,
 }: TFilterCustomer) => {
+  const auth: any = useSelector((state: RootState) => state.auth.auth?.user);
   const handleKeyDown = (e: any) => {
     if (e.key === "Enter") {
       handleSearch(e.target.value);
@@ -40,18 +42,19 @@ const FilterVoucher = ({
           ></Select>
         </div>
       </div>
-
-      <div className="flex items-end gap-2">
-        <Link
-          to={"/product/add"}
-          className="flex gap-2 px-3 py-2 rounded-lg bg-primary"
-        >
-          <div className="flex items-center p-1 bg-white rounded-lg text-primary">
-            <IconPlus></IconPlus>
-          </div>
-          <span className="flex items-center text-sm text-white">Thêm</span>
-        </Link>
-      </div>
+      {auth?.role?.roleNumber == 2 ? null : (
+        <div className="flex items-end gap-2">
+          <Link
+            to={"/product/add"}
+            className="flex gap-2 px-3 py-2 rounded-lg bg-primary"
+          >
+            <div className="flex items-center p-1 bg-white rounded-lg text-primary">
+              <IconPlus></IconPlus>
+            </div>
+            <span className="flex items-center text-sm text-white">Thêm</span>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

@@ -4,6 +4,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Edit } from "@mui/icons-material";
+import moment from "moment";
 
 export default function ListVoucher() {
   const [todos, setTodos] = useState<any[]>([]);
@@ -12,6 +13,8 @@ export default function ListVoucher() {
   const [searchDateStart, setSearchDateStart] = useState("");
   const [searchDateEnd, setSearchDateEnd] = useState("");
   const [searchValue, setSearchValue] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10); // Number of items per page
   const { action } = useParams<{ action: string }>();
   console.log(action, "setTodosAction");
   const navigate = useNavigate();
@@ -66,6 +69,18 @@ export default function ListVoucher() {
     }
   };
   console.log(todos, "ahahaha");
+
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredTodos.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Change page
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  useEffect(() => {
+    fetchTodos();
+  }, []);
 
   return (
     <Fragment>
@@ -251,8 +266,14 @@ export default function ListVoucher() {
                 <td className="px-4 py-2">{item.loaiPhieu}</td>
                 <td className="px-4 py-2">{item.soLuong}</td>
                 <td className="px-4 py-2">{item.tongTienToiThieu}</td>
-                <td className="px-4 py-2">{item.thoiGianBatDau}</td>
-                <td className="px-4 py-2">{item.thoiGianKetThuc}</td>
+                <td className="px-4 py-2">
+                  {" "}
+                  {moment(item?.thoiGianBatDau).format("DD/MM/YYYY")}
+                </td>
+                <td className="px-4 py-2">
+                  {" "}
+                  {moment(item?.thoiGianKetThuc).format("DD/MM/YYYY")}
+                </td>
                 <td className="px-4 py-2">
                   <span
                     className={`inline-block whitespace-nowrap rounded-full px-2 py-1 text-sm font-semibold

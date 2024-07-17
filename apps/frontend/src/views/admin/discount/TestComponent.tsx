@@ -11,51 +11,27 @@ import { FaEdit, FaToggleOff, FaToggleOn } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import classNames from "classnames";
 import { Button } from "@mui/material";
-const LIMIT = 10;
+import moment from "moment";
+const LIMIT = 5;
 
 function TestComponent() {
-  const [filteredTodos, setFilteredTodos] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchDateStart, setSearchDateStart] = useState("");
   const [searchDateEnd, setSearchDateEnd] = useState("");
   const [searchValue, setSearchValue] = useState<string | number>("");
-  //   const [isToggled, setIsToggled] = useState(false);
   const [toggledRows, setToggledRows] = useState<Set<number>>(new Set());
   const queryString: { page?: string } = useQueryString();
   const page = Number(queryString.page) || 1;
+
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["phieuGiamGias", page],
     queryFn: () => getPhieuGiamGias(page, LIMIT),
     placeholderData: keepPreviousData,
   });
-  const totalPhieuGiamGiasCount = Number(data?.headers["x-total-count"] || 0);
-  const totalPage = Math.ceil(totalPhieuGiamGiasCount / 10);
 
-  // const deletePhieuGiamGiaMutation = useMutation({
-  //   mutationFn: (id: number | string) => deletePhieuGiamGia(id),
-  //   onSuccess: (_, id) => {
-  //     toast.success(`Xóa thành công Phiếu Giảm Giá với id là ${id}`);
-  //   },
-  // });
+  const totalPhieuGiamGiasCount = Number(data?.data.totalElements || 0);
+  const totalPage = Math.ceil(totalPhieuGiamGiasCount / LIMIT);
 
-  // const handleToggle = (id: number) => {
-  //   const updatedRows = new Set(toggledRows);
-  //   if (updatedRows.has(id)) {
-  //     deletePhieuGiamGiaMutation.mutate(id, {
-  //       onSuccess: () => {
-  //         toast.success(`Xóa thành công Phiếu Giảm Giá với id là ${id}`);
-  //         setToggledRows((prev) => {
-  //           const newSet = new Set(prev);
-  //           newSet.delete(id);
-  //           return newSet;
-  //         });
-  //       },
-  //     });
-  //   } else {
-  //     updatedRows.add(id);
-  //     setToggledRows(updatedRows);
-  //   }
-  // };
   const deletePhieuGiamGiaMutation = useMutation({
     mutationFn: (id) => deletePhieuGiamGia(id),
     onSuccess: (_, id) => {
@@ -81,57 +57,60 @@ function TestComponent() {
     }
   };
 
-  const handleSearch = () => {
-    let filtered = data?.data || [];
+  const handleFilter = (data) => {
+    let filteredData = [...data]; // Make a copy of data to avoid mutating original
 
-    if (searchTerm) {
-      filtered = filtered.filter((item) =>
+    // Filter by search term
+    if (searchTerm.trim() !== "") {
+      filteredData = filteredData.filter((item) =>
         item.ma.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
+    // Filter by search dates
     if (searchDateStart) {
-      filtered = filtered.filter(
-        (item) => item.thoiGianBatDau >= searchDateStart
+      filteredData = filteredData.filter((item) =>
+        moment(item.thoiGianBatDau).isSameOrAfter(moment(searchDateStart))
       );
     }
-
     if (searchDateEnd) {
-      filtered = filtered.filter(
-        (item) => item.thoiGianKetThuc <= searchDateEnd
+      filteredData = filteredData.filter((item) =>
+        moment(item.thoiGianKetThuc).isSameOrBefore(moment(searchDateEnd))
       );
     }
 
-    if (searchValue) {
-      const searchNumber = Number(searchValue);
-      filtered = filtered.filter(
-        (item) => item.tongTienToiThieu >= searchNumber
+    // Filter by search value (assuming it's a numerical field to compare)
+    if (searchValue !== "") {
+      filteredData = filteredData.filter(
+        (item) => item.someNumericField >= parseInt(searchValue.toString())
       );
     }
 
-    if (status !== "all") {
-      filtered = filtered.filter((item) => item.trangThai === status);
+    // Filter by status
+    switch (status) {
+      case "upcoming":
+        filteredData = filteredData.filter((item) =>
+          moment().isBefore(item.thoiGianBatDau)
+        );
+        break;
+      case "ongoing":
+        filteredData = filteredData.filter((item) =>
+          moment().isBetween(item.thoiGianBatDau, item.thoiGianKetThuc)
+        );
+        break;
+      case "ended":
+        filteredData = filteredData.filter((item) =>
+          moment().isAfter(item.thoiGianKetThuc)
+        );
+        break;
+      default:
+        break;
     }
 
-    setFilteredTodos(filtered);
+    return filteredData;
   };
 
-  useEffect(() => {
-    if (data?.data) {
-      handleSearch();
-    }
-  }, [
-    data?.data,
-    searchTerm,
-    searchDateStart,
-    searchDateEnd,
-    searchValue,
-    status,
-  ]);
-
-  useEffect(() => {
-    handleSearch();
-  }, [searchTerm, searchDateStart, searchDateEnd, searchValue]);
+  const filteredData = data ? handleFilter(data.data.content) : [];
 
   return (
     <Fragment>
@@ -206,6 +185,7 @@ function TestComponent() {
               />
             </div>
             <div className="flex-1">
+              {/* Add filter for status */}
               <fieldset className="flex flex-col">
                 <legend className="block text-sm font-medium text-gray-700">
                   Trạng thái:
@@ -329,35 +309,40 @@ function TestComponent() {
                     </th>
                   </tr>
                 </thead>
-                <tbody>
-                  {data?.data.map((phieuGiamGia, index) => (
-                    <tr
-                      key={phieuGiamGia.id}
-                      className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
-                    >
-                      <td className="py-4 px-6">{index + 1}</td>
-
-                      <th
-                        scope="row"
-                        className="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
+                <tbody className="text-sm text-black">
+                  {filteredData.length > 0 &&
+                    filteredData.map((phieuGiamGia, index) => (
+                      <tr
+                        key={phieuGiamGia.id}
+                        className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
                       >
-                        {phieuGiamGia.ma}
-                      </th>
-                      <td className="py-4 px-6">{phieuGiamGia.ten}</td>
-                      <td className="py-4 px-6">{phieuGiamGia.loaiPhieu}</td>
-                      <td className="py-4 px-6">{phieuGiamGia.soLuong}</td>
-                      <td className="py-4 px-6">
-                        {phieuGiamGia.tongTienToiThieu}
-                      </td>
-                      <td className="py-4 px-6">
-                        {phieuGiamGia.thoiGianBatDau}
-                      </td>
-                      <td className="py-4 px-6">
-                        {phieuGiamGia.thoiGianKetThuc}
-                      </td>
-                      <td className="px-4 py-6">
-                        <span
-                          className={`inline-block whitespace-nowrap rounded-full px-2 py-1 text-sm font-semibold
+                        <td className="py-4 px-6">{index + 1}</td>
+
+                        <th
+                          scope="row"
+                          className="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
+                        >
+                          {phieuGiamGia.ma}
+                        </th>
+                        <td className="py-4 px-6">{phieuGiamGia.ten}</td>
+                        <td className="py-4 px-6">{phieuGiamGia.loaiPhieu}</td>
+                        <td className="py-4 px-6">{phieuGiamGia.soLuong}</td>
+                        <td className="py-4 px-6">
+                          {phieuGiamGia.tongTienToiThieu}
+                        </td>
+                        <td className="py-4 px-6">
+                          {moment(phieuGiamGia?.thoiGianBatDau).format(
+                            "DD/MM/YYYY"
+                          )}
+                        </td>
+                        <td className="py-4 px-6">
+                          {moment(phieuGiamGia?.thoiGianKetThuc).format(
+                            "DD/MM/YYYY"
+                          )}
+                        </td>
+                        <td className="px-4 py-6">
+                          <span
+                            className={`inline-block whitespace-nowrap rounded-full px-2 py-1 text-sm font-semibold
   ${
     phieuGiamGia.trangThai === "Đã kết thúc"
       ? "bg-gray-200 text-gray-700"
@@ -367,92 +352,87 @@ function TestComponent() {
       ? "bg-yellow-200 text-green-700"
       : "bg-blue-200 text-red-700"
   }`}
-                        >
-                          {phieuGiamGia.trangThai}
-                        </span>
-                      </td>
-                      <td className="py-4 px-6 text-right flex items-center justify-end">
-                        <Link
-                          to={`/manage/khuyen-mai/${phieuGiamGia.id}`}
-                          className="mr-5 font-medium text-light-blue-300 hover:underline dark:text-blue-500"
-                        >
-                          <FaEdit size={24} />
-                        </Link>
-                        <button
-                          className={classNames(
-                            "font-medium p-2 rounded-full hover:bg-red-100 dark:hover:bg-red-700 flex items-center justify-center",
-                            toggledRows.has(phieuGiamGia.id)
-                              ? "text-red-600 dark:text-red-500"
-                              : "text-gray-600 dark:text-gray-400"
-                          )}
-                          onClick={() => handleToggle(phieuGiamGia.id)}
-                          style={{ width: "40px", height: "40px" }} // Ensure the button has a fixed size
-                        >
-                          {toggledRows.has(phieuGiamGia.id) ? (
-                            <FaToggleOn size={24} />
-                          ) : (
-                            <FaToggleOff size={24} />
-                          )}
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                          >
+                            {phieuGiamGia.trangThai}
+                          </span>
+                        </td>
+                        <td className="py-4 px-6 text-right flex items-center justify-end">
+                          <Link
+                            to={`/manage/khuyen-mai/${phieuGiamGia.id}`}
+                            className="mr-5 font-medium text-light-blue-300 hover:underline dark:text-blue-500"
+                          >
+                            <FaEdit size={24} />
+                          </Link>
+                          <button
+                            className={classNames(
+                              "font-medium p-2 rounded-full hover:bg-red-100 dark:hover:bg-red-700 flex items-center justify-center",
+                              toggledRows.has(phieuGiamGia.id)
+                                ? "text-red-600 dark:text-red-500"
+                                : "text-gray-600 dark:text-gray-400"
+                            )}
+                            onClick={() => handleToggle(phieuGiamGia.id)}
+                            style={{ width: "40px", height: "40px" }} // Ensure the button has a fixed size
+                          >
+                            {toggledRows.has(phieuGiamGia.id) ? (
+                              <FaToggleOn size={24} />
+                            ) : (
+                              <FaToggleOff size={24} />
+                            )}
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
 
             <div className="mt-6 flex justify-center">
               <nav aria-label="Page navigation example">
-                <ul className="inline-flex -space-x-px">
+                <ul className="inline-flex items-center -space-x-px">
                   <li>
-                    {page === 1 ? (
-                      <span className="cursor-not-allowed rounded-l-lg border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 ">
-                        Previous
-                      </span>
-                    ) : (
-                      <Link
-                        className="rounded-l-lg border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 "
-                        to={`/students?page=${page - 1}`}
-                      >
-                        Previous
-                      </Link>
-                    )}
+                    <Link
+                      to={`/manage/khuyen-mai/list?page=${page - 1}`}
+                      className={classNames(
+                        "block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white",
+                        {
+                          "pointer-events-none opacity-50": page === 1,
+                        }
+                      )}
+                    >
+                      Previous
+                    </Link>
                   </li>
-                  {Array(totalPage)
-                    .fill(0)
-                    .map((_, index) => {
-                      const pageNumber = index + 1;
-                      const isActive = page === pageNumber;
-                      return (
-                        <li key={pageNumber}>
-                          <Link
-                            className={classNames(
-                              "border border-gray-300   py-2 px-3 leading-tight  hover:bg-gray-100 hover:text-gray-700 ",
-                              {
-                                "bg-gray-100 text-gray-700": isActive,
-                                "bg-white text-gray-500": !isActive,
-                              }
-                            )}
-                            to={`/students?page=${pageNumber}`}
-                          >
-                            {pageNumber}
-                          </Link>
-                        </li>
-                      );
-                    })}
+                  {Array.from({ length: totalPage }).map((_, index) => {
+                    const pageNumber = index + 1;
+                    return (
+                      <li key={pageNumber}>
+                        <Link
+                          to={`/manage/khuyen-mai/list?page=${pageNumber}`}
+                          className={classNames(
+                            "block py-2 px-3 leading-tight border border-gray-300 bg-white hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white",
+                            {
+                              "text-blue-600 bg-blue-50 dark:bg-gray-700 dark:text-white":
+                                pageNumber === page,
+                            }
+                          )}
+                        >
+                          {pageNumber}
+                        </Link>
+                      </li>
+                    );
+                  })}
                   <li>
-                    {page === totalPage ? (
-                      <span className="cursor-not-allowed rounded-r-lg border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 ">
-                        Next
-                      </span>
-                    ) : (
-                      <Link
-                        className="rounded-r-lg border border-gray-300 bg-white py-2 px-3 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 "
-                        to={`/students?page=${page + 1}`}
-                      >
-                        Next
-                      </Link>
-                    )}
+                    <Link
+                      to={`/manage/khuyen-mai/list?page=${page + 1}`}
+                      className={classNames(
+                        "block py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white",
+                        {
+                          "pointer-events-none opacity-50": page === totalPage,
+                        }
+                      )}
+                    >
+                      Next
+                    </Link>
                   </li>
                 </ul>
               </nav>

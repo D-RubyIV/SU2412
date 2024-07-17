@@ -37,7 +37,7 @@ export interface PhieuGiamGiaEntity {
   khachHangs: any[];
 }
 
-export type PhieuGiamGias = Pick<
+export type PhieuGiamGia = Pick<
   PhieuGiamGiaEntity,
   | "id"
   | "ma"
@@ -52,3 +52,19 @@ export type PhieuGiamGias = Pick<
   //   | "deleted"
   | "trangThai"
 >[];
+
+export interface PhieuGiamGias {
+  content: PhieuGiamGia[];
+  totalElements: number;
+  totalPages: number;
+  first: boolean;
+  last: boolean;
+  size: number;
+  number: number;
+  numberOfElements: number;
+  sort: {
+    sorted: boolean;
+    unsorted: boolean;
+    empty: boolean;
+  };
+}

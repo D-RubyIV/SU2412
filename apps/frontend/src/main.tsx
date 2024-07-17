@@ -16,7 +16,6 @@ import ManageProductDetailComponent from "./views/admin/ManageProductDetailCompo
 import ManageCustomerComponent from "./views/admin/ManageCustomerComponent.tsx";
 import ManageStaffComponent from "./views/admin/ManageStaffComponent.tsx";
 import { ThemeProvider } from "@material-tailwind/react";
-// import ListVoucher from "./views/admin/discount/ListVoucher.tsx";
 import NotFound from "./pages/NotFound/NotFound.tsx";
 import ManageVoucherComponent from "./views/admin/discount/ManageVoucherComponent.tsx";
 import { store } from "./redux/store.tsx";
@@ -26,11 +25,11 @@ import { Provider } from "react-redux";
 import BaseAdminComponentV2 from "./views/admin/BaseAdminComponent copy.tsx";
 import ManageBillComponent from "./pages/bill/ManageBillComponent.tsx";
 import ConfirmBillComponent from "./pages/bill/ConfirmBillComponent.tsx";
-import TestComponent from "./views/admin/discount/TestComponent.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import TestComponent from "./views/admin/discount/TestComponent.tsx";
 import AddVoucher from "./views/admin/discount/AddVoucher.tsx";
-import ListVoucher from "./pages/voucher/ListVoucher.tsx";
+
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter(
@@ -47,9 +46,8 @@ const router = createBrowserRouter(
           path="san-pham-chi-tiet"
           element={<ManageProductDetailComponent />}
         ></Route>
-        {/* <Route path="khuyen-mai" element={<AddVoucher />}></Route> */}
+        <Route path="khuyen-mai" element={<AddVoucher />}></Route>
         <Route path="khuyen-mai" element={<ManageVoucherComponent />}></Route>
-        <Route path="khuyen-mai/listVoucher" element={<ListVoucher />}></Route>
         <Route path="hoa-don">
           <Route path="" element={<ManageBillComponent />} />
           <Route path=":id" element={<ConfirmBillComponent />} />
