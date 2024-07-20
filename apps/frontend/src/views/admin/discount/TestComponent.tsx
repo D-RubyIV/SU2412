@@ -8,11 +8,12 @@ import {
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { FaEdit, FaToggleOff, FaToggleOn } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import classNames from "classnames";
 import { Button } from "@mui/material";
 import moment from "moment";
 const LIMIT = 5;
+const ITEMS_PER_PAGE = 5;
 
 function TestComponent() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -310,39 +311,40 @@ function TestComponent() {
                   </tr>
                 </thead>
                 <tbody className="text-sm text-black">
-                  {filteredData.length > 0 &&
-                    filteredData.map((phieuGiamGia, index) => (
-                      <tr
-                        key={phieuGiamGia.id}
-                        className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
-                      >
-                        <td className="py-4 px-6">{index + 1}</td>
+                  {data?.data.content.map((phieuGiamGia, index) => (
+                    <tr
+                      key={phieuGiamGia.id}
+                      className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
+                    >
+                      <td className="py-4 px-6">
+                        {(page - 1) * ITEMS_PER_PAGE + index + 1}
+                      </td>
 
-                        <th
-                          scope="row"
-                          className="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
-                        >
-                          {phieuGiamGia.ma}
-                        </th>
-                        <td className="py-4 px-6">{phieuGiamGia.ten}</td>
-                        <td className="py-4 px-6">{phieuGiamGia.loaiPhieu}</td>
-                        <td className="py-4 px-6">{phieuGiamGia.soLuong}</td>
-                        <td className="py-4 px-6">
-                          {phieuGiamGia.tongTienToiThieu}
-                        </td>
-                        <td className="py-4 px-6">
-                          {moment(phieuGiamGia?.thoiGianBatDau).format(
-                            "DD/MM/YYYY"
-                          )}
-                        </td>
-                        <td className="py-4 px-6">
-                          {moment(phieuGiamGia?.thoiGianKetThuc).format(
-                            "DD/MM/YYYY"
-                          )}
-                        </td>
-                        <td className="px-4 py-6">
-                          <span
-                            className={`inline-block whitespace-nowrap rounded-full px-2 py-1 text-sm font-semibold
+                      <th
+                        scope="row"
+                        className="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white"
+                      >
+                        {phieuGiamGia.ma}
+                      </th>
+                      <td className="py-4 px-6">{phieuGiamGia.ten}</td>
+                      <td className="py-4 px-6">{phieuGiamGia.loaiPhieu}</td>
+                      <td className="py-4 px-6">{phieuGiamGia.soLuong}</td>
+                      <td className="py-4 px-6">
+                        {phieuGiamGia.tongTienToiThieu}
+                      </td>
+                      <td className="py-4 px-6">
+                        {moment(phieuGiamGia?.thoiGianBatDau).format(
+                          "DD/MM/YYYY"
+                        )}
+                      </td>
+                      <td className="py-4 px-6">
+                        {moment(phieuGiamGia?.thoiGianKetThuc).format(
+                          "DD/MM/YYYY"
+                        )}
+                      </td>
+                      <td className="px-4 py-6">
+                        <span
+                          className={`inline-block whitespace-nowrap rounded-full px-2 py-1 text-sm font-semibold
   ${
     phieuGiamGia.trangThai === "Đã kết thúc"
       ? "bg-gray-200 text-gray-700"
@@ -352,36 +354,36 @@ function TestComponent() {
       ? "bg-yellow-200 text-green-700"
       : "bg-blue-200 text-red-700"
   }`}
-                          >
-                            {phieuGiamGia.trangThai}
-                          </span>
-                        </td>
-                        <td className="py-4 px-6 text-right flex items-center justify-end">
-                          <Link
-                            to={`/manage/khuyen-mai/${phieuGiamGia.id}`}
-                            className="mr-5 font-medium text-light-blue-300 hover:underline dark:text-blue-500"
-                          >
-                            <FaEdit size={24} />
-                          </Link>
-                          <button
-                            className={classNames(
-                              "font-medium p-2 rounded-full hover:bg-red-100 dark:hover:bg-red-700 flex items-center justify-center",
-                              toggledRows.has(phieuGiamGia.id)
-                                ? "text-red-600 dark:text-red-500"
-                                : "text-gray-600 dark:text-gray-400"
-                            )}
-                            onClick={() => handleToggle(phieuGiamGia.id)}
-                            style={{ width: "40px", height: "40px" }} // Ensure the button has a fixed size
-                          >
-                            {toggledRows.has(phieuGiamGia.id) ? (
-                              <FaToggleOn size={24} />
-                            ) : (
-                              <FaToggleOff size={24} />
-                            )}
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
+                        >
+                          {phieuGiamGia.trangThai}
+                        </span>
+                      </td>
+                      <td className="py-4 px-6 text-right flex items-center justify-end">
+                        <Link
+                          to={`/manage/khuyen-mai/${phieuGiamGia.id}`}
+                          className="mr-5 font-medium text-light-blue-300 hover:underline dark:text-blue-500"
+                        >
+                          <FaEdit size={24} />
+                        </Link>
+                        <button
+                          className={classNames(
+                            "font-medium p-2 rounded-full hover:bg-red-100 dark:hover:bg-red-700 flex items-center justify-center",
+                            toggledRows.has(phieuGiamGia.id)
+                              ? "text-red-600 dark:text-red-500"
+                              : "text-gray-600 dark:text-gray-400"
+                          )}
+                          onClick={() => handleToggle(phieuGiamGia.id)}
+                          style={{ width: "40px", height: "40px" }} // Ensure the button has a fixed size
+                        >
+                          {toggledRows.has(phieuGiamGia.id) ? (
+                            <FaToggleOn size={24} />
+                          ) : (
+                            <FaToggleOff size={24} />
+                          )}
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
