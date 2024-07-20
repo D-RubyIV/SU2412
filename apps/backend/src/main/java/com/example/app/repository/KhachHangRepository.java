@@ -16,6 +16,10 @@ public interface KhachHangRepository extends JpaRepository<KhachHang, Integer> {
     @Query("SELECT kh FROM KhachHang kh WHERE kh.hoTen LIKE %?1% OR kh.soDienThoai LIKE %?1%")
     List<KhachHang> findByHoTenOrSoDienThoai(String keyword);
 
-//    @Query("SELECT kh FROM KhachHang kh WHERE kh.hoTen = ?1 AND kh.soDienThoai = ?2")
-//    List<KhachHang> findByHoTenAndSoDienThoai(String hoTen, String soDienThoai);
+    @Query("SELECT kh FROM KhachHang kh WHERE (kh.hoTen LIKE %?1% OR kh.soDienThoai LIKE %?1%) AND kh.trangThai = ?2")
+    List<KhachHang> findByHoTenOrSoDienThoaiAndTrangThai(String keyword, String trangThai);
+
+    @Query("SELECT kh FROM KhachHang kh WHERE kh.trangThai = ?1")
+    List<KhachHang> findByTrangThai(String trangThai);
+
 }

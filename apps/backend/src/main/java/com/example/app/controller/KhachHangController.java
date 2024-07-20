@@ -2,6 +2,7 @@ package com.example.app.controller;
 
 import com.example.app.entity.DiaChiNhan;
 import com.example.app.entity.KhachHang;
+import com.example.app.repository.KhachHangRepository;
 import com.example.app.service.KhachHangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,19 +23,22 @@ public class KhachHangController {
         return ResponseEntity.ok(createdKhachHang);
     }
 
-//    @GetMapping("/{hoTen}/{soDienThoai}")
-//    public ResponseEntity<List<KhachHang>> getAllKhachHangHoTenAndSoDienThoai(@PathVariable String hoTen, @PathVariable String soDienThoai) {
-//        List<KhachHang> khachHangs = khachHangService.findByHoTenAndSoDienThoai(hoTen, soDienThoai);
-//        return ResponseEntity.ok(khachHangs);
-//    }
-
-
     @GetMapping("/search")
-    public ResponseEntity<List<KhachHang>> searchKhachHangs(
-            @RequestParam(required = false) String keyword) {
+    public ResponseEntity<List<KhachHang>> searchKhachHang(
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) String trangThai) {
 
-        List<KhachHang> khachHangs = khachHangService.findByHoTenOrSoDienThoai(keyword);
-        return ResponseEntity.ok(khachHangs);
+        List<KhachHang> result;
+        if (keyword != null && !keyword.isEmpty() && trangThai != null && !trangThai.equals("all")) {
+            result = khachHangService.findByHoTenOrSoDienThoaiAndTrangThai(keyword, trangThai);
+        } else if (keyword != null && !keyword.isEmpty()) {
+            result = khachHangService.findByHoTenOrSoDienThoai(keyword);
+        } else if (trangThai != null && !trangThai.equals("all")) {
+            result = khachHangService.findByTrangThai(trangThai);
+        } else {
+            result = khachHangService.getAllKhachHang();
+        }
+        return ResponseEntity.ok(result);
     }
 
 

@@ -12,6 +12,7 @@ import org.antlr.v4.runtime.misc.NotNull;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "khach_hang")
@@ -42,10 +43,11 @@ public class KhachHang extends BaseEntity {
     @NotNull
     private String hoTen;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private LocalDateTime ngaySinh;
 
     private String trangThai;
+
 
     private Boolean deleted = false;
 
@@ -53,5 +55,14 @@ public class KhachHang extends BaseEntity {
     @JoinColumn
     private DiaChiNhan diaChiNhan;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "province_Id")
+    private Province province;
 
+
+
+    @PrePersist
+    private void generateMa() {
+        this.ma = UUID.randomUUID().toString();
+    }
 }

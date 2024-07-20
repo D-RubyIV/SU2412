@@ -3,6 +3,7 @@ type KhachHangEntity = {
   ma: string;
   hoTen: string;
   email: string;
+  gioiTinh: boolean;
   soDienThoai: string;
   ngaySinh: Date;
   trangThai: string;

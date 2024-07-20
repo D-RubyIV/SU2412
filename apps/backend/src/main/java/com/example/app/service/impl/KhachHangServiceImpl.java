@@ -34,7 +34,6 @@ public class KhachHangServiceImpl implements KhachHangService {
     @Override
     public KhachHang updateKhachHang(Integer id, KhachHang khachHang) {
         KhachHang existKhachHang = khachHangRepository.findById(id).orElseThrow(() -> new RuntimeException("KhachHang not found"));
-        existKhachHang.setMa(khachHang.getMa());
         existKhachHang.setEmail(khachHang.getEmail());
         existKhachHang.setPassword(khachHang.getPassword());
         existKhachHang.setGioiTinh(khachHang.isGioiTinh());
@@ -66,9 +65,15 @@ public class KhachHangServiceImpl implements KhachHangService {
         return khachHangRepository.findByHoTenOrSoDienThoai(keyword);
     }
 
-//    @Override
-//    public List<KhachHang> findByHoTenAndSoDienThoai(String hoTen, String soDienThoai) {
-//        return khachHangRepository.findByHoTenAndSoDienThoai(hoTen, soDienThoai);
-//    }
+    @Override
+    public List<KhachHang> findByHoTenOrSoDienThoaiAndTrangThai(String keyword, String trangThai) {
+        return khachHangRepository.findByHoTenOrSoDienThoaiAndTrangThai(keyword, trangThai);
+    }
+
+    @Override
+    public List<KhachHang> findByTrangThai(String trangThai) {
+        return khachHangRepository.findByTrangThai(trangThai);
+    }
+
 
 }

@@ -18,9 +18,14 @@ public interface KhachHangService {
 
     void deleteKhachHangById(Integer id);
 
-    List<KhachHang>findAllWithDiaChiNhans();
+    List<KhachHang> findAllWithDiaChiNhans();
 
     List<KhachHang> findByHoTenOrSoDienThoai(String keyword);
 
-//    List<KhachHang> findByHoTenAndSoDienThoai(String hoTen, String soDienThoai);
+
+    List<KhachHang> findByHoTenOrSoDienThoaiAndTrangThai(String keyword, String trangThai);
+
+
+    List<KhachHang> findByTrangThai(String trangThai);
+
 }
