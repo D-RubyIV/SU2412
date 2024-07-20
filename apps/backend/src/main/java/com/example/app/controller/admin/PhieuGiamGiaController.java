@@ -2,6 +2,7 @@ package com.example.app.controller.admin;
 
 import com.example.app.entity.PhieuGiamGia;
 import com.example.app.model.request.PhieuGiamGiaRequest;
+import com.example.app.model.response.PageResponse;
 import com.example.app.model.response.PhieuGiamGiaResponse;
 import com.example.app.service.PhieuGiamGiaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +35,11 @@ public class PhieuGiamGiaController {
     }
 
     @GetMapping("/get-page")
-    public ResponseEntity getPage(
+    public ResponseEntity<PageResponse<PhieuGiamGiaResponse>> getPage(
             @RequestParam(value = "_page", defaultValue = "1") int page,
             @RequestParam(value = "_limit", defaultValue = "5") int limit) {
-        return new ResponseEntity<>(phieuGiamGiaService.getPagePhieuGiamGia(page, limit), HttpStatus.OK);
+        PageResponse<PhieuGiamGiaResponse> pageResponse = phieuGiamGiaService.getPagePhieuGiamGia(page, limit);
+        return ResponseEntity.ok(pageResponse);
     }
 
     @GetMapping("/test/get-all")

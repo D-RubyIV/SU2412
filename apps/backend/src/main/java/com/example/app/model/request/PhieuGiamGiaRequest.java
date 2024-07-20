@@ -48,7 +48,7 @@ public class PhieuGiamGiaRequest {
     @NotNull(message = "Vui Lòng chọn loại phiếu")
     private TypePhieuGiamGia loaiPhieu;
 
-    private Boolean deleted;
+    private Boolean deleted = false;
 
     @NotNull(message = "Vui lòng chọn ít nhất một khách hàng")
     private List<String> khachHangs;

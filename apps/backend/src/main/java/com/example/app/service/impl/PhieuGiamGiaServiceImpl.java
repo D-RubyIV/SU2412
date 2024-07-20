@@ -9,6 +9,7 @@ import com.example.app.infrastructure.common.AutoGenCode;
 import com.example.app.infrastructure.constant.PaginationConstant;
 import com.example.app.infrastructure.converted.PhieuGiamGiaConvert;
 import com.example.app.model.request.PhieuGiamGiaRequest;
+import com.example.app.model.response.PageResponse;
 import com.example.app.model.response.PhieuGiamGiaResponse;
 import com.example.app.repository.KhachHangRepository;
 import com.example.app.repository.PhieuGiamGiaRepository;
@@ -56,12 +57,41 @@ public class PhieuGiamGiaServiceImpl implements PhieuGiamGiaService {
         return phieuGiamGiaRepository.getAll();
     }
 
-    @Override
-    public Page<PhieuGiamGiaResponse> getPagePhieuGiamGia(int page, int limit) {
-        Pageable pageable = PageRequest.of(page -1, PaginationConstant.DEFAULT_SIZE);
-        Page<PhieuGiamGiaResponse> res = phieuGiamGiaRepository.getPagePhieuGiamGia(pageable);
-        return res;
-    }
+//    @Override
+//    public PageResponse<PhieuGiamGiaResponse> getPagePhieuGiamGia(int page, int limit) {
+//        Pageable pageable = PageRequest.of(page - 1, limit);
+//        Page<PhieuGiamGiaResponse> phieuGiamGiaPage = phieuGiamGiaRepository.getPagePhieuGiamGia(pageable);
+//
+//        List<PhieuGiamGiaResponse> content = phieuGiamGiaPage.getContent();
+//
+//        return new PageResponse<>(
+//                content,
+//                phieuGiamGiaPage.getNumber() + 1,
+//                phieuGiamGiaPage.getSize(),
+//                phieuGiamGiaPage.getTotalElements(),
+//                phieuGiamGiaPage.getTotalPages()
+//        );
+//    }
+@Override
+public PageResponse<PhieuGiamGiaResponse> getPagePhieuGiamGia(int page, int limit) {
+
+
+    // Sử dụng Pageable với offset
+    Pageable pageable = PageRequest.of(page - 1, limit);
+
+    // Gọi repository với offset
+    Page<PhieuGiamGiaResponse> phieuGiamGiaPage = phieuGiamGiaRepository.getPagePhieuGiamGia(pageable);
+
+    List<PhieuGiamGiaResponse> content = phieuGiamGiaPage.getContent();
+
+    return new PageResponse<>(
+            content,
+            phieuGiamGiaPage.getNumber() + 1,  // Số trang hiện tại
+            phieuGiamGiaPage.getSize(),        // Kích thước trang
+            phieuGiamGiaPage.getTotalElements(),  // Tổng số phần tử
+            phieuGiamGiaPage.getTotalPages()     // Tổng số trang
+    );
+}
 
     @Override
     public PhieuGiamGiaResponse findPhieuGiamGiaById(Integer id) {
@@ -175,6 +205,7 @@ public class PhieuGiamGiaServiceImpl implements PhieuGiamGiaService {
 
         return phieuGiamGiaSave;
     }
+
 
     @Override
     public List<PhieuGiamGia> getAllVer2() {

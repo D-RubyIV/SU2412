@@ -52,8 +52,8 @@ public interface PhieuGiamGiaRepository extends JpaRepository<PhieuGiamGia, Inte
     List<PhieuGiamGiaResponse> getAll();
 
     @Query(value = """
-                SELECT 
-                    pgg.id as 'id',
+            SELECT 
+               pgg.id as 'id',
                     pgg.ma as 'ma',
                     pgg.ten as 'ten',
                     pgg.loaiPhieu as 'loaiPhieu' , 
@@ -61,9 +61,17 @@ public interface PhieuGiamGiaRepository extends JpaRepository<PhieuGiamGia, Inte
                       pgg.trangThai ,
                     pgg.thoiGianBatDau ,pgg.thoiGianKetThuc ,pgg.tongTienToiThieu,
                     pgg.phanTramToiDa  
-                FROM
-                    phieu_giam_gia AS pgg WHERE pgg.deleted = 0
-            """, nativeQuery = true)
+            FROM
+                phieu_giam_gia pgg 
+            WHERE 
+                pgg.deleted = 0
+        """,
+            countQuery = """
+            SELECT COUNT(*) 
+            FROM phieu_giam_gia pgg 
+            WHERE pgg.deleted = 0
+        """,
+            nativeQuery = true)
     Page<PhieuGiamGiaResponse> getPagePhieuGiamGia(Pageable pageable);
 
 //    @Query(value = """
