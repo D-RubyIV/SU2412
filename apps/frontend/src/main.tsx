@@ -21,7 +21,8 @@ import { ToastContainer } from "react-toastify";
 import { Provider } from "react-redux";
 import BaseAdminComponentV2 from './views/admin/BaseAdminComponent copy.tsx'
 import ManageBillComponent from './pages/bill/ManageBillComponent.tsx'
-import ConfirmBillComponent from './pages/bill/ConfirmBillComponent.tsx'import AddNhanVien from './views/admin/Staff/AddNhanVien.tsx'
+import ConfirmBillComponent from './pages/bill/ConfirmBillComponent.tsx'
+import AddNhanVien from './views/admin/Staff/AddNhanVien.tsx'
 import UpdateNhanVien from './views/admin/Staff/UpdateNhanVien.tsx'
 // import QuetCCCD from './views/admin/Staff/QuetCCCD.tsx'
 
