@@ -60,4 +60,14 @@ public class HoaDonController {
     ) throws BadRequestException {
         return ResponseEntity.ok(hoaDonService.updateTranThaiHoaDon(id, trangThaiHoaDons, note));
     }
+
+    @PostMapping("/update-address/{id}")
+    public ResponseEntity<HoaDon> updateAddress(
+            @PathVariable("id") int id,
+            @RequestParam(value = "tenNguoiNhan", defaultValue = "") String tenNguoiNhan,
+            @RequestParam(value = "diaChiNhan", defaultValue = "") String diaChiNhan,
+            @RequestParam(value = "soDienThoaiNhan", defaultValue = "") String soDienThoaiNhan
+    ) throws BadRequestException {
+        return ResponseEntity.ok(hoaDonService.updateDiachiHoaDon(id, tenNguoiNhan, diaChiNhan, soDienThoaiNhan));
+    }
 }

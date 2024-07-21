@@ -13,7 +13,7 @@ type BillHistory = {
     createAt: string;
     updateAt: string;
     hoaDon: HoaDonEntity,
-    eTrangThaiHoaDon: ETrangThaiHoaDon,
+    trangThaiDonHang: ETrangThaiHoaDon,
     note: string
 }
 
@@ -30,6 +30,27 @@ const HistoryBillComponent = ({ id, onClose }: { id: number, onClose: React.Disp
     useEffect(() => {
         fecthData();
     }, [])
+
+    const getStatusClassName = (status: ETrangThaiHoaDon) => {
+        switch (status) {
+            case ETrangThaiHoaDon.CHO_XAC_NHAN:
+                return 'bg-yellow-200';
+            case ETrangThaiHoaDon.CHO_GIAO_HANG:
+                return 'bg-orange-200';
+            case ETrangThaiHoaDon.DANG_GIAO:
+                return 'bg-blue-200';
+            case ETrangThaiHoaDon.DA_HOAN_THANH:
+                return 'bg-green-200';
+            case ETrangThaiHoaDon.DA_HUY:
+                return 'bg-red-200';
+            case ETrangThaiHoaDon.DA_THANH_TOAN:
+                return 'bg-purple-200';
+            case ETrangThaiHoaDon.DA_XAC_NHAN:
+                return 'bg-lightgreen-200';
+            default:
+                return '';
+        }
+    }
 
     return (
         <Fragment>
@@ -52,10 +73,12 @@ const HistoryBillComponent = ({ id, onClose }: { id: number, onClose: React.Disp
                             <tbody>
                                 {billHistorys?.map((item, index) => (
                                     <Fragment key={index}>
-                                        <tr>
+                                        <tr className={getStatusClassName(item.trangThaiDonHang)}>
                                             <td>{index + 1}</td>
-                                            <td>{format(item.createAt.toString(), 'HH:mm dd/MM/yyyy')}</td>
-                                            <td>{item.hoaDon.trangThai}</td>
+                                            <td>{format(new Date(item.createAt), 'HH:mm dd/MM/yyyy')}</td>
+                                            <td >
+                                                <p>{item.trangThaiDonHang}</p>
+                                            </td>
                                             <td>{item.note}</td>
                                         </tr>
                                     </Fragment>
@@ -71,3 +94,4 @@ const HistoryBillComponent = ({ id, onClose }: { id: number, onClose: React.Disp
 }
 
 export default HistoryBillComponent;
+

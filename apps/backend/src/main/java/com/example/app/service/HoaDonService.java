@@ -63,4 +63,13 @@ public class HoaDonService {
         lichSuDatHangService.create(eTrangThaiHoaDon, hoaDon, note);
         return hoaDon;
     }
+
+    public HoaDon updateDiachiHoaDon(int id, String tenNguoiNhan, String diaChiNhan, String soDienThoaiNhan) throws BadRequestException {
+        HoaDon hoaDon = hoaDonRepository.findById(id).orElseThrow(() -> new BadRequestException("Không tìm được hóa đơn"));
+        hoaDon.setTenNguoiNhan(tenNguoiNhan);
+        hoaDon.setDiaChiNhan(diaChiNhan);
+        hoaDon.setSoDienThoaiNhan(soDienThoaiNhan);
+        hoaDonRepository.save(hoaDon);
+        return hoaDon;
+    }
 }

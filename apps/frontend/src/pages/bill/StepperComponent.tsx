@@ -66,7 +66,7 @@ const StepperComponent = ({ hoaDon, refreshBill }: { hoaDon: HoaDonEntity, refre
 
     return (
         <Fragment>
-            <div className="overflow-auto">
+            <div className="overflow-auto text-sm font-semibold text-gray-700">
                 <div className="px-4 py-4 flex gap-16 justify-center ">
                     {lichSuDonHangs.length > 0 && lichSuDonHangs.map((item, index) => (
                         <Fragment key={index}>
@@ -95,46 +95,46 @@ const StepperComponent = ({ hoaDon, refreshBill }: { hoaDon: HoaDonEntity, refre
                     }
                 </div>
             </div>
-            <div>
+            <div className="text-sm font-semibold text-gray-800">
                 {
                     hoaDon.trangThai === ETrangThaiHoaDon.CHO_XAC_NHAN
                     && (
                         <div>
-                            <button className="bg-indigo-200 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.DA_HUY) }}>Hủy</button>
-                            <button className="bg-indigo-200 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.DA_XAC_NHAN) }}>Xác nhận</button>
+                            <button className="ring-1 ring-red-500 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.DA_HUY) }}>Hủy</button>
+                            <button className="ring-1 ring-indigo-500 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.DA_XAC_NHAN) }}>Xác nhận</button>
                         </div>
                     ) ||
                     hoaDon.trangThai === ETrangThaiHoaDon.DA_XAC_NHAN
                     && (
                         <div>
-                            <button className="bg-indigo-200 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.CHO_XAC_NHAN) }}>Quay lại</button>
-                            <button className="bg-indigo-200 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.DANG_GIAO) }}>Xác nhận giao hàng</button>
+                            <button className="ring-1 ring-red-500 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.CHO_XAC_NHAN) }}>Quay lại</button>
+                            <button className="ring-1 ring-indigo-500 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.DANG_GIAO) }}>Xác nhận giao hàng</button>
                         </div>
                     ) ||
                     hoaDon.trangThai === ETrangThaiHoaDon.DANG_GIAO
                     && (
                         <div>
-                            <button className="bg-indigo-200 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.DA_XAC_NHAN) }}>Quay lại</button>
-                            <button className="bg-indigo-200 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.DA_THANH_TOAN) }}>Xác nhận thanh toán</button>
+                            <button className="ring-1 ring-red-500 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.DA_XAC_NHAN) }}>Quay lại</button>
+                            <button className="ring-1 ring-indigo-500 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.DA_THANH_TOAN) }}>Xác nhận thanh toán</button>
                         </div>
                     ) ||
                     hoaDon.trangThai === ETrangThaiHoaDon.DA_THANH_TOAN
                     && (
                         <div>
-                            <button className="bg-indigo-200 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.DANG_GIAO) }}>Quay lại</button>
-                            <button className="bg-indigo-200 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.DA_HOAN_THANH) }}>Xác nhận hoàn thành</button>
+                            <button className="ring-1 ring-red-500 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.DANG_GIAO) }}>Quay lại</button>
+                            <button className="ring-1 ring-indigo-500 p-1 px-2 text-sm rounded-md me-4" onClick={() => { handleUpdateStepBill(ETrangThaiHoaDon.DA_HOAN_THANH) }}>Xác nhận hoàn thành</button>
                         </div>
                     ) ||
                     hoaDon.trangThai === ETrangThaiHoaDon.DA_HOAN_THANH
                     && (
                         <div>
-                            <span className="bg-indigo-200 p-1 px-2 text-sm rounded-md me-4" >Hoàn Thành</span>
+                            <span className="ring-1 bg-green-500 p-1 px-2 text-sm rounded-md me-4" >Hoàn Thành</span>
                         </div>
                     ) ||
                     hoaDon.trangThai === ETrangThaiHoaDon.DA_HUY
                     && (
                         <div>
-                            <span className="bg-indigo-200 p-1 px-2 text-sm rounded-md me-4" >Đã hủy</span>
+                            <span className="ring-1 bg-red-500 p-1 px-2 text-sm rounded-md me-4" >Đã hủy</span>
                         </div>
                     )
                 }

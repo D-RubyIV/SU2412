@@ -4,13 +4,48 @@ import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { instance } from "../../axios/instance";
 import PagenateComponent from "../../views/admin/pagination/PagenateComponent";
-import { HoaDonChiTietEntity } from "../../types/HoaDonChiTietEntity";
 import { HoaDonEntity } from "../../types/HoaDonEntity";
-import { Input } from "../../components/input";
-import { CloseOutlined, Search } from "@mui/icons-material";
+import { CloseOutlined, MoreOutlined, Search } from "@mui/icons-material";
 import MinimumDistanceSlider from "../../components/slider/MinimumDistanceSlider";
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import { ETrangThaiHoaDon } from "../../enum/ETrangThaiHoaDon";
+import { ELoaiHoaDon } from "../../enum/ELoaiHoaDon";
 // stt, mahoadon, manhanvien, tên khach hang, 
+
+const getStatusClassName = (status: any) => {
+    switch (status) {
+        case ETrangThaiHoaDon.CHO_XAC_NHAN:
+            return 'bg-yellow-200';
+        case ETrangThaiHoaDon.CHO_GIAO_HANG:
+            return 'bg-orange-200';
+        case ETrangThaiHoaDon.DANG_GIAO:
+            return 'bg-blue-200';
+        case ETrangThaiHoaDon.DA_HOAN_THANH:
+            return 'bg-green-200';
+        case ETrangThaiHoaDon.DA_HUY:
+            return 'bg-red-200';
+        case ETrangThaiHoaDon.DA_THANH_TOAN:
+            return 'bg-purple-200';
+        case ETrangThaiHoaDon.DA_XAC_NHAN:
+            return 'bg-blue-100';
+        default:
+            return '';
+    }
+}
+
+
+const getStatusClassNameTypeBill = (status: any) => {
+    console.log(status)
+    switch (status) {
+        case ELoaiHoaDon.ONLINE:
+            return 'bg-yellow-200';
+        case ELoaiHoaDon.TAI_QUAY:
+            return 'bg-orange-200';
+        default:
+            return '';
+    }
+}
+
 
 interface TypeBill {
     name: string,
@@ -113,60 +148,48 @@ const ManageBillComponent = () => {
 
     return (
         <Fragment>
+            <div className="">
+                <div className="flex justify-between items-center py-2 ">
+                    <span className="text-xl font-semibold">Bộ lọc</span>
+                </div>
+                <div className="bg-white border-2 shadow-md rounded-md text-black">
 
-            {
-                isOpenModal && (
-                    <div className="fixed inset-0 flex items-center justify-center z-40 bg-black bg-opacity-50">
-                        <div className="bg-white border-2 shadow-md w-6/12 p-4 rounded-md text-black">
-                            <div className="flex justify-between items-center py-2 border-b-4">
-                                <span className="text-xl font-semibold">Bộ lọc</span>
-                                <button onClick={() => setIsOpenModal(false)}><CloseOutlined /></button>
-                            </div>
-                            <div>
-                                <div className="w-full">
-                                    <label className="text-gray-600">Khoảng tiền</label>
-                                    <MinimumDistanceSlider currentValue={minMax} min={0} max={100000000} setMinMax={setMinMax}></MinimumDistanceSlider>
-                                </div>
-                            </div>
-                            <div>
-                                <label className="text-gray-600">Ngày tạo</label>
-                                <div className="grid grid-cols-2 gap-10 py-4">
-
-                                    <div className="flex gap-2 justify-between">
-                                        <label className="text-sm">Từ:</label>
-                                        <input
-                                            type="datetime-local"
-                                            className="text-[13.5px] bg-transparent"
-                                            value={startDate}
-                                            onChange={handleStartDateChange}
-                                        />
-                                    </div>
-                                    <div className="flex gap-2 justify-between items-center">
-                                        <label className="text-sm">Đến:</label>
-                                        <input
-                                            type="datetime-local"
-                                            className="text-[13.5px] bg-transparent"
-                                            value={endDate}
-                                            onChange={handleEndDateChange}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            <label className="text-gray-600">Khác</label>
-                            <div className="grid grid-cols-2 gap-10 py-4">
-                                <div className="flex gap-2 justify-between items-center">
-                                    <label className="text-sm">Loại hóa đơn: </label>
-                                    <select className="bg-transparent" onChange={(el) => setloaiHoaDon(el.target.value)}>
-                                        <option value={""}>Tất cả</option>
-                                        <option value={"ONLINE"}>Online</option>
-                                        <option value={"TAI_QUAY"}>Tại quầy</option>
-                                    </select>
-                                </div>
+                    <div className="grid grid-cols-2 gap-5 py-2 px-1 items-center">
+                        <div>
+                            <div className="w-full flex">
+                                <MinimumDistanceSlider currentValue={minMax} min={0} max={100000000} setMinMax={setMinMax}></MinimumDistanceSlider>
                             </div>
                         </div>
+                        <div className="flex gap-2 justify-left items-center">
+                            <label className="text-sm">Loại hóa đơn: </label>
+                            <select className="bg-transparent" onChange={(el) => setloaiHoaDon(el.target.value)}>
+                                <option value={""}>Tất cả</option>
+                                <option value={"ONLINE"}>Online</option>
+                                <option value={"TAI_QUAY"}>Tại quầy</option>
+                            </select>
+                        </div>
+                        <div className="flex gap-2 justify-left">
+                            <label className="text-sm">Từ:</label>
+                            <input
+                                type="datetime-local"
+                                className="text-[13.5px] bg-transparent"
+                                value={startDate}
+                                onChange={handleStartDateChange}
+                            />
+                        </div>
+                        <div className="flex gap-2 justify-left items-center">
+                            <label className="text-sm">Đến:</label>
+                            <input
+                                type="datetime-local"
+                                className="text-[13.5px] bg-transparent"
+                                value={endDate}
+                                onChange={handleEndDateChange}
+                            />
+                        </div>
                     </div>
-                )
-            }
+
+                </div>
+            </div>
 
             <div>
                 <div>
@@ -177,10 +200,6 @@ const ManageBillComponent = () => {
                         <input onBlur={handleBlur} onChange={(el) => setKey(el.target.value)} className="text-sm w-full outline-none" placeholder="Nhập từ khóa tìm kiếm"></input>
                         <button className="hover:bg-gray-500 rounded-full"><Search /></button>
                     </div>
-                    <div className="p-2">
-                        <button onClick={() => setIsOpenModal(true)}><FilterAltIcon /></button>
-                    </div>
-
                 </div>
 
                 <div className="flex justify-evenly py-1 border-2">
@@ -216,19 +235,22 @@ const ManageBillComponent = () => {
                                     <td className="py-3">{item.nhanVien?.ma || "null"}</td>
                                     <td className="py-3">{item.khachHang?.ma || "null"}</td>
                                     <td className="py-3">{item.khachHang?.hoTen || "null"}</td>
-                                    <td className="py-3">{item.loaiHoaDon}</td>
+                                    <td className={`py-2`}>
+                                        <span className={`w-full font-semibold p-2 rounded-2xl border-2 ${getStatusClassNameTypeBill(item.loaiHoaDon)}`}>
+                                            {item.loaiHoaDon}
+                                        </span>
+                                    </td>
                                     <td className="py-3">{item.tongTien.toLocaleString("vi-VN")}</td>
                                     <td className="py-3">{format(item.createAt.toString(), 'HH:mm dd/MM/yyyy')}</td>
                                     {/* <td className="py-2">{format(item.ngayDatHang.toString(), 'HH:m dd/MM/yyyy')}</td> */}
-
                                     <td className={`py-2`}>
-                                        <span className={`w-full font-semibold`}>
+                                        <span className={`w-full font-semibold p-2 rounded-2xl border-2 ${getStatusClassName(item.trangThai)}`}>
                                             {item.trangThai}
                                         </span>
                                     </td>
                                     {/* <td className="py-2">{item.giaoHang ? "Có" : "Không"}</td> */}
                                     <td>
-                                        <Link to={`${item.id}`} className="underline underline-offset-2 text-blue-500">Xem chi tiết</Link>
+                                        <Link to={`${item.id}`} className="underline underline-offset-2 text-blue-500"><MoreOutlined /></Link>
                                     </td>
                                 </tr>
                             ))}
@@ -244,5 +266,3 @@ const ManageBillComponent = () => {
 }
 
 export default ManageBillComponent;
-// http://localhost:8080/api/bills?startDate=2021-01-01T00:00:00&endDate=2024-12-31T23:59:59
-// http://localhost:8080/api/bills?startDate=2024-07-05T13:25

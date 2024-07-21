@@ -5,10 +5,10 @@ import { HoaDonEntity } from "../../types/HoaDonEntity";
 const ThongTinDonHangComponent = ({ hoaDon }: { hoaDon: HoaDonEntity }) => {
     return (
         <Fragment>
-            <div className="text-[12.5px]">
-                <div className="text-sm w-full py-4 grid grid-cols-3">
+            <div className="text-sm font-semibold text-gray-700">
+                <div className="w-full py-4 grid grid-cols-3">
                     <div >
-                        <span>Thông tin đơn hàng - Mã đơn:</span>
+                        <span>Mã đơn:</span>
                         {" "}
                         <span>{hoaDon?.ma}</span>
                     </div>
@@ -22,6 +22,27 @@ const ThongTinDonHangComponent = ({ hoaDon }: { hoaDon: HoaDonEntity }) => {
                         {" "}
                         <span>{hoaDon?.loaiHoaDon}</span>
                     </div>
+                    <div>
+                        <span>Hình thức thanh toán:</span>
+                        {" "}
+                        <span>{hoaDon?.hinhThucThanhToan?.ten}</span>
+                    </div>
+                    <div>
+                        <span>Tên người nhận:</span>
+                        {" "}
+                        <span>{hoaDon?.tenNguoiNhan}</span>
+                    </div>
+
+                    <div>
+                        <span>SDT nhận:</span>
+                        {" "}
+                        <span>{hoaDon?.soDienThoaiNhan}</span>
+                    </div>
+                </div>
+                <div>
+                    <span>Địa chỉ nhận:</span>
+                    {" "}
+                    <span>{hoaDon?.diaChiNhan}</span>
                 </div>
             </div>
         </Fragment>

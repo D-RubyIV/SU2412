@@ -31,10 +31,6 @@ public class KhachHang extends BaseEntity{
     private String trangThai;
     private Boolean deleted = false;
 
-    @JsonBackReference
-    @ManyToMany(mappedBy = "khachHangs")
-    private Set<PhieuGiamGia> phieuGiamGias;
-
     @ManyToOne
     @JoinColumn
     private DiaChiNhan diaChiNhan;

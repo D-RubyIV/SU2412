@@ -23,8 +23,7 @@ public class HoaDon extends BaseEntity{
     private Double tongTien;
     private Double tongTienSauGiam;
 
-    private String soDienThoaiNguoiShip;
-    private String tenNguoiShip;
+    private String tenNguoiNhan;
     private String diaChiNhan;
     private String soDienThoaiNhan;
 

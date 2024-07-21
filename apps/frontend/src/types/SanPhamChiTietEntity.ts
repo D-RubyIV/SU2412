@@ -1,11 +1,8 @@
-import { ChiTietChatLieuEntity } from "./ChiTietChatLieuEntity ";
-import { ChiTietHoaTietEntity } from "./ChiTietHoaTietEntity";
-import { ChiTietKieuDangEntity } from "./ChiTietKieuDangEntity";
-import { ChiTietXuatXuEntity } from "./ChiTietXuatXuEntity";
 import { HinhAnhEntity } from "./HinhAnhEntity";
 import { KichThuocEntity } from "./KichThuocEntity";
 import { LoaiEntity } from "./LoaiEntity";
 import { MauSacEntity } from "./MauSacEntity";
+import { NuocSanXuatEntity } from "./NuocSanXuatEntity";
 import { SanPhamEntity } from "./SanPhamEntity";
 
 export type SanPhamChiTietEntity = {
@@ -23,10 +20,7 @@ export type SanPhamChiTietEntity = {
     mauSac: MauSacEntity;
     kichThuoc: KichThuocEntity;
     loai: LoaiEntity;
-    chiTietHoaTiet: ChiTietHoaTietEntity;
-    chiTietXuatXu: ChiTietXuatXuEntity;
-    chiTietChatLieu: ChiTietChatLieuEntity;
-    chiTietKieuDang: ChiTietKieuDangEntity;
+    nuocSanXuat: NuocSanXuatEntity;
     hinhAnh: HinhAnhEntity;
     deleted: boolean;
 }

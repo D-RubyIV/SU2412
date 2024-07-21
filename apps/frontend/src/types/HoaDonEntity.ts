@@ -17,7 +17,7 @@ export type HoaDonEntity = {
     tongTien: number;
     tongTienSauGiam: number;
     soDienThoaiNguoiShip: string;
-    tenNguoiShip: string;
+    tenNguoiNhan: string;
     ngayDatHang: string;
     ngayGiaoHang: string;
     ngayNhanHangDuKien: string;

@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
 function valuetext(value: any) {
-    return `${value.toLocaleString('vi-VN')}vnd`;
+    return `${value.toLocaleString('vi-VN')}d`;
 }
 const minDistance = 1000;
 
