@@ -29,10 +29,4 @@ public interface KhachHangRepository extends JpaRepository<KhachHang, Integer> {
     @Query("SELECT kh FROM KhachHang kh WHERE kh.trangThai = ?1")
     List<KhachHang> findByTrangThai(String trangThai);
 
-
-   @Query("SELECT DISTINCT kh FROM KhachHang kh LEFT JOIN FETCH kh.diaChiNhan")
-   List<KhachHang> findAllWithDiaChiNhans();
-
-   @Query("SELECT kh FROM KhachHang kh WHERE kh.hoTen LIKE %?1% OR kh.soDienThoai LIKE %?1%")
-   List<KhachHang> findByHoTenOrSoDienThoai(String keyword);
 }
