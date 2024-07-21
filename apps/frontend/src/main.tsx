@@ -12,11 +12,15 @@ import SellInShopComponent from './views/admin/SellInShopComponent.tsx'
 import ManageBillComponent from './views/admin/ManageBillComponent.tsx'
 import ManageProductDetailComponent from './views/admin/ManageProductDetailComponent.tsx'
 import ManageCustomerComponent from './views/admin/ManageCustomerComponent.tsx'
-import ManageStaffComponent from './views/admin/ManageStaffComponent.tsx'
+import ManageStaffComponent from './views/admin/Staff/ManageStaffComponent.tsx'
+
 import { ThemeProvider } from "@material-tailwind/react"
 import ListVoucher from './views/admin/discount/ListVoucher.tsx'
 import NotFound from './pages/NotFound/NotFound.tsx'
 import ManageVoucherComponent from './views/admin/discount/ManageVoucherComponent.tsx'
+import AddNhanVien from './views/admin/Staff/AddNhanVien.tsx'
+import UpdateNhanVien from './views/admin/Staff/UpdateNhanVien.tsx'
+// import QuetCCCD from './views/admin/Staff/QuetCCCD.tsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -39,6 +43,10 @@ const router = createBrowserRouter(
           <Route path="khuyen-mai/list" element={<ListVoucher />} />
         </Route>
         <Route path='nhan-vien' element={<ManageStaffComponent />}></Route>
+        <Route path='add-nhan-vien' element={<AddNhanVien />}></Route>
+        <Route path="update-nhan-vien/:id" element={<UpdateNhanVien />}></Route>
+        {/* <Route path="quetCCCD" element={<QuetCCCD />}></Route> */}
+
         <Route path='demo' element={<ManageComponentDemo />}></Route>
       </Route>
         <Route path="nhan-vien" element={<ManageStaffComponent />}></Route>
