@@ -26,8 +26,6 @@ public class NhanVien extends BaseEntity{
     private boolean gioiTinh;
     private String soDienThoai;
     private String cccd;
-    private String diaChi;
-    private String hoTen;
     private Date ngaySinh;
     private String trangThai;
     private String ghiChu;
