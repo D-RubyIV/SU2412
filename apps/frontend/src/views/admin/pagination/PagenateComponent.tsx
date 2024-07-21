@@ -51,12 +51,12 @@ const PagenateComponent: React.FC<PaginateProps> = ({ totalPages, currentPage, o
     return (
         <Fragment>
             <div className="flex justify-between ">
-                <div className="flex text-[13px]">
+                <div className="flex text-[13px] items-center px-2">
                     <div>
-                        <span>Limit</span>
+                        <span>Xem:</span>
                     </div>
                     <div>
-                        <select onChange={(e) => setLimit(parseInt(e.target.value, 10))}>
+                        <select className="w-24"  onChange={(e) => setLimit(parseInt(e.target.value, 10))}>
                             <option value={10}>10</option>
                             <option value={20}>20</option>
                         </select>

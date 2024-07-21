@@ -1,9 +1,9 @@
 package com.example.app.controller;
 
 import com.example.app.entity.HoaDon;
-import com.example.app.entity.LichSuDatHang;
+import com.example.app.entity.LichSuHoaDon;
 import com.example.app.repository.HoaDonRepository;
-import com.example.app.repository.LichSuDatHangRepository;
+import com.example.app.repository.LichSuHoaDonRepository;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +14,16 @@ import java.util.List;
 @CrossOrigin("*")
 @RequestMapping("/api/history-bills")
 @RestController
-public class LichSuDatHangController {
+public class LichSuHoaDonController {
     @Autowired
     private HoaDonRepository hoaDonRepository;
 
     @Autowired
-    private LichSuDatHangRepository lichSuDatHangRepository;
+    private LichSuHoaDonRepository lichSuHoaDonRepository;
 
     @GetMapping("/inBill/{id}")
-    public ResponseEntity<List<LichSuDatHang>> detailBill(@PathVariable int id) throws BadRequestException {
+    public ResponseEntity<List<LichSuHoaDon>> detailBill(@PathVariable int id) throws BadRequestException {
         HoaDon hoaDon = hoaDonRepository.findById(id).orElseThrow(() -> new BadRequestException("Không tìm thấy hóa đơm"));
-        return ResponseEntity.ok(lichSuDatHangRepository.findAllByHoaDon(hoaDon));
+        return ResponseEntity.ok(lichSuHoaDonRepository.findAllByHoaDon(hoaDon));
     }
 }

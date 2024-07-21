@@ -1,4 +1,5 @@
 import { HinhThucThanhToanEntity } from "./HinhThucThanhToanEntity";
+import { KhachHangEntity } from "./KhachHangEntity";
 import LichSuDatHang from "./LichSuDatHangEntity";
 import NhanVienEntity from "./NhanVienEntity";
 import PhieuGiamGiaEntity from "./PhieuGiamGiaEntity";
@@ -16,7 +17,7 @@ export type HoaDonEntity = {
     tongTien: number;
     tongTienSauGiam: number;
     soDienThoaiNguoiShip: string;
-    tenNguoiShip: string;
+    tenNguoiNhan: string;
     ngayDatHang: string;
     ngayGiaoHang: string;
     ngayNhanHangDuKien: string;
@@ -24,6 +25,7 @@ export type HoaDonEntity = {
     trangThaiVanChuyen: string;
     phiVanChuyen: number;
     loaiHoaDon: string;
+    khachHang: KhachHangEntity;
     lichSuDatHang: LichSuDatHang;
     phieuGiamGia: PhieuGiamGiaEntity;
     nhanVien: NhanVienEntity;

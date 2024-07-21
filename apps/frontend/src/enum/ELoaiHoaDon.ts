@@ -1,3 +1,4 @@
 export enum ELoaiHoaDon {
-    TAI_QUAY, ONLINE
+    TAI_QUAY="TAI_QUAY", 
+    ONLINE="ONLINE"
 }

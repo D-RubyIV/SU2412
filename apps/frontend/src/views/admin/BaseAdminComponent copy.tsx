@@ -1,23 +1,6 @@
-import { Link, Outlet, useLocation } from "react-router-dom";
-import { Fragment, useState } from "react";
-import {
-  NotificationsOutlined,
-  InventoryOutlined,
-  PeopleOutline,
-  LocalOfferOutlined,
-  ReceiptOutlined,
-  ExpandLessOutlined,
-  ExpandMoreOutlined,
-  MenuOutlined,
-  ReportOutlined,
-} from "@mui/icons-material"; // Import necessary icons
+import { Outlet} from "react-router-dom";
+import { Fragment} from "react";
 import { Layout } from "../../components/layout";
-
-type LinkEntity = {
-  name: string;
-  url: string;
-  icon: React.ReactNode;
-};
 
 const BaseAdminComponentV2 = () => {
   return (
@@ -28,6 +11,5 @@ const BaseAdminComponentV2 = () => {
     </Fragment>
   );
 };
-
 
 export default BaseAdminComponentV2;
