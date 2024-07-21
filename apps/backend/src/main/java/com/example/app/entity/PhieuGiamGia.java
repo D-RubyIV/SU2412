@@ -12,6 +12,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
@@ -24,7 +25,7 @@ import java.util.Set;
 @Data
 @Builder
 
-public class PhieuGiamGia extends BaseEntity {
+public class PhieuGiamGia extends BaseEntity implements Serializable  {
     @Column(unique = true, nullable = false)
     private String ma;
 
