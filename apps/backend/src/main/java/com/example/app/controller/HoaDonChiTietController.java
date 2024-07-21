@@ -17,7 +17,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/bill-details")
-@CrossOrigin("*")
 public class HoaDonChiTietController {
     @Autowired
     private HoaDonChiTietRepository hoaDonChiTietRepository;

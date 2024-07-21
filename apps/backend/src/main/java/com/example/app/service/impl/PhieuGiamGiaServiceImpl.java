@@ -36,8 +36,8 @@ public class PhieuGiamGiaServiceImpl implements PhieuGiamGiaService {
     }
 //
 //    @Override
-//    public Page<PhieuGiamGiaResponse> getPagePhieuGiamGia(Pageable pageable) {
-//        return null;
+//    public PhieuGiamGia savePhieuGiamGia(PhieuGiamGia phieuGiamGia) {
+//        return phieuGiamGiaRepository.save(phieuGiamGia);
 //    }
 //
     @Override

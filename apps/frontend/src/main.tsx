@@ -9,7 +9,6 @@ import ManageComponentDemo from './views/admin/ManageCommentDemo.tsx'
 import ReportComponent from './views/admin/ReportComponent.tsx'
 import SellInShopComponent from './views/admin/SellInShopComponent.tsx'
 import ManageProductDetailComponent from './views/admin/ManageProductDetailComponent.tsx'
-import ManageCustomerComponent from './views/admin/ManageCustomerComponent.tsx'
 import ManageStaffComponent from './views/admin/Staff/ManageStaffComponent.tsx'
 
 import { ThemeProvider } from "@material-tailwind/react"
@@ -24,6 +23,9 @@ import ManageBillComponent from './pages/bill/ManageBillComponent.tsx'
 import ConfirmBillComponent from './pages/bill/ConfirmBillComponent.tsx'
 import AddNhanVien from './views/admin/Staff/AddNhanVien.tsx'
 import UpdateNhanVien from './views/admin/Staff/UpdateNhanVien.tsx'
+import ManageCustomerComponent from './views/admin/customer/ManageCustomerComponent.tsx'
+import FormAddKH from './views/admin/customer/FormAddKH.tsx'
+import UpdateKH from './views/admin/customer/UpdateKH.tsx'
 // import QuetCCCD from './views/admin/Staff/QuetCCCD.tsx'
 
 const router = createBrowserRouter(
@@ -43,6 +45,8 @@ const router = createBrowserRouter(
           <Route path=':id' element={<ConfirmBillComponent />} />
         </Route>
         <Route path='khach-hang' element={<ManageCustomerComponent />}></Route>
+        <Route path="add-customer" element={<FormAddKH />} />
+        <Route path="update/:id" element={<UpdateKH />} />
         <Route>
           <Route path="khuyen-mai" element={<ManageVoucherComponent />} />
           <Route path="khuyen-mai/list" element={<ListVoucher />} />
@@ -74,5 +78,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         />
       </Provider>
     </ThemeProvider>
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);

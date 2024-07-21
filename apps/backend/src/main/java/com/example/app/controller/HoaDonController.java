@@ -19,7 +19,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@CrossOrigin("*")
 @RequestMapping("/api/bills")
 @RestController
 public class HoaDonController {

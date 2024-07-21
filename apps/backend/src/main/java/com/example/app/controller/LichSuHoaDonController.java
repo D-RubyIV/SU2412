@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin("*")
 @RequestMapping("/api/history-bills")
 @RestController
 public class LichSuHoaDonController {

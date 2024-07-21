@@ -1,5 +1,6 @@
 package com.example.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,7 +24,9 @@ public class BaseEntity {
     private String createBy;
     private String updateBy;
     @CreationTimestamp
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private LocalDateTime createAt;
     @UpdateTimestamp
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private LocalDateTime updateAt;
 }
