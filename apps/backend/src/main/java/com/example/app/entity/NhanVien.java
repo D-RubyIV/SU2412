@@ -21,6 +21,8 @@ public class NhanVien extends BaseEntity{
 
     private String email;
     private String password;
+    private String hoTen;
+    private String diaChi;
     private boolean gioiTinh;
     private String soDienThoai;
     private String cccd;
@@ -33,7 +35,6 @@ public class NhanVien extends BaseEntity{
     private String quan;
     private String phuong;
     private Boolean deleted = false;
-    private LocalDateTime createdAt;
     @OneToOne
     private ChucVu chucVu;
 

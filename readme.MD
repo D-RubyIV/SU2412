@@ -1,3 +1,5 @@
+# Chạy lại sql nhé
+
 # Backend
 
 # Frontend

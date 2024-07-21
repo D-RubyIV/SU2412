@@ -4,10 +4,8 @@ import com.example.app.enums.ELoaiHoaDon;
 import com.example.app.enums.ETrangThaiHoaDon;
 import com.example.app.enums.ETrangThaiVanChuyen;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.Formula;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -25,8 +23,7 @@ public class HoaDon extends BaseEntity{
     private Double tongTien;
     private Double tongTienSauGiam;
 
-    private String soDienThoaiNguoiShip;
-    private String tenNguoiShip;
+    private String tenNguoiNhan;
     private String diaChiNhan;
     private String soDienThoaiNhan;
 
@@ -46,10 +43,9 @@ public class HoaDon extends BaseEntity{
 
     private Double phiVanChuyen;
 
-
     @ManyToOne
     @JoinColumn
-    private LichSuDatHang lichSuDatHang;
+    private KhachHang khachHang;
 
     @ManyToOne
     @JoinColumn
@@ -63,6 +59,8 @@ public class HoaDon extends BaseEntity{
     @JoinColumn
     private HinhThucThanhToan hinhThucThanhToan;
 
-
     private Boolean deleted = false;
+    @Formula("concat_ws(' ', id, loaiHoaDon)") // Adjust according to your significant fields
+    private String stringRepresentation;
+
 }

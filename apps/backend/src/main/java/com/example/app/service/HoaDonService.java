@@ -3,17 +3,15 @@ package com.example.app.service;
 import com.example.app.entity.HoaDon;
 import com.example.app.enums.ELoaiHoaDon;
 import com.example.app.enums.ETrangThaiHoaDon;
-import com.example.app.enums.ETrangThaiVanChuyen;
 import com.example.app.repository.HoaDonRepository;
+import org.apache.coyote.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -24,12 +22,18 @@ public class HoaDonService {
     @Autowired
     private HoaDonRepository hoaDonRepository;
 
+    @Autowired
+    LichSuDatHangService lichSuDatHangService;
+
     public Page<HoaDon> findAllWithProps(
             Pageable pageable,
             List<ELoaiHoaDon> eLoaiHoaDons,
             List<ETrangThaiHoaDon> trangThaiHoaDons,
             LocalDateTime startDate,
-            LocalDateTime endDate
+            LocalDateTime endDate,
+            Double sMoney,
+            Double eMoney,
+            String key
     ) {
         if (startDate == null) {
             startDate = LocalDateTime.now().minusYears(100);
@@ -37,47 +41,35 @@ public class HoaDonService {
         if (endDate == null) {
             endDate = LocalDateTime.now();
         }
-
-//        if (startDate != null && eLoaiHoaDon != null && eTrangThaiHoaDon != null){
-//            if (endDate == null){
-//                endDate = LocalDateTime.now();
-//            }
-//            Page<HoaDon> page = hoaDonRepository.findAllByTrangThaiLikeAndLoaiHoaDonLikeAndCreateAtBetween(eTrangThaiHoaDon, eLoaiHoaDon, startDate, endDate, pageable);
-//            return page;
-//        }
-//        if (startDate != null ){
-//            if (endDate == null){
-//                endDate = LocalDateTime.now();
-//            }
-//            Page<HoaDon> page = hoaDonRepository.findAllByCreateAtBetween( startDate, endDate, pageable);
-//            return page;
-//        }
-//
-//        if (eLoaiHoaDon != null && eTrangThaiHoaDon != null){
-//            Page<HoaDon> page = hoaDonRepository.findAllByTrangThaiLikeAndLoaiHoaDonLike(eTrangThaiHoaDon, eLoaiHoaDon, pageable);
-//            return page;
-//        }
-//        if (eLoaiHoaDon != null){
-//            Page<HoaDon> page = hoaDonRepository.findAllByLoaiHoaDonLike(eLoaiHoaDon, pageable);
-//            return page;
-//        }
-//        else if (eTrangThaiHoaDon != null){
-//            log.info("FIND BY TRANG THAI HOA DON");
-//            Page<HoaDon> page = hoaDonRepository.findAllByTrangThaiEquals(eTrangThaiHoaDon, pageable);
-//            return page;
-//        }
-//        else{
-//            Page<HoaDon> page = hoaDonRepository.findAll(pageable);
-//            return page;
-//        }
-//          return hoaDonRepository.findAllByTrangThaiEqualsAndLoaiHoaDonEqualsAndCreateAtBetween(eTrangThaiHoaDon, eLoaiHoaDon, startDate, endDate, pageable);
-
         if (trangThaiHoaDons.isEmpty()) {
             trangThaiHoaDons = Arrays.asList(ETrangThaiHoaDon.values());
         }
         if (eLoaiHoaDons.isEmpty()) {
             eLoaiHoaDons = Arrays.asList(ELoaiHoaDon.values());
         }
-        return hoaDonRepository.findAllByTrangThaiInAndLoaiHoaDonInAndCreateAtBetween(trangThaiHoaDons, eLoaiHoaDons, startDate, endDate, pageable);
+
+
+        System.out.println("key: " + key);
+        return hoaDonRepository.findAllByCustomQuery(trangThaiHoaDons, eLoaiHoaDons, startDate, endDate, key, sMoney, eMoney, pageable);
+    }
+
+    public HoaDon updateTranThaiHoaDon(int id, ETrangThaiHoaDon eTrangThaiHoaDon, String note) throws BadRequestException {
+        System.out.println("NOte" + note);
+
+        HoaDon hoaDon = hoaDonRepository.findById(id).orElseThrow(() -> new BadRequestException("Không tìm được hóa đơn"));
+        hoaDon.setTrangThai(eTrangThaiHoaDon);
+        hoaDonRepository.save(hoaDon);
+
+        lichSuDatHangService.create(eTrangThaiHoaDon, hoaDon, note);
+        return hoaDon;
+    }
+
+    public HoaDon updateDiachiHoaDon(int id, String tenNguoiNhan, String diaChiNhan, String soDienThoaiNhan) throws BadRequestException {
+        HoaDon hoaDon = hoaDonRepository.findById(id).orElseThrow(() -> new BadRequestException("Không tìm được hóa đơn"));
+        hoaDon.setTenNguoiNhan(tenNguoiNhan);
+        hoaDon.setDiaChiNhan(diaChiNhan);
+        hoaDon.setSoDienThoaiNhan(soDienThoaiNhan);
+        hoaDonRepository.save(hoaDon);
+        return hoaDon;
     }
 }

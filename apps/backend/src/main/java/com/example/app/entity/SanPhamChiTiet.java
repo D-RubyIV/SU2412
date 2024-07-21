@@ -41,23 +41,43 @@ public class SanPhamChiTiet extends BaseEntity{
 
     @ManyToOne
     @JoinColumn
-    private Loai loai;
+    private LoaiHoaTIet loaiHoaTIet;
 
     @ManyToOne
     @JoinColumn
-    private ChiTietHoaTiet chiTietHoaTiet;
+    private MoTaHoaTiet moTaHoaTiet;
 
     @ManyToOne
     @JoinColumn
-    private ChiTietXuatXu chiTietXuatXu;
+    private NuocSanXuat nuocSanXuat;
 
     @ManyToOne
     @JoinColumn
-    private ChiTietChatLieu chiTietChatLieu;
+    private ThuongHieu thuongHieu;
 
     @ManyToOne
     @JoinColumn
-    private ChiTietKieuDang chiTietKieuDang;
+    private KieuCoAo kieuCoAo;
+
+    @ManyToOne
+    @JoinColumn
+    private KieuTaiAo kieuTaiAo;
+
+    @ManyToOne
+    @JoinColumn
+    private KieuDangAo kieuDangAo;
+
+    @ManyToOne
+    @JoinColumn
+    private ChatLieu chatLieu;
+
+    @ManyToOne
+    @JoinColumn
+    private DoDayCuaVai doDayCuaVai;
+
+    @ManyToOne
+    @JoinColumn
+    private KhaNangCoDan khaNangCoDan;
 
     @ManyToOne
     @JoinColumn
