@@ -30,6 +30,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import TestComponent from "./views/admin/discount/TestComponent.tsx";
 import AddVoucher from "./views/admin/discount/AddVoucher.tsx";
 
+
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter(
@@ -59,6 +60,14 @@ const router = createBrowserRouter(
 
           <Route path="khuyen-mai/list" element={<TestComponent />} />
         </Route>
+        <Route path='nhan-vien' element={<ManageStaffComponent />}></Route>
+        <Route path='add-nhan-vien' element={<AddNhanVien />}></Route>
+        <Route path="update-nhan-vien/:id" element={<UpdateNhanVien />}></Route>
+        {/* <Route path="quetCCCD" element={<QuetCCCD />}></Route> */}
+
+        <Route path='demo' element={<ManageComponentDemo />}></Route>
+      </Route>
+
         <Route path="nhan-vien" element={<ManageStaffComponent />}></Route>
         <Route path="demo" element={<ManageComponentDemo />}></Route>
       </Route>
