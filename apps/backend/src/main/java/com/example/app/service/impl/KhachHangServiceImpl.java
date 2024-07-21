@@ -2,7 +2,9 @@ package com.example.app.service.impl;
 
 import com.example.app.entity.DiaChiNhan;
 import com.example.app.entity.KhachHang;
+import com.example.app.entity.Province;
 import com.example.app.repository.KhachHangRepository;
+import com.example.app.repository.ProvinceRepository;
 import com.example.app.service.KhachHangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +18,21 @@ public class KhachHangServiceImpl implements KhachHangService {
     @Autowired
     private KhachHangRepository khachHangRepository;
 
+    @Autowired
+    private ProvinceRepository provinceRepository;
+
     @Override
     public KhachHang saveKhachHang(KhachHang khachHang) {
+        Province province = khachHang.getProvince();
+        if (province != null) {
+            Optional<Province> existingProvince = provinceRepository.findById(province.getId());
+            if (existingProvince.isPresent()) {
+                // Gán tỉnh đã tồn tại cho KhachHang
+                khachHang.setProvince(existingProvince.get());
+            } else {
+                khachHang.setProvince(provinceRepository.save(province));
+            }
+        }
         return khachHangRepository.save(khachHang);
     }
 

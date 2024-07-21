@@ -15,10 +15,6 @@ public class ProvinceServiceImpl implements ProvinceService {
     @Autowired
     private ProvinceRepository provinceRepository;
 
-    @Override
-    public Province saveProvince(Province province) {
-        return null;
-    }
 
     @Override
     public Optional<Province> getProvinceById(Integer id) {

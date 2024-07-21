@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class Ward {
     @Id
 
-    private int Id;
+    private int id;
 
     @Column(name = "Code")
     private String code;
@@ -21,7 +21,7 @@ public class Ward {
     @Column(name = "Name")
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "DistrictId")
     private District district;
 }

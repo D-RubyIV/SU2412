@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class Province {
 
     @Id
-    private int Id;
+    private int id;
 
     @Column(name = "Code")
     private String code;

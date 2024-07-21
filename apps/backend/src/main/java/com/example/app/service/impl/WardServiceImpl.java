@@ -20,16 +20,6 @@ public class WardServiceImpl implements WardService {
     }
 
     @Override
-    public Ward saveWard(Ward ward) {
-        return null;
-    }
-
-    @Override
-    public Optional<Ward> getWardById(Integer id) {
-        return wardRepository.findById(id);
-    }
-
-    @Override
     public List<Ward> getAllWard() {
         return wardRepository.findAll();
     }

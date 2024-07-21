@@ -8,9 +8,6 @@ import java.util.Optional;
 
 public interface DistrictService {
 
-    District saveDistrict(District district);
-
-    Optional<District> getDistrictById(Integer id);
 
     List<District> getAllDistrict();
 

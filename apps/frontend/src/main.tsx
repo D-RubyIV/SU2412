@@ -22,10 +22,10 @@ import NotFound from "./pages/NotFound/NotFound.tsx";
 import ManageVoucherComponent from "./views/admin/discount/ManageVoucherComponent.tsx";
 // import ManageCustomer from "./views/admin/customer/ManageCustomer.tsx";
 // import AddKhachHang from "./views/admin/customer/AddKhachHang.tsx";
-import FormDiaChi from "./views/admin/customer/FormDiaChi.tsx";
 // import ManageCustomer from "./views/admin/customer/ManageCustomer.tsx";
 import ManageCustomerComponent from "./views/admin/customer/ManageCustomerComponent.tsx";
 import FormAddKH from "./views/admin/customer/FormAddKH.tsx";
+import UpdateKH from "./views/admin/customer/UpdateKH.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -46,7 +46,7 @@ const router = createBrowserRouter(
         {/* <Route path="khach-hang" element={<ManageCustomer />}></Route> */}
         <Route path="khach-hang" element={<ManageCustomerComponent />}></Route>
         <Route path="add-customer" element={<FormAddKH />} />
-        <Route path="add-diaChi/:id" element={<FormDiaChi />} />
+        <Route path="update/:id" element={<UpdateKH />} />
         {/* <Route path="manage" element={<ManageCustomer />} /> */}
         <Route>
           <Route path="khuyen-mai" element={<ManageVoucherComponent />} />

@@ -9,10 +9,6 @@ import java.util.Optional;
 
 public interface WardService {
 
-    Ward saveWard(Ward ward);
-
-    Optional<Ward> getWardById(Integer id);
-
     List<Ward> getAllWard();
 
     List<Ward> getWardsByDistrict(@PathVariable Integer districtId);

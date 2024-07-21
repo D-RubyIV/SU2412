@@ -29,7 +29,7 @@ const ListKhacHang1: React.FC<KhachHangProps> = ({
   const handleAddDiaChiClick = () => {
     if (khachHang && khachHang.id) {
       console.log("Navigating to edit page for KhachHang ID:", khachHang.id);
-      navigate(`/manage/add-diaChi/${khachHang.id}`);
+      navigate(`/manage/update/${khachHang.id}`);
     } else {
       console.error("KhachHang or KhachHang ID is not valid.");
     }

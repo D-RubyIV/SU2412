@@ -8,8 +8,6 @@ import java.util.Optional;
 
 public interface ProvinceService {
 
-    Province saveProvince(Province province);
-
     Optional<Province> getProvinceById(Integer id);
 
     List<Province> getAllProvince();

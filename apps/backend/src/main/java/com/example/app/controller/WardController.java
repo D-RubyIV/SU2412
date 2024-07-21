@@ -29,10 +29,4 @@ public class WardController {
         List<Ward> wardList = wardService.getAllWard();
         return ResponseEntity.ok(wardList);
     }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Ward> getWardById(@PathVariable Integer id) {
-        Ward ward = wardService.getWardById(id).orElseThrow(() -> new RuntimeException("Ward not found"));
-        return ResponseEntity.ok(ward);
-    }
 }

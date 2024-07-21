@@ -55,7 +55,7 @@ public class KhachHang extends BaseEntity {
     @JoinColumn
     private DiaChiNhan diaChiNhan;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "province_Id")
     private Province province;
 

@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface KhachHangRepository extends JpaRepository<KhachHang, Integer> {
+
     @Query("SELECT DISTINCT kh FROM KhachHang kh LEFT JOIN FETCH kh.diaChiNhan")
     List<KhachHang> findAllWithDiaChiNhans();
 

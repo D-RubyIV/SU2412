@@ -1,7 +1,7 @@
 import { Province } from "./Province";
 
 export interface District {
-  Id: number;
+  id: number;
   code: string;
   name: string;
   province: Province;

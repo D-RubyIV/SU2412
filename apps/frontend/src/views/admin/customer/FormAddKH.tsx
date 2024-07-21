@@ -30,6 +30,7 @@ const FormAddKH: React.FC = () => {
       const response = await axios.get<Province[]>(
         "http://localhost:8080/api/province"
       );
+
       setProvinces(response.data);
     } catch (error) {
       console.error("Error fetching provinces:", error);
@@ -43,17 +44,20 @@ const FormAddKH: React.FC = () => {
   const handleProvinceChange = async (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    const provinceId = Number(event.target.value);
+    const provinceid = Number(event.target.value);
     const province =
-      provinces.find((province) => province.Id === provinceId) || null;
+      provinces.find((province) => province.id === provinceid) || null;
+
     setSelectedProvince(province);
     setSelectedDistrict(null);
     setWards([]);
     if (province) {
       try {
         const response = await axios.get<District[]>(
-          `http://localhost:8080/api/district/${province.Id}`
+          `http://localhost:8080/api/district/${province.id}`
         );
+
+        // setSelectedProvince({...selectedProvince,  id : (province.id != null) ? province.id : -1 })
         setDistricts(response.data);
       } catch (error) {
         console.error("Error fetching districts:", error);
@@ -64,16 +68,16 @@ const FormAddKH: React.FC = () => {
   const handleDistrictChange = async (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    const districtId = Number(event.target.value);
+    const districtid = Number(event.target.value);
     const district =
-      districts.find((district) => district.Id === districtId) || null;
+      districts.find((district) => district.id === districtid) || null;
     setSelectedDistrict(district);
     setSelectedWard(null);
 
     if (district) {
       try {
         const response = await axios.get<Ward[]>(
-          `http://localhost:8080/api/ward/${district.Id}`
+          `http://localhost:8080/api/ward/${district.id}`
         );
         setWards(response.data);
       } catch (error) {
@@ -83,8 +87,8 @@ const FormAddKH: React.FC = () => {
   };
 
   const handleWardChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const wardId = Number(event.target.value);
-    const ward = wards.find((ward) => ward.Id === wardId) || null;
+    const wardid = Number(event.target.value);
+    const ward = wards.find((ward) => ward.id === wardid) || null;
     setSelectedWard(ward);
   };
 
@@ -247,7 +251,7 @@ const FormAddKH: React.FC = () => {
                 </label>
                 <div className="mt-2">
                   <select
-                    value={selectedProvince?.Id || ""}
+                    value={selectedProvince?.id || ""}
                     onChange={handleProvinceChange}
                     style={{ paddingLeft: "10px" }}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -255,7 +259,7 @@ const FormAddKH: React.FC = () => {
                   >
                     <option value="">Chọn tỉnh/thành phố</option>
                     {provinces.map((province) => (
-                      <option key={province.Id} value={province.Id}>
+                      <option key={province.id} value={province.id}>
                         {province.name}
                       </option>
                     ))}
@@ -268,7 +272,7 @@ const FormAddKH: React.FC = () => {
                 </label>
                 <div className="mt-2">
                   <select
-                    value={selectedDistrict?.Id || ""}
+                    value={selectedDistrict?.id || ""}
                     onChange={handleDistrictChange}
                     style={{ paddingLeft: "10px" }}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -276,7 +280,7 @@ const FormAddKH: React.FC = () => {
                   >
                     <option value="">Chọn quận/huyện</option>
                     {districts.map((district) => (
-                      <option key={district.Id} value={district.Id}>
+                      <option key={district.id} value={district.id}>
                         {district.name}
                       </option>
                     ))}
@@ -291,14 +295,14 @@ const FormAddKH: React.FC = () => {
                 <div className="mt-2">
                   <select
                     style={{ paddingLeft: "10px" }}
-                    value={selectedWard?.Id || ""}
+                    value={selectedWard?.id || ""}
                     onChange={handleWardChange}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     required
                   >
                     <option value="">Chọn xã/phường/thị trấn</option>
                     {wards.map((ward) => (
-                      <option key={ward.Id} value={ward.Id}>
+                      <option key={ward.id} value={ward.id}>
                         {ward.name}
                       </option>
                     ))}

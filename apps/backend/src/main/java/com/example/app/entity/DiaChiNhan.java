@@ -34,7 +34,7 @@ public class DiaChiNhan extends BaseEntity {
         this.diaChi = diaChi;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ward_id")
     private Ward ward;
 }

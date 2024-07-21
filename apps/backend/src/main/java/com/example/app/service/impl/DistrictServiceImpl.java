@@ -22,16 +22,6 @@ public class DistrictServiceImpl implements DistrictService {
     }
 
     @Override
-    public District saveDistrict(District district) {
-        return null;
-    }
-
-    @Override
-    public Optional<District> getDistrictById(Integer id) {
-        return districtRepository.findById(id);
-    }
-
-    @Override
     public List<District> getAllDistrict() {
         return districtRepository.findAll();
     }
