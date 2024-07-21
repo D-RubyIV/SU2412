@@ -363,18 +363,20 @@ const UpdateNhanVien: React.FC = () => {
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <FormControl component="fieldset">
-                            <FormLabel component="legend">Giới tính</FormLabel>
-                            <RadioGroup
-                                row
-                                aria-label="gender"
-                                name="gioiTinh"
-                                value={staff.gioiTinh ? 'true' : 'false'}
-                                onChange={handleInputChange}
+                       <FormControl fullWidth required margin="normal">
+                            <InputLabel>Quận/Huyện</InputLabel>
+                            <Select
+                                name="quan"
+                                value={staff.quan || ""}
+                                onChange={handleDistrictChange}
+                                label="Quận/Huyện"
+                                disabled={!staff.tinh}
                             >
-                                <FormControlLabel value="true" control={<Radio />} label="Nam" />
-                                <FormControlLabel value="false" control={<Radio />} label="Nữ" />
-                            </RadioGroup>
+                                {districts.map(district => (
+                                    <MenuItem key={district.id} value={district.full_name}>{district.name}</MenuItem>
+                                ))}
+                            </Select>
+                            {formErrors.quan && <Typography color="error">{formErrors.quan}</Typography>}
                         </FormControl>
                     </Grid>
                     <Grid item xs={12}>
